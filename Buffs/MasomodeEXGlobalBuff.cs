@@ -8,7 +8,7 @@ namespace MasomodeEX.Buffs
     {
         public override bool ReApply(int type, Player player, int time, int buffIndex)
         {
-            if (player.buffTime[buffIndex] < 3600 + 60) //extra second to hopefully prevent duration flickering
+            if (Main.debuff[type] && player.buffTime[buffIndex] < 3600 + 60) //extra second to hopefully prevent duration flickering
                 player.buffTime[buffIndex] += time;
             return false;
         }
