@@ -1,10 +1,10 @@
-﻿author = Fargowilta
+﻿author = Fargowilta and Terry N. Muse
 version = 0.1
-displayName = Masomode EX
+displayName = Masochist Mode EX
 includeSource = false
 hideCode = false
 hideResources = false
 includePDB = false
 languageVersion = 6
-buildIgnore = .git/*, .vs/*, Builds/*, build.txt, *.csproj, *.sln, *.csproj.user
+buildIgnore = .git/*, .vs/*, Builds/*, build.txt, *.csproj, *.sln, *.csproj.user, obj\*, bin\*, lib\*
 modReferences = FargowiltasSouls@0.7.3.1

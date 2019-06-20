@@ -23,9 +23,13 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="MasomodeEXMod.cs" />
+    <Compile Include="Buffs\MasomodeEXGlobalBuff.cs" />
+    <Compile Include="Items\MasomodeEXGlobalItem.cs" />
+    <Compile Include="MasomodeEX.cs" />
     <Compile Include="MasomodeEXPlayer.cs" />
     <Compile Include="MasomodeEXWorld.cs" />
+    <Compile Include="NPCs\MasomodeEXGlobalNPC.cs" />
+    <Compile Include="Projectiles\MasomodeEXGlobalProjectile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="build.txt" />
@@ -50,6 +54,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>C:\Users\Liam\Documents/My Games/Terraria/ModLoader/Mod References/Newtonsoft.Json.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="changes.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

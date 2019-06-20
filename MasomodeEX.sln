@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasomodeEX", "MasomodeEX.csproj", "{33345441-3D17-4471-9318-4E261807AC19}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Client|x86 = Client|x86
+		Server|x86 = Server|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33345441-3D17-4471-9318-4E261807AC19}.Client|x86.ActiveCfg = Client|x86
+		{33345441-3D17-4471-9318-4E261807AC19}.Client|x86.Build.0 = Client|x86
+		{33345441-3D17-4471-9318-4E261807AC19}.Server|x86.ActiveCfg = Server|x86
+		{33345441-3D17-4471-9318-4E261807AC19}.Server|x86.Build.0 = Server|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4AE9A23D-CD07-4BB7-9236-E82534950C2E}
+	EndGlobalSection
+EndGlobal

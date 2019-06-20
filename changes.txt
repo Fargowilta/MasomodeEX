@@ -1,0 +1,98 @@
+﻿-ALL hostile npc stats boosted 50%
+-masomode EX forces expert mode to true
+-200% spawn rate
+-all debuffs can stack the way plantera stacks venom up to 1 minute (this includes debuffs from aura oh no)
+-days have a high chance to be solar eclipse in hm
+-nights have a high chance to be a blood moon
+-cursed flamethrowers have much more range now
+-hell inflicts burning, can be prevented w/ obsidian skull or fire immune
+-space suffocates you immediately
+-crimson/corrupt also apply their debuffs in pre-hm
+-hallowed debuffs occur above ground too
+-snow always chills
+-night inflicts darkness when in front of wall, blackout when in the open
+-rain inflicts wet/lightning rod when in the open
+-jungle inflicts poisoned for entering, water inflicts infested
+-meteor inflicts on fire
+-blood moon inflicts bloodthirsty
+-desert inflicts weak
+-ocean inflicts oceanic maul hahaaa
+-solar eclipse inflicts living wasteland
+-pumpkin moon inflicts rotting
+-frost moon inflicts frostburn 
+-dungeon inflicts battle
+-all water inflicts lethargic even if you have gills or w/e
+-all cobwebs will web you
+-demon eyes ignore walls
+-demon eyes can become wandering eyes pre-hm
+-wandering eyes promote into EOC on hit
+-corruptors promote to EOW on hit
+-ichor stickers promote to BOC on hit
+-pigrons promote to fishron on hit
+-corruptors and ichor stickers spray solution when killed
+-CLOWNS HAVE REVERSE AURA OF ALL FOUR CLASS-SEALING DEBUFFS AND EXPLODE INTO BOMBS
+-using nurse during boss fight kills her and spawns a swarm of dungeon guardians
+-dungeon guardian moves at increased speed
+-all hearts have a chance to spawn alongside a fake heart
+
+-king slime has doubled horiz movement and doubled vertical movement when moving upwards
+-king slime has rainbow slime's rainbow spikes and the same perfect aim
+-eoc:
+	in corrupt world, p2 has spaz's flamethrower and vile spit
+	in crimson world, p2 has wof's ichor shotgun but with perfect accuracy
+-eater of worlds vores players below 150 life
+-brain of cthulhu illusions all deal damage and brain of cthulhu can swap positions with one of them when damaged
+-skeletron has a reverse aura of lethargic and shoots 8-spreads of homing skulls
+-skeletron hands have aura of dazed
+-skeletron, dungeon guardian, and prime all reflect projectiles while spinning (good fucking luck)
+-queen bee starts the fight with two royal subjects and summons two more at 50% health
+-queen bee has 9999 defense while any subjects are alive
+-all bees are replaced with hornets 100% chance
+-wof eyes swap vulnerability twice as fast (THIS MEANS EVEN MORE LASERS)
+-destroyer segments additionally fire rings of dark stars, the head vores below 300 life again
+-all mechs attacks inflict clipped wings for a split second again oh yeah mr krabs
+-plantera has an additional larger ring of crystal leaves
+-plantera has permanent 300 life/second regen because muh life fruit
+-plantera tentacles have 200% velocity and venom aura
+-golem has same mobility buffs as king slime
+-fishron has hyper mode
+-cultist will never let you kill phantasm dragon for good
+-moon leech constantly drags you towards moon lord once attached
+
+
+------------------------------TO DO LIST BELOW------------------------------
+eye of cthulhu shoots a deathray during the phase 2 transition spin
+eater of worlds can fly
+royal subjects have the stinger spreads
+wof shoots hungry grappling hooks, getting hit by them inflicts tongued
+retinazer continues moving and attacking normally while firing deathray
+spazmatism constantly spams bouncy cursed fireballs at all times
+prime has 8 limbs by default, becomes 12 in phase 2 (and 4 of them now move at 200% speed)
+golem head periodically shoots a deathray (aimed at player in phase 1. in phase 2, always straight down and happens whenever it shoots laser spreads). fists have double speed. body has 1000 life regen and each geyser stomp also sprays bouncy fireballs from each geyser with some random spread
+fishron is literally fishron ex minus the stats
+cultist has extra boc-like illusions around you and the illusions have even more secondary attacks
+moon lord changes weaknesses every 10 seconds (5 when exposed). socket lasers are also twice as fast. uses current phase 2 attacks before core is vulnerable. when core is vulnerable, whips out even more pillar attacks. ALL ATTACKS INFLICT THE DEBUFF THAT DISABLES MOON LORD'S CURRENT WEAKNESS
+fish EX always spawns cthulhunados, timer is 10sec-0.5sec based on health remaining
+
+giant tortoises can pass through walls, have homing, cant be interrupted, AND reflect projectiles while in their shell
+paladin reflects projectiles from the front and shield effect now protects enemies from all damage
+all hearts have a 20% chance to be a fake heart worth 100 life but they're completely indistinguishable
+fake mana stars that actually drain 20 mana when collected
+
+nutcracker instakills male players and can omega jump like sharks
+regen timer clamped to 4 seconds
+
+feral bite is completely replaced with mutant nibble
+
+nurse explodes if you talk to her during a boss fight
+
+temple traps and pressure plates need picksaw to break lol
+wires cant be cut in temple pre-golem
+
+clipped wings in marble biome, eventually stones you
+crippled in granite
+blizzards can freeze you like snow biome water
+purity inflicts purified
+falling inflicts confused again
+fall debuffs happen even with wings
+every evening, a corrupt or crimson clentaminator spray burst spawns in a completely random location in the world
