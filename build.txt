@@ -1,0 +1,10 @@
+﻿author = Fargowilta
+version = 0.1
+displayName = Masomode EX
+includeSource = false
+hideCode = false
+hideResources = false
+includePDB = false
+languageVersion = 6
+buildIgnore = .git/*, .vs/*, Builds/*, build.txt, *.csproj, *.sln, *.csproj.user
+modReferences = FargowiltasSouls@0.7.3.1
