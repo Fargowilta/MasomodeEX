@@ -35,6 +35,7 @@ namespace MasomodeEX
             switch (npc.type)
             {
                 case NPCID.KingSlime:
+                    Aura(npc, 600, BuffID.Slimed, false, 33);
                     npc.position.X += npc.velocity.X;
                     if (npc.velocity.Y < 0)
                         npc.position.Y += npc.velocity.Y;
@@ -67,6 +68,7 @@ namespace MasomodeEX
                     break;
 
                 case NPCID.EyeofCthulhu:
+                    Aura(npc, 600, MasomodeEX.Souls.BuffType("Berserked"), true);
                     if (WorldGen.crimson)
                     {
                         if (++Counter[0] > 240)
@@ -211,6 +213,21 @@ namespace MasomodeEX
                     npc.ai[1]++;
                     break;
 
+                case NPCID.TheHungry:
+                case NPCID.TheHungryII:
+                    Aura(npc, 100, BuffID.Burning, false, DustID.Fire);
+                    break;
+
+                case NPCID.Retinazer:
+                    if (npc.ai[0] >= 4f)
+                        Aura(npc, 500, BuffID.Ichor, true, 90);
+                    break;
+
+                case NPCID.Spazmatism:
+                    if (npc.ai[0] >= 4f)
+                        Aura(npc, 500, BuffID.CursedInferno, true, 89);
+                    break;
+
                 case NPCID.TheDestroyerBody:
                 case NPCID.TheDestroyerTail:
                     if (npc.ai[2] != 0 && ++Counter[0] > 420)
@@ -224,6 +241,7 @@ namespace MasomodeEX
                     break;
 
                 case NPCID.SkeletronPrime:
+                    Aura(npc, 100, MasomodeEX.Souls.BuffType("Stunned"));
                     npc.reflectingProjectiles = npc.ai[1] == 1f || npc.ai[1] == 2f; //spinning or DG mode
                     break;
 
@@ -266,6 +284,11 @@ namespace MasomodeEX
                         npc.position.Y += npc.velocity.Y;
                     break;
 
+                case NPCID.GolemHead:
+                case NPCID.GolemHeadFree:
+                    Aura(npc, 300, MasomodeEX.Souls.BuffType("ClippedWings"));
+                    break;
+
                 case NPCID.DukeFishron:
                     if (!MasomodeEX.Instance.HyperLoaded)
                     {
@@ -276,6 +299,8 @@ namespace MasomodeEX
                     break;
 
                 case NPCID.CultistBoss:
+                    Aura(npc, 400, MasomodeEX.Souls.BuffType("MarkedforDeath"), false, 199);
+                    Aura(npc, 400, MasomodeEX.Souls.BuffType("Hexed"));
                     if (++Counter[0] > 60)
                     {
                         Counter[0] = 0;
@@ -289,6 +314,11 @@ namespace MasomodeEX
                     break;
 
                 case NPCID.MoonLordCore:
+                    break;
+
+                case NPCID.MoonLordHand:
+                case NPCID.MoonLordHead:
+                    Aura(npc, 150, MasomodeEX.Souls.BuffType("Flipped"), false, 111);
                     break;
 
                 case NPCID.DemonEye:

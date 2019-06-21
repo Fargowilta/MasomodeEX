@@ -59,6 +59,15 @@
 -cultist will never let you kill phantasm dragon for good
 -moon leech constantly drags you towards moon lord once attached
 
+-king slime has slimed aura
+-eoc has berserked reverse aura
+-wof hungry have burning aura
+-p2 twins have ichor/cursed inferno reverse aura
+-prime has tiny stunned aura
+-golem head has clipped wing aura
+-cultist has aura of hexed/marked for death
+-moon lord eyes have aura of flipped
+
 
 ------------------------------TO DO LIST BELOW------------------------------
 eye of cthulhu shoots a deathray during the phase 2 transition spin
