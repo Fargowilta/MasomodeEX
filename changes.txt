@@ -35,13 +35,13 @@
 -dungeon guardian moves at increased speed
 -all hearts have a chance to spawn alongside a fake heart
 
--king slime has doubled horiz movement and doubled vertical movement when moving upwards
+-king slime has doubled horiz movement
 -king slime has rainbow slime's rainbow spikes and the same perfect aim
 -eoc:
 	in corrupt world, p2 has spaz's flamethrower and vile spit
 	in crimson world, p2 has wof's ichor shotgun but with perfect accuracy
 -eater of worlds vores players below 150 life
--brain of cthulhu illusions all deal damage and brain of cthulhu can swap positions with one of them when damaged
+-brain of cthulhu can swap positions with illusions when damaged, is knockback immune
 -skeletron has a reverse aura of lethargic and shoots 8-spreads of homing skulls
 -skeletron hands have aura of dazed
 -skeletron, dungeon guardian, and prime all reflect projectiles while spinning (good fucking luck)
@@ -54,7 +54,7 @@
 -plantera has an additional larger ring of crystal leaves
 -plantera has permanent 300 life/second regen because muh life fruit
 -plantera tentacles have 200% velocity and venom aura
--golem has same mobility buffs as king slime
+-golem has same mobility buffs as king slime when vulnerable
 -fishron has hyper mode
 -cultist will never let you kill phantasm dragon for good
 -moon leech constantly drags you towards moon lord once attached
@@ -66,7 +66,7 @@
 -prime has tiny stunned aura
 -golem head has clipped wing aura
 -cultist has aura of hexed/marked for death
--moon lord eyes have aura of flipped
+-moon lord eyes have aura of unstable
 
 
 ------------------------------TO DO LIST BELOW------------------------------

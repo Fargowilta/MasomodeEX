@@ -15,6 +15,14 @@ namespace MasomodeEX.Items
             }
         }
 
+        public override bool CloneNewInstances
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         public bool spawned;
 
         public override void Update(Item item, ref float gravity, ref float maxFallSpeed)

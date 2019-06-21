@@ -42,8 +42,8 @@ namespace MasomodeEX
                 }
             }
 
-            if (player.ZoneSkyHeight)
-                player.breath = 0;
+            if (player.ZoneSkyHeight && player.breath > 0)
+                player.breath--;
 
             if (player.ZoneUnderworldHeight && !player.fireWalk && !player.buffImmune[BuffID.OnFire])
                 player.AddBuff(BuffID.Burning, 2);

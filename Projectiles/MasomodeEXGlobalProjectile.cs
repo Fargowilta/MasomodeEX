@@ -21,12 +21,12 @@ namespace MasomodeEX.Projectiles
             switch (projectile.type)
             {
                 case ProjectileID.EyeFire:
-                    projectile.position += projectile.velocity;
+                    projectile.position += projectile.velocity / 2f;
                     break;
 
                 case ProjectileID.MoonLeech:
                     if (projectile.Center == Main.player[(int)projectile.ai[1]].Center)
-                        Main.player[(int)projectile.ai[1]].position += Main.player[(int)projectile.ai[1]].DirectionTo(Main.npc[(int)projectile.ai[0]].Center);
+                        Main.player[(int)projectile.ai[1]].position += Main.player[(int)projectile.ai[1]].DirectionTo(Main.npc[(int)projectile.ai[0]].Center) * 3f;
                     break;
 
                 default:

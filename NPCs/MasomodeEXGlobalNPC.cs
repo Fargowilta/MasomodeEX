@@ -17,7 +17,7 @@ namespace MasomodeEX
             }
         }
 
-        public bool[] masoBool = new bool[2];
+        public bool[] masoBool = new bool[4];
         public int[] Counter = new int[2];
 
         public override void SetDefaults(NPC npc)
@@ -36,9 +36,23 @@ namespace MasomodeEX
             {
                 case NPCID.KingSlime:
                     Aura(npc, 600, BuffID.Slimed, false, 33);
-                    npc.position.X += npc.velocity.X;
-                    if (npc.velocity.Y < 0)
-                        npc.position.Y += npc.velocity.Y;
+                    for (int i = 0; i < 20; i++)
+                    {
+                        Vector2 offset = new Vector2();
+                        double angle = Main.rand.NextDouble() * 2d * Math.PI;
+                        offset.X += (float)(Math.Sin(angle) * 600);
+                        offset.Y += (float)(Math.Cos(angle) * 600);
+                        Dust dust = Main.dust[Dust.NewDust(
+                            npc.Center + offset - new Vector2(4, 4), 0, 0,
+                            33, 0, 0, 0, Color.White, 2f
+                            )];
+                        dust.velocity = npc.velocity;
+                        if (Main.rand.Next(3) == 0)
+                            dust.velocity += Vector2.Normalize(offset) * -5f;
+                        dust.noGravity = true;
+                    }
+
+                    npc.position.X += npc.velocity.X ;
 
                     if (masoBool[1])
                     {
@@ -48,7 +62,7 @@ namespace MasomodeEX
                             if (npc.HasPlayerTarget && Main.netMode != 1)
                             {
                                 const float gravity = 0.15f;
-                                const float time = 120f;
+                                const float time = 60f;
                                 Vector2 distance = Main.player[npc.target].Center - npc.Center;
                                 distance += Main.player[npc.target].velocity * 30f;
                                 distance.X = distance.X / time;
@@ -118,16 +132,7 @@ namespace MasomodeEX
                 case NPCID.BrainofCthulhu:
                     if (npc.buffType[0] != 0)
                         npc.DelBuff(0);
-                    if (++Counter[0] > 60)
-                    {
-                        Counter[0] = 0;
-                        for (int i = 0; i < 200; i++)
-                        {
-                            if (Main.npc[i].active && Main.npc[i].damage < npc.damage
-                                && Main.npc[i].type == MasomodeEX.Souls.NPCType("BrainIllusion"))
-                                Main.npc[i].damage = npc.damage;
-                        }
-                    }
+                    npc.knockBackResist = 0f;
                     break;
 
                 case NPCID.SkeletronHead:
@@ -177,7 +182,7 @@ namespace MasomodeEX
                     if (--Counter[0] < 0)
                     {
                         Counter[0] = 60;
-                        npc.defense = NPC.AnyNPCs(MasomodeEX.Souls.NPCType("RoyalSubject")) ? 9999 : npc.defDefense;
+                        masoBool[2] = NPC.AnyNPCs(MasomodeEX.Souls.NPCType("RoyalSubject"));
                     }
                     break;
 
@@ -210,7 +215,8 @@ namespace MasomodeEX
                     break;
 
                 case NPCID.WallofFleshEye:
-                    npc.ai[1]++;
+                    if (npc.ai[2] != 2f) //dont speed up while deathray is actually present
+                        npc.ai[1]++;
                     break;
 
                 case NPCID.TheHungry:
@@ -220,12 +226,12 @@ namespace MasomodeEX
 
                 case NPCID.Retinazer:
                     if (npc.ai[0] >= 4f)
-                        Aura(npc, 500, BuffID.Ichor, true, 90);
+                        Aura(npc, 600, BuffID.Ichor, true, 90);
                     break;
 
                 case NPCID.Spazmatism:
                     if (npc.ai[0] >= 4f)
-                        Aura(npc, 500, BuffID.CursedInferno, true, 89);
+                        Aura(npc, 600, BuffID.CursedInferno, true, 89);
                     break;
 
                 case NPCID.TheDestroyerBody:
@@ -234,8 +240,8 @@ namespace MasomodeEX
                     {
                         Counter[0] = 0;
                         if (Main.netMode != 1)
-                            for (int i = 0; i < 8; i++)
-                                Projectile.NewProjectile(npc.Center, Vector2.Normalize(npc.velocity).RotatedBy(2 * Math.PI / 8 * i),
+                            for (int i = 0; i < 6; i++)
+                                Projectile.NewProjectile(npc.Center, Vector2.Normalize(npc.position - npc.oldPosition).RotatedBy(2 * Math.PI / 8 * i) * 10f,
                                     MasomodeEX.Souls.ProjectileType("DarkStar"), npc.damage / 5, 0f, Main.myPlayer);
                     }
                     break;
@@ -251,13 +257,13 @@ namespace MasomodeEX
                         masoBool[0] = true;
                         if (Main.netMode != 1)
                         {
-                            const int max = 15;
+                            const int max = 10;
                             const float distance = 1300f;
                             float rotation = 2f * (float)Math.PI / max;
                             for (int i = 0; i < max; i++)
                             {
                                 Vector2 spawnPos = npc.Center + new Vector2(distance, 0f).RotatedBy(rotation * i);
-                                int n = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, mod.NPCType("CrystalLeaf"), 0, npc.whoAmI, distance, 0, rotation * i);
+                                int n = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, MasomodeEX.Souls.NPCType("CrystalLeaf"), 0, npc.whoAmI, distance, 0, rotation * i);
                                 if (Main.netMode == 2 && n < 200)
                                     NetMessage.SendData(23, -1, -1, null, n);
                             }
@@ -279,14 +285,17 @@ namespace MasomodeEX
                     break;
 
                 case NPCID.Golem:
-                    npc.position.X += npc.velocity.X;
-                    if (npc.velocity.Y < 0)
-                        npc.position.Y += npc.velocity.Y;
+                    if (!npc.dontTakeDamage)
+                    {
+                        npc.position.X += npc.velocity.X;
+                        if (npc.velocity.Y < 0)
+                            npc.position.Y += npc.velocity.Y;
+                    }
                     break;
 
                 case NPCID.GolemHead:
                 case NPCID.GolemHeadFree:
-                    Aura(npc, 300, MasomodeEX.Souls.BuffType("ClippedWings"));
+                    Aura(npc, 200, MasomodeEX.Souls.BuffType("ClippedWings"));
                     break;
 
                 case NPCID.DukeFishron:
@@ -294,17 +303,20 @@ namespace MasomodeEX
                     {
                         masoBool[0] = !masoBool[0];
                         if (masoBool[0])
+                        {
+                            npc.position += npc.velocity;
                             npc.AI();
+                        }
                     }
                     break;
 
                 case NPCID.CultistBoss:
-                    Aura(npc, 400, MasomodeEX.Souls.BuffType("MarkedforDeath"), false, 199);
-                    Aura(npc, 400, MasomodeEX.Souls.BuffType("Hexed"));
+                    Aura(npc, 600, MasomodeEX.Souls.BuffType("MarkedforDeath"), false, 199);
+                    Aura(npc, 600, MasomodeEX.Souls.BuffType("Hexed"));
                     if (++Counter[0] > 60)
                     {
                         Counter[0] = 0;
-                        if (Main.netMode != 1 && npc.HasPlayerTarget && NPC.AnyNPCs(NPCID.CultistDragonHead))
+                        if (Main.netMode != 1 && npc.HasPlayerTarget && !NPC.AnyNPCs(NPCID.CultistDragonHead))
                         {
                             int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.CultistDragonHead);
                             if (n != 200 && Main.netMode == 2)
@@ -318,7 +330,7 @@ namespace MasomodeEX
 
                 case NPCID.MoonLordHand:
                 case NPCID.MoonLordHead:
-                    Aura(npc, 150, MasomodeEX.Souls.BuffType("Flipped"), false, 111);
+                    Aura(npc, 50, MasomodeEX.Souls.BuffType("Unstable"), false, 111);
                     break;
 
                 case NPCID.DemonEye:
@@ -337,7 +349,7 @@ namespace MasomodeEX
                         Main.player[Main.myPlayer].AddBuff(MasomodeEX.Souls.BuffType("Atrophied"), 2);
                         Main.player[Main.myPlayer].AddBuff(MasomodeEX.Souls.BuffType("Jammed"), 2);
                         Main.player[Main.myPlayer].AddBuff(MasomodeEX.Souls.BuffType("ReverseManaFlow"), 2);
-                        Main.player[Main.myPlayer].AddBuff(MasomodeEX.Souls.BuffType("Asocial"), 2);
+                        Main.player[Main.myPlayer].AddBuff(MasomodeEX.Souls.BuffType("Antisocial"), 2);
                     }
                     for (int i = 0; i < 20; i++)
                     {
@@ -395,7 +407,7 @@ namespace MasomodeEX
                                     {
                                         case 0: break;
                                         case 1: type = ProjectileID.StickyBomb; break;
-                                        case 2: type = ProjectileID.BouncyBomb: break;
+                                        case 2: type = ProjectileID.BouncyBomb; break;
                                         case 3: type = ProjectileID.Grenade; damage = 60;  break;
                                         case 4: type = ProjectileID.StickyGrenade; damage = 60; break;
                                         case 5: type = ProjectileID.BouncyGrenade; damage = 60; break;
@@ -489,6 +501,11 @@ namespace MasomodeEX
                     }
                     break;
 
+                case NPCID.QueenBee:
+                    if (masoBool[2])
+                        damage = 0;
+                    break;
+
                 default:
                     break;
             }
@@ -571,6 +588,7 @@ namespace MasomodeEX
                         npc.life = 0;
                         npc.checkDead();
                         npc.active = false;
+                        Main.PlaySound(15, Main.player[Main.myPlayer].Center, 0);
                         for (int j = 0; j < 10; j++)
                             NPC.SpawnOnPlayer(Main.myPlayer, NPCID.DungeonGuardian);
                         break;
