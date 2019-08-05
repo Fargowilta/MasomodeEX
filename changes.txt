@@ -1,7 +1,7 @@
 ﻿-ALL hostile npc stats boosted 50%
 -masomode EX forces expert mode to true
 -200% spawn rate
--all debuffs can stack the way plantera stacks venom up to 1 minute (this includes debuffs from aura oh no)
+-all debuffs can stack the way plantera stacks venom up to 5 minutes (this includes debuffs from aura oh no)
 -days have a high chance to be solar eclipse in hm
 -nights have a high chance to be a blood moon
 -cursed flamethrowers have much more range now
@@ -59,8 +59,9 @@
 -cultist will never let you kill phantasm dragon for good
 -moon leech constantly drags you towards moon lord once attached
 
--king slime has slimed aura
+-king slime has reverse slimed aura
 -eoc has berserked reverse aura
+-eow has shadowflame aura
 -wof hungry have burning aura
 -p2 twins have ichor/cursed inferno reverse aura
 -prime has tiny stunned aura

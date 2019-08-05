@@ -35,7 +35,7 @@ namespace MasomodeEX
             switch (npc.type)
             {
                 case NPCID.KingSlime:
-                    Aura(npc, 600, BuffID.Slimed, false, 33);
+                    Aura(npc, 600, BuffID.Slimed, true, 33);
                     for (int i = 0; i < 20; i++)
                     {
                         Vector2 offset = new Vector2();
@@ -52,7 +52,7 @@ namespace MasomodeEX
                         dust.noGravity = true;
                     }
 
-                    npc.position.X += npc.velocity.X ;
+                    npc.position.X += npc.velocity.X;
 
                     if (masoBool[1])
                     {
@@ -126,6 +126,8 @@ namespace MasomodeEX
                     break;
 
                 case NPCID.EaterofWorldsHead:
+                    Aura(npc, 100, BuffID.ShadowFlame, false, DustID.Shadowflame);
+
                     //FUCKING FLYYYYYYY
                     break;
 
@@ -170,7 +172,7 @@ namespace MasomodeEX
                             NPC.SpawnOnPlayer(npc.target, MasomodeEX.Souls.NPCType("RoyalSubject"));
                         }
                     }
-                    if (!masoBool[1] && npc.life < npc.lifeMax / 2)
+                    if (!masoBool[1] && npc.life < npc.lifeMax / 2 && npc.HasPlayerTarget)
                     {
                         masoBool[1] = true;
                         if (Main.netMode != 1)
