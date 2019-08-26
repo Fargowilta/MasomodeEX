@@ -13,5 +13,20 @@ namespace MasomodeEX.Buffs
                 player.buffTime[buffIndex] += time;
             return false;
         }
+
+        public override void Update(int type, Player player, ref int buffIndex)
+        {
+            switch (type)
+            {
+                case BuffID.Rabies:
+                    player.AddBuff(MasomodeEX.Souls.BuffType("MutantNibble"), player.buffTime[buffIndex]);
+                    if (player.buffTime[buffIndex] > 2)
+                        player.buffTime[buffIndex] = 2;
+                    break;
+
+                default:
+                    break;
+            }
+        }
     }
 }

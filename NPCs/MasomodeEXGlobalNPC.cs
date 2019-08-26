@@ -18,10 +18,34 @@ namespace MasomodeEX
         }
 
         public bool[] masoBool = new bool[4];
-        public int[] Counter = new int[2];
+        public int[] Counter = new int[3];
 
         public override void SetDefaults(NPC npc)
         {
+            /*switch (npc.type)
+            {
+                case NPCID.MoonLordCore:
+                    npc.GivenName = "Earth Lord";
+                    npc.lifeMax = 6000000;
+                    npc.defense = 320;
+                    break;
+
+                case NPCID.MoonLordHand:
+                    npc.GivenName = "Earth Lord";
+                    npc.lifeMax = 650000;
+                    npc.defense = 160;
+                    break;
+
+                case NPCID.MoonLordHead:
+                    npc.GivenName = "Earth Lord";
+                    npc.lifeMax = 800000;
+                    npc.defense = 200;
+                    break;
+
+                default:
+                    break;
+            }*/
+
             if (!npc.friendly)
             {
                 npc.lifeMax = (int)(npc.lifeMax * 1.5);
@@ -121,6 +145,33 @@ namespace MasomodeEX
                             Counter[0] = 0;
                             if (Main.netMode != 1 && npc.life < npc.lifeMax * .6)
                                 Projectile.NewProjectile(npc.Center, npc.velocity.RotatedBy(MathHelper.ToRadians(Main.rand.NextFloat(-6f, 6f))) * 0.66f, ProjectileID.EyeFire, npc.damage / 5, 0f, Main.myPlayer);
+                        }
+                    }
+                    if (++Counter[2] > 600)
+                    {
+                        Counter[2] = 0;
+                        if (npc.HasValidTarget)
+                        {
+                            Player player = Main.player[npc.target];
+                            Main.PlaySound(29, (int)player.position.X, (int)player.position.Y, 104, 1f, 0f);
+                            if (Main.netMode != 1)
+                            {
+                                Vector2 spawnPos = player.Center;
+                                int direction;
+                                if (player.velocity.X == 0f)
+                                    direction = player.direction;
+                                else
+                                    direction = Math.Sign(player.velocity.X);
+                                spawnPos.X += 600 * direction;
+                                spawnPos.Y -= 600;
+                                Vector2 speed = Vector2.UnitY;
+                                for (int i = 0; i < 30; i++)
+                                {
+                                    Projectile.NewProjectile(spawnPos, speed, MasomodeEX.Souls.ProjectileType("BloodScythe"), npc.damage / 4, 1f, Main.myPlayer);
+                                    spawnPos.X += 72 * direction;
+                                    speed.Y += 0.15f;
+                                }
+                            }
                         }
                     }
                     break;
@@ -229,11 +280,37 @@ namespace MasomodeEX
                 case NPCID.Retinazer:
                     if (npc.ai[0] >= 4f)
                         Aura(npc, 600, BuffID.Ichor, true, 90);
+                    if (Counter[0]++ > 240)
+                    {
+                        Counter[0] = 0;
+                        if (Main.netMode != 1 && npc.HasPlayerTarget)
+                        {
+                            Vector2 distance = Main.player[npc.target].Center - npc.Center;
+                            distance.Normalize();
+                            distance *= 10f;
+                            for (int i = 0; i < 12; i++)
+                                Projectile.NewProjectile(npc.Center, distance.RotatedBy(2 * Math.PI / 12 * i),
+                                    MasomodeEX.Souls.ProjectileType("DarkStar"), npc.damage / 5, 0f, Main.myPlayer);
+                        }
+                    }
                     break;
 
                 case NPCID.Spazmatism:
                     if (npc.ai[0] >= 4f)
                         Aura(npc, 600, BuffID.CursedInferno, true, 89);
+                    if (Counter[0]++ > 180)
+                    {
+                        Counter[0] = 0;
+                        if (Main.netMode != 1 && npc.HasPlayerTarget)
+                        {
+                            Vector2 distance = Main.player[npc.target].Center - npc.Center;
+                            distance.Normalize();
+                            distance *= 14f;
+                            for (int i = 0; i < 8; i++)
+                                Projectile.NewProjectile(npc.Center, distance.RotatedBy(2 * Math.PI / 8 * i),
+                                    MasomodeEX.Souls.ProjectileType("DarkStar"), npc.damage / 5, 0f, Main.myPlayer);
+                        }
+                    }
                     break;
 
                 case NPCID.TheDestroyerBody:
@@ -254,23 +331,6 @@ namespace MasomodeEX
                     break;
 
                 case NPCID.Plantera:
-                    if (!masoBool[0])
-                    {
-                        masoBool[0] = true;
-                        if (Main.netMode != 1)
-                        {
-                            const int max = 10;
-                            const float distance = 1300f;
-                            float rotation = 2f * (float)Math.PI / max;
-                            for (int i = 0; i < max; i++)
-                            {
-                                Vector2 spawnPos = npc.Center + new Vector2(distance, 0f).RotatedBy(rotation * i);
-                                int n = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, MasomodeEX.Souls.NPCType("CrystalLeaf"), 0, npc.whoAmI, distance, 0, rotation * i);
-                                if (Main.netMode == 2 && n < 200)
-                                    NetMessage.SendData(23, -1, -1, null, n);
-                            }
-                        }
-                    }
                     npc.life += 5;
                     if (npc.life > npc.lifeMax)
                         npc.life = npc.lifeMax;
@@ -283,7 +343,7 @@ namespace MasomodeEX
 
                 case NPCID.PlanterasTentacle:
                     npc.position += npc.velocity;
-                    Aura(npc, 200, BuffID.Venom, false, 188);
+                    Aura(npc, 200, MasomodeEX.Souls.BuffType("IvyVenom"), false, 188);
                     break;
 
                 case NPCID.Golem:
@@ -306,7 +366,7 @@ namespace MasomodeEX
                         masoBool[0] = !masoBool[0];
                         if (masoBool[0])
                         {
-                            npc.position += npc.velocity;
+                            npc.position += npc.velocity * 1.5f;
                             npc.AI();
                         }
                     }
@@ -333,6 +393,56 @@ namespace MasomodeEX
                 case NPCID.MoonLordHand:
                 case NPCID.MoonLordHead:
                     Aura(npc, 50, MasomodeEX.Souls.BuffType("Unstable"), false, 111);
+                    if (npc.ai[0] == -2f) //eye socket is empty
+                    {
+                        if (npc.ai[1] == 0f //happens every 32 ticks
+                            && Main.npc[(int)npc.ai[3]].ai[0] != 2f) //will stop when ML dies
+                        {
+                            Counter[0]++;
+                            if (Counter[0] >= 29) //warning dust, reset timer
+                            {
+                                Counter[0] = 0;
+                                int t = npc.HasPlayerTarget ? npc.target : npc.FindClosestPlayer();
+                                if (t != -1)
+                                {
+                                    npc.localAI[0] = (Main.player[t].Center - npc.Center).ToRotation();
+                                    Vector2 offset = Vector2.UnitX.RotatedBy(npc.localAI[0]) * 10f;
+                                    for (int i = 0; i < 300; i++) //dust warning line for laser
+                                    {
+                                        int d = Dust.NewDust(npc.Center + offset * i, 1, 1, 111, 0f, 0f, 0, default(Color), 1.5f);
+                                        Main.dust[d].noGravity = true;
+                                        Main.dust[d].velocity *= 0.5f;
+                                    }
+                                }
+                            }
+                            if (Counter[0] == 2) //FIRE LASER
+                            {
+                                int t = npc.HasPlayerTarget ? npc.target : npc.FindClosestPlayer();
+                                if (t != -1)
+                                {
+                                    if (Main.netMode != 1)
+                                    {
+                                        float newRotation = (Main.player[t].Center - npc.Center).ToRotation();
+                                        float difference = newRotation - npc.localAI[0];
+                                        const float PI = (float)Math.PI;
+                                        float rotationDirection = PI / 3f / 120f; //positive is CW, negative is CCW
+                                        if (difference < -PI)
+                                            difference += 2f * PI;
+                                        if (difference > PI)
+                                            difference -= 2f * PI;
+                                        if (difference < 0f)
+                                            rotationDirection *= -1f;
+                                        Vector2 speed = Vector2.UnitX.RotatedBy(npc.localAI[0]);
+                                        int damage = 60;
+                                        if (Main.netMode != 1)
+                                            Projectile.NewProjectile(npc.Center, speed, MasomodeEX.Souls.ProjectileType("PhantasmalDeathrayML"),
+                                                damage, 0f, Main.myPlayer, rotationDirection, npc.whoAmI);
+                                    }
+                                }
+                            }
+                            npc.netUpdate = true;
+                        }
+                    }
                     break;
 
                 case NPCID.DemonEye:
@@ -479,6 +589,12 @@ namespace MasomodeEX
                     target.AddBuff(MasomodeEX.Souls.BuffType("ClippedWings"), 2);
                     if (target.statLife + damage < 300)
                         target.KillMe(PlayerDeathReason.ByCustomReason(target.name + " was eaten alive by The Destroyer."), 999, 0);
+                    break;
+
+                case NPCID.Nutcracker:
+                case NPCID.NutcrackerSpinning:
+                    if (target.Male)
+                        target.KillMe(PlayerDeathReason.ByCustomReason(target.name + " got his nuts cracked."), 9999, 0);
                     break;
 
                 default:
