@@ -385,6 +385,12 @@ namespace MasomodeEX
                                 NetMessage.SendData(23, -1, -1, null, n);
                         }
                     }
+                    if (++Counter[1] > 300)
+                    {
+                        Counter[1] = 0;
+                        if (Main.netMode != 1)
+                            Projectile.NewProjectile(npc.Center, Vector2.UnitY * -10f, MasomodeEX.Souls.ProjectileType("CelestialPillar"), npc.damage, 0f, Main.myPlayer, Main.rand.Next(4));
+                    }
                     break;
 
                 case NPCID.MoonLordCore:
