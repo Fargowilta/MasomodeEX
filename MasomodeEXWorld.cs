@@ -8,7 +8,7 @@ namespace MasomodeEX
         public override void PreUpdate()
         {
             Main.expertMode = true;
-            //also force masomode to true
+            FargowiltasSouls.FargoSoulsWorld.MasochistMode = true;
 
             if (Main.time == 0 && Main.netMode != 1 && Main.rand.Next(4) == 0)
             {

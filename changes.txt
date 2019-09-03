@@ -2,6 +2,7 @@
 -masomode EX forces expert mode to true
 -200% spawn rate
 -all debuffs can stack the way plantera stacks venom up to 5 minutes (this includes debuffs from aura oh no)
+-nurse explodes if you talk to her during a boss fight
 -days have a high chance to be solar eclipse in hm
 -nights have a high chance to be a blood moon
 -cursed flamethrowers have much more range now
@@ -95,8 +96,6 @@ fake mana stars that actually drain 20 mana when collected
 
 nutcracker instakills male players and can omega jump like sharks
 regen timer clamped to 4 seconds
-
-nurse explodes if you talk to her during a boss fight
 
 temple traps and pressure plates need picksaw to break lol
 wires cant be cut in temple pre-golem
