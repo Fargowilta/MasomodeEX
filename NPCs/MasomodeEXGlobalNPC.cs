@@ -56,6 +56,8 @@ namespace MasomodeEX
 
         public override void AI(NPC npc)
         {
+            FargowiltasSouls.NPCs.FargoSoulsGlobalNPC fargoNPC = npc.GetGlobalNPC<FargowiltasSouls.NPCs.FargoSoulsGlobalNPC>();
+
             switch (npc.type)
             {
                 case NPCID.KingSlime:
@@ -278,8 +280,9 @@ namespace MasomodeEX
                     break;
 
                 case NPCID.Retinazer:
-                    if (npc.ai[0] >= 4f)
-                        Aura(npc, 600, BuffID.Ichor, true, 90);
+                    if (npc.ai[0] < 4f)
+                        npc.ai[0] = 4f;
+                    Aura(npc, 900, BuffID.Ichor, true, 90);
                     if (Counter[0]++ > 240)
                     {
                         Counter[0] = 0;
@@ -296,9 +299,10 @@ namespace MasomodeEX
                     break;
 
                 case NPCID.Spazmatism:
-                    if (npc.ai[0] >= 4f)
-                        Aura(npc, 600, BuffID.CursedInferno, true, 89);
-                    if (Counter[0]++ > 180)
+                    if (npc.ai[0] < 4f)
+                        npc.ai[0] = 4f;
+                    Aura(npc, 900, BuffID.CursedInferno, true, 89);
+                    if (Counter[0]++ > 120)
                     {
                         Counter[0] = 0;
                         if (Main.netMode != 1 && npc.HasPlayerTarget)
@@ -311,6 +315,10 @@ namespace MasomodeEX
                                     MasomodeEX.Souls.ProjectileType("DarkStar"), npc.damage / 5, 0f, Main.myPlayer);
                         }
                     }
+                    break;
+
+                case NPCID.TheDestroyer:
+                    fargoNPC.masoBool[0] = true;
                     break;
 
                 case NPCID.TheDestroyerBody:
@@ -385,20 +393,40 @@ namespace MasomodeEX
                                 NetMessage.SendData(23, -1, -1, null, n);
                         }
                     }
-                    if (++Counter[1] > 300)
+                    if (!masoBool[0])
+                    {
+                        masoBool[0] = true;
+                        if (Main.netMode != 1)
+                        {
+                            int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("CultistIllusion"), npc.whoAmI, npc.whoAmI, -1, 1);
+                            if (n != 200 && Main.netMode == 2)
+                                NetMessage.SendData(23, -1, -1, null, n);
+                            n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("CultistIllusion"), npc.whoAmI, npc.whoAmI, 1, -1);
+                            if (n != 200 && Main.netMode == 2)
+                                NetMessage.SendData(23, -1, -1, null, n);
+                            n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("CultistIllusion"), npc.whoAmI, npc.whoAmI, 1, 1);
+                            if (n != 200 && Main.netMode == 2)
+                                NetMessage.SendData(23, -1, -1, null, n);
+                        }
+                    }
+                    /*if (++Counter[1] > 360)
                     {
                         Counter[1] = 0;
                         if (Main.netMode != 1)
                             Projectile.NewProjectile(npc.Center, Vector2.UnitY * -10f, MasomodeEX.Souls.ProjectileType("CelestialPillar"), npc.damage, 0f, Main.myPlayer, Main.rand.Next(4));
-                    }
+                    }*/
                     break;
 
                 case NPCID.MoonLordCore:
+                    fargoNPC.Counter++;
+                    fargoNPC.Timer++;
                     break;
 
                 case NPCID.MoonLordHand:
                 case NPCID.MoonLordHead:
                     Aura(npc, 50, MasomodeEX.Souls.BuffType("Unstable"), false, 111);
+                    if (Main.player[Main.myPlayer].active && Main.player[Main.myPlayer].Distance(npc.Center) < 50)
+                        Main.player[Main.myPlayer].AddBuff(MasomodeEX.Souls.BuffType("Flipped"), 2);
                     if (npc.ai[0] == -2f) //eye socket is empty
                     {
                         if (npc.ai[1] == 0f //happens every 32 ticks
@@ -665,6 +693,14 @@ namespace MasomodeEX
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             ModifyHitByEither(npc, ref damage);
+
+            if (npc.aiStyle == 37)
+            {
+                if (projectile.penetrate > 0)
+                    damage /= projectile.penetrate;
+                else if (projectile.penetrate < 0)
+                    damage /= 5;
+            }
         }
 
         private void Aura(NPC npc, float distance, int buff, bool reverse = false, int dustid = DustID.GoldFlame)

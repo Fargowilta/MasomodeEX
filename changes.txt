@@ -36,6 +36,7 @@
 -dungeon guardian moves at increased speed
 -all hearts have a chance to spawn alongside a fake heart
 -feral bite is completely replaced with mutant nibble
+-nutcracker instakills male players
 
 -king slime has doubled horiz movement
 -king slime has rainbow slime's rainbow spikes and the same perfect aim
@@ -53,15 +54,19 @@
 -all bees are replaced with hornets 100% chance
 -wof eyes swap vulnerability twice as fast (THIS MEANS EVEN MORE LASERS)
 -destroyer segments additionally fire rings of dark stars, the head vores below 300 life again
+-destroyer can fly from beginning of fight
+-destroyer resists piercing
 -twins shoot dark star spreads again
+-twins spawn in phase 3
 -all mechs attacks inflict clipped wings for a split second again oh yeah mr krabs
 -plantera has permanent 300 life/second regen because muh life fruit
 -plantera tentacles have 200% velocity and ivy venom aura
 -golem has same mobility buffs as king slime when vulnerable
 -fishron has hyper mode
--cultist SPAMS pillars hhhhhhhhh
 -cultist will never let you kill phantasm dragon for good
+-cultist has extra boc-like illusions around you and the illusions have even more secondary attacks
 -moon lord has socket lasers again
+-moon lord phase transitions and attacks happen twice as often
 -moon leech constantly drags you towards moon lord once attached
 
 -king slime has reverse slimed aura
@@ -85,8 +90,7 @@ spazmatism constantly spams bouncy cursed fireballs at all times
 prime has 8 limbs by default, becomes 12 in phase 2 (and 4 of them now move at 200% speed)
 golem head periodically shoots a deathray (aimed at player in phase 1. in phase 2, always straight down and happens whenever it shoots laser spreads). fists have double speed. body has 1000 life regen and each geyser stomp also sprays bouncy fireballs from each geyser with some random spread
 fishron is literally fishron ex minus the stats
-cultist has extra boc-like illusions around you and the illusions have even more secondary attacks
-moon lord changes weaknesses every 10 seconds (5 when exposed). socket lasers are also twice as fast. uses current phase 2 attacks before core is vulnerable. when core is vulnerable, whips out even more pillar attacks. ALL ATTACKS INFLICT THE DEBUFF THAT DISABLES MOON LORD'S CURRENT WEAKNESS
+ML uses current phase 2 attacks before core is vulnerable. when core is vulnerable, whips out even more pillar attacks. ALL ATTACKS INFLICT THE DEBUFF THAT DISABLES MOON LORD'S CURRENT WEAKNESS
 fish EX always spawns cthulhunados, timer is 10sec-0.5sec based on health remaining
 
 giant tortoises can pass through walls, have homing, cant be interrupted, AND reflect projectiles while in their shell
@@ -94,7 +98,7 @@ paladin reflects projectiles from the front and shield effect now protects enemi
 all hearts have a 20% chance to be a fake heart worth 100 life but they're completely indistinguishable
 fake mana stars that actually drain 20 mana when collected
 
-nutcracker instakills male players and can omega jump like sharks
+nutcracker can omega jump like sharks
 regen timer clamped to 4 seconds
 
 temple traps and pressure plates need picksaw to break lol
