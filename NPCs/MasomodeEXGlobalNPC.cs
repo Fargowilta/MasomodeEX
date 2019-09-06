@@ -1260,5 +1260,11 @@ namespace MasomodeEX
                         break;
                     }
         }
+
+        public override void GetChat(NPC npc, ref string chat)
+        {
+            if (npc.type == MasomodeEX.Fargo.NPCType("Mutant") && Main.rand.Next(3) == 0)
+                chat = "What you're doing is a crime against the universe, mortal.";
+        }
     }
 }
