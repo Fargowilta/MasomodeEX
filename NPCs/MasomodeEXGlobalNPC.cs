@@ -409,17 +409,34 @@ namespace MasomodeEX
                                 NetMessage.SendData(23, -1, -1, null, n);
                         }
                     }
-                    /*if (++Counter[1] > 360)
-                    {
-                        Counter[1] = 0;
-                        if (Main.netMode != 1)
-                            Projectile.NewProjectile(npc.Center, Vector2.UnitY * -10f, MasomodeEX.Souls.ProjectileType("CelestialPillar"), npc.damage, 0f, Main.myPlayer, Main.rand.Next(4));
-                    }*/
                     break;
 
                 case NPCID.MoonLordCore:
                     fargoNPC.Counter++;
                     fargoNPC.Timer++;
+                    if (masoBool[0])
+                    {
+                        if (--Counter[0] < 0)
+                        {
+                            Counter[0] = 300;
+                            int pillar0 = Main.rand.Next(4);
+                            switch(FargowiltasSouls.NPCs.FargoSoulsGlobalNPC.masoStateML)
+                            {
+                                case 0: pillar0 = 1; break; //melee
+                                case 1: pillar0 = 2; break; //ranged
+                                case 2: pillar0 = 0; break; //magic
+                                case 3: pillar0 = 3; break; //summoner
+                                default: break;
+                            }
+                            if (Main.netMode != 1)
+                                Projectile.NewProjectile(npc.Center, Vector2.UnitY * -10f, MasomodeEX.Souls.ProjectileType("CelestialPillar"),
+                                    (int)(75 * (1 + FargowiltasSouls.FargoSoulsWorld.MoonlordCount * .0125)), 0f, Main.myPlayer, pillar0);
+                        }
+                    }
+                    else
+                    {
+                        masoBool[0] = !npc.dontTakeDamage;
+                    }
                     break;
 
                 case NPCID.MoonLordHand:

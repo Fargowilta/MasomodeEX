@@ -67,6 +67,7 @@
 -cultist has extra boc-like illusions around you and the illusions have even more secondary attacks
 -moon lord has socket lasers again
 -moon lord phase transitions and attacks happen twice as often
+-moon lord can throw pillars at you in phase 2
 -moon leech constantly drags you towards moon lord once attached
 
 -king slime has reverse slimed aura
