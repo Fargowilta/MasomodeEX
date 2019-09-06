@@ -21,7 +21,7 @@ namespace MasomodeEX.Projectiles
             switch (projectile.type)
             {
                 case ProjectileID.EyeFire:
-                    projectile.position += projectile.velocity / 2f;
+                    projectile.position += projectile.velocity;
                     break;
 
                 case ProjectileID.MoonLeech:
@@ -51,9 +51,6 @@ namespace MasomodeEX.Projectiles
             {
                 case ProjectileID.PinkLaser:
                 case ProjectileID.DeathLaser:
-                case ProjectileID.BombSkeletronPrime:
-                case ProjectileID.CursedFlameHostile:
-                case ProjectileID.EyeFire:
                 case ProjectileID.VortexLightning:
                 case ProjectileID.RocketSkeleton:
                 case ProjectileID.FlamesTrap:
@@ -65,6 +62,27 @@ namespace MasomodeEX.Projectiles
                             break;
                         }
                     }
+                    break;
+
+                case ProjectileID.EyeFire:
+                case ProjectileID.CursedFlameHostile:
+                    target.AddBuff(BuffID.CursedInferno, Main.rand.Next(60, 600));
+                    target.AddBuff(BuffID.Weak, Main.rand.Next(7200));
+                    target.AddBuff(MasomodeEX.Souls.BuffType("Shadowflame"), Main.rand.Next(60, 600));
+                    goto case ProjectileID.RocketSkeleton;
+
+                case ProjectileID.BombSkeletronPrime:
+                    if (!target.HasBuff(MasomodeEX.Souls.BuffType("Fused")))
+                        target.AddBuff(MasomodeEX.Souls.BuffType("Fused"), 600);
+                    goto case ProjectileID.RocketSkeleton;
+
+                case ProjectileID.GoldenShowerHostile:
+                    target.AddBuff(BuffID.Ichor, Main.rand.Next(60, 600));
+                    target.AddBuff(BuffID.Bleeding, Main.rand.Next(7200));
+                    target.AddBuff(MasomodeEX.Souls.BuffType("Bloodthirsty"), Main.rand.Next(300));
+                    break;
+
+                case ProjectileID.PhantasmalDeathray:
                     break;
 
                 default:
