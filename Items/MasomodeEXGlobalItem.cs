@@ -30,7 +30,7 @@ namespace MasomodeEX.Items
             if (!spawned)
             {
                 spawned = true;
-                if (Main.rand.Next(4) == 0 && Main.netMode != 1)
+                if (item.type == ItemID.Heart && Main.rand.Next(4) == 0 && Main.netMode != 1)
                     Projectile.NewProjectile(item.Center.X, item.Center.Y, Main.rand.Next(-30, 31) * .1f, Main.rand.Next(-40, -15) * .1f,
                         MasomodeEX.Souls.ProjectileType("FakeHeart"), 40, 0f, Main.myPlayer);
             }

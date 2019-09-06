@@ -32,12 +32,12 @@ namespace MasomodeEX.Projectiles
                 case ProjectileID.Sharknado:
                 case ProjectileID.Cthulunado:
                     if (Main.player[Main.myPlayer].active && projectile.Distance(Main.player[Main.myPlayer].Center) < 1000)
-                        Main.player[Main.myPlayer].position += Main.player[Main.myPlayer].DirectionTo(projectile.Center);
+                        Main.player[Main.myPlayer].position += Main.player[Main.myPlayer].DirectionTo(projectile.Center) * 0.1f;
                     break;
 
                 case ProjectileID.SandnadoHostile:
                     if (Main.player[Main.myPlayer].active && projectile.Distance(Main.player[Main.myPlayer].Center) < 1000)
-                        Main.player[Main.myPlayer].position += Main.player[Main.myPlayer].DirectionTo(projectile.Center) * 3;
+                        Main.player[Main.myPlayer].position += Main.player[Main.myPlayer].DirectionTo(projectile.Center) * 2;
                     break;
 
                 default:

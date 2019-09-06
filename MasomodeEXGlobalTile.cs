@@ -15,6 +15,7 @@ namespace MasomodeEX
                 int p = Player.FindClosest(new Vector2(i * 16, j * 16), 0, 0);
                 if (p != -1)
                     NPC.SpawnOnPlayer(p, NPCID.SolarCorite);
+                return false;
             }
             return true;
         }

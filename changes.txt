@@ -37,6 +37,7 @@
 -demon eyes inflict stoned and promote to wandering eye
 -all jellyfish have permanent electrified aura
 -harpies always ignore tiles
+-fixed all items having a chance to fake heart
 
 
 0.1:

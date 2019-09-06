@@ -68,7 +68,7 @@ namespace MasomodeEX
                 {
                     Counter[0] = 0;
                     int p = Player.FindClosest(npc.Center, 0, 0);
-                    if (p > -1 && Main.player[p].active && npc.Distance(Main.player[p].Center) < 300)
+                    if (p > -1 && Main.player[p].active && npc.Distance(Main.player[p].Center) < 500)
                         npc.Transform(NPCID.Werewolf);
                 }
             }
@@ -506,7 +506,7 @@ namespace MasomodeEX
                         {
                             const float retiRad = 500;
                             float retiSpeed = 2 * (float)Math.PI * retiRad / 240;
-                            float retiAcc = retiSpeed * retiSpeed / retiRad * npc.ai[2];
+                            float retiAcc = retiSpeed * retiSpeed / retiRad * 1;
                             for (int i = 0; i < 4; i++)
                                 Projectile.NewProjectile(npc.Center, Vector2.UnitX.RotatedBy(Math.PI / 2 * i) * retiSpeed, MasomodeEX.Souls.ProjectileType("MutantRetirang"), npc.damage / 4, 0f, Main.myPlayer, retiAcc, 240);
                         }
@@ -537,7 +537,7 @@ namespace MasomodeEX
                         {
                             const float spazRad = 250;
                             float spazSpeed = 2 * (float)Math.PI * spazRad / 120;
-                            float spazAcc = spazSpeed * spazSpeed / spazRad * -npc.ai[2];
+                            float spazAcc = spazSpeed * spazSpeed / spazRad * -1;
                             for (int i = 0; i < 4; i++)
                                 Projectile.NewProjectile(npc.Center, Vector2.UnitX.RotatedBy(Math.PI / 2 * i + Math.PI / 4) * spazSpeed, MasomodeEX.Souls.ProjectileType("MutantSpazmarang"), npc.damage / 4, 0f, Main.myPlayer, spazAcc, 120);
                         }
@@ -549,6 +549,7 @@ namespace MasomodeEX
                     if (++Counter[0] > 240)
                     {
                         Counter[0] = 0;
+                        Main.PlaySound(4, (int)npc.Center.X, (int)npc.Center.Y, 13);
                         if (npc.HasPlayerTarget && Main.netMode != 1) //spawn worm
                         {
                             Vector2 vel = npc.DirectionTo(Main.player[npc.target].Center) * 15f;
@@ -674,9 +675,13 @@ namespace MasomodeEX
                                     if (Main.netMode == 2)
                                         NetMessage.SendData(23, -1, -1, null, n);
                                 }
-
-                                Projectile.NewProjectile(npc.Center, Vector2.Zero, MasomodeEX.Souls.ProjectileType("MutantMark2"), npc.damage / 4, 0f, Main.myPlayer, 30, 30 + 120);
                             }
+                        }
+                        if (--Counter[2] < 0)
+                        {
+                            Counter[2] = 180;
+                            if (Main.netMode != 1)
+                                Projectile.NewProjectile(npc.Center, Vector2.Zero, MasomodeEX.Souls.ProjectileType("MutantMark2"), npc.damage / 4, 0f, Main.myPlayer, 30, 30 + 120);
                         }
                     }
                     break;
@@ -689,12 +694,12 @@ namespace MasomodeEX
                 case NPCID.Golem:
                     if (!npc.dontTakeDamage)
                     {
-                        npc.position.X += npc.velocity.X;
+                        npc.position.X += npc.velocity.X * 0.5f;
                         if (npc.velocity.Y < 0)
                         {
-                            npc.position.Y += npc.velocity.Y;
+                            npc.position.Y += npc.velocity.Y * 0.5f;
                             if (npc.velocity.Y > -2)
-                                npc.velocity.Y = 15;
+                                npc.velocity.Y = 20;
                         }
                     }
                     break;
@@ -772,7 +777,7 @@ namespace MasomodeEX
                     {
                         if (--Counter[0] < 0)
                         {
-                            Counter[0] = 420;
+                            Counter[0] = 600;
                             int pillar0 = Main.rand.Next(4);
                             switch(FargowiltasSouls.NPCs.FargoSoulsGlobalNPC.masoStateML)
                             {
@@ -788,12 +793,12 @@ namespace MasomodeEX
                         }
                         if (--Counter[1] < 0)
                         {
-                            Counter[1] = 300;
+                            Counter[1] = 180;
                             if (Main.netMode != 1)
                             {
-                                const int max = 12;
+                                const int max = 8;
                                 const float speed = 10f;
-                                const int damage = (int)(50 * (1 + FargowiltasSouls.FargoSoulsWorld.MoonlordCount * .0125));
+                                int damage = (int)(50 * (1 + FargowiltasSouls.FargoSoulsWorld.MoonlordCount * .0125));
                                 const float rotationModifier = 0.75f;
                                 float rotation = 2f * (float)Math.PI / max;
                                 Vector2 vel = Vector2.UnitY * speed;
@@ -802,6 +807,7 @@ namespace MasomodeEX
                                 {
                                     vel = vel.RotatedBy(rotation);
                                     Projectile.NewProjectile(npc.Center, vel, type, damage, 0f, Main.myPlayer, rotationModifier * npc.spriteDirection, speed);
+                                    Projectile.NewProjectile(npc.Center, vel, type, damage, 0f, Main.myPlayer, -rotationModifier * npc.spriteDirection, speed);
                                 }
                                 Main.PlaySound(SoundID.Item84, npc.Center);
                             }
@@ -815,7 +821,7 @@ namespace MasomodeEX
                             Counter[2] = 360;
                             if (Main.netMode != 1 && npc.HasPlayerTarget)
                             {
-                                const int damage = (int)(50 * (1 + FargowiltasSouls.FargoSoulsWorld.MoonlordCount * .0125));
+                                int damage = (int)(50 * (1 + FargowiltasSouls.FargoSoulsWorld.MoonlordCount * .0125));
                                 Projectile.NewProjectile(npc.Center, Vector2.Zero, MasomodeEX.Souls.ProjectileType("MutantTrueEyeL"), damage, 0f, Main.myPlayer, npc.target);
                                 Projectile.NewProjectile(npc.Center, Vector2.Zero, MasomodeEX.Souls.ProjectileType("MutantTrueEyeR"), damage, 0f, Main.myPlayer, npc.target);
                                 Projectile.NewProjectile(npc.Center, Vector2.Zero, MasomodeEX.Souls.ProjectileType("MutantTrueEyeS"), damage, 0f, Main.myPlayer, npc.target);
@@ -882,7 +888,7 @@ namespace MasomodeEX
                     break;
 
                 case NPCID.MoonLordFreeEye:
-                    Aura(npc, 300, MasomodeEX.Souls.BuffType("Unstable"), false, 111);
+                    Aura(npc, 150, MasomodeEX.Souls.BuffType("Unstable"), false, 111);
                     if (Main.player[Main.myPlayer].active && Main.player[Main.myPlayer].Distance(npc.Center) < 300)
                         Main.player[Main.myPlayer].AddBuff(MasomodeEX.Souls.BuffType("Flipped"), 2);
                     break;
@@ -1206,15 +1212,15 @@ namespace MasomodeEX
                             NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Mutant has been enraged by the death of his brother!"), new Color(175, 75, 255));
                     }
                 }
-                else if (npc.type == MasomodeEX.Fargo.NPCType("MutantBoss"))
+                else if (npc.type == MasomodeEX.Fargo.NPCType("Mutant"))
                 {
                     npc.active = true;
                     npc.life = 1;
                     npc.Transform(MasomodeEX.Souls.NPCType("MutantBoss"));
                     if (Main.netMode == 0)
-                        Main.NewText("Mutant has awoken!", 175, 75, 255);
+                        Main.NewText("Mutant has been enraged!", 175, 75, 255);
                     else if (Main.netMode == 2)
-                        NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Mutant has awoken!"), new Color(175, 75, 255));
+                        NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Mutant has been enraged!"), new Color(175, 75, 255));
                     return false;
                 }
             }
@@ -1261,26 +1267,6 @@ namespace MasomodeEX
                 if (Main.rand.Next(3) == 0)
                     dust.velocity += Vector2.Normalize(offset) * (reverse ? 5f : -5f);
                 dust.noGravity = true;
-            }
-        }
-
-        private void Horde(NPC npc, int size)
-        {
-            for (int i = 0; i < size; i++)
-            {
-                Vector2 pos = new Vector2(npc.Center.X + Main.rand.NextFloat(-2f, 2f) * npc.width, npc.Center.Y);
-                if (!Collision.SolidCollision(pos, npc.width, npc.height) && Main.netMode != 1)
-                {
-                    int j = NPC.NewNPC((int)pos.X + npc.width / 2, (int)pos.Y + npc.height / 2, npc.type);
-                    if (j != 200)
-                    {
-                        NPC newNPC = Main.npc[j];
-                        newNPC.velocity = Vector2.UnitX.RotatedByRandom(2 * Math.PI) * 5f;
-                        newNPC.GetGlobalNPC<FargoSoulsGlobalNPC>().FirstTick = true;
-                        if (Main.netMode == 2)
-                            NetMessage.SendData(23, -1, -1, null, j);
-                    }
-                }
             }
         }
 

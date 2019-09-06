@@ -11,7 +11,7 @@ namespace MasomodeEX
             Main.expertMode = true;
             FargowiltasSouls.FargoSoulsWorld.MasochistMode = true;
 
-            if (Main.time == 0 && Main.netMode != 1)
+            if (Main.time == 1 && Main.netMode != 1)
             {
                 if (Main.dayTime) //all bosses become DG at daybreak
                     for (int i = 0; i < Main.maxNPCs; i++)
