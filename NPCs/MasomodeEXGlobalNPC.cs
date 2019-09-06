@@ -179,10 +179,173 @@ namespace MasomodeEX
                     break;
 
                 case NPCID.EaterofWorldsHead:
-                    Aura(npc, 100, BuffID.ShadowFlame, false, DustID.Shadowflame);
+                    Aura(npc, 250, BuffID.ShadowFlame, false, DustID.Shadowflame);
 
                     //FUCKING FLYYYYYYY
-                    break;
+                    if (npc.HasValidTarget)
+                    {
+                        npc.position -= npc.velocity;
+
+                        int cornerX1 = (int)npc.position.X / 16 - 1;
+                        int cornerX2 = (int)(npc.position.X + npc.width) / 16 + 2;
+                        int cornerY1 = (int)npc.position.Y / 16 - 1;
+                        int cornerY2 = (int)(npc.position.Y + npc.height) / 16 + 2;
+
+                        //out of bounds checks
+                        if (cornerX1 < 0)
+                            cornerX1 = 0;
+                        if (cornerX2 > Main.maxTilesX)
+                            cornerX2 = Main.maxTilesX;
+                        if (cornerY1 < 0)
+                            cornerY1 = 0;
+                        if (cornerY2 > Main.maxTilesY)
+                            cornerY2 = Main.maxTilesY;
+
+                        bool isOnSolidTile = false;
+
+                        //for every tile npc npc occupies
+                        for (int x = cornerX1; x < cornerX2; ++x)
+                        {
+                            for (int y = cornerY1; y < cornerY2; ++y)
+                            {
+                                Tile tile = Main.tile[x, y];
+                                if (tile != null && (tile.nactive() && (Main.tileSolid[tile.type] || Main.tileSolidTop[tile.type] && tile.frameY == 0) || tile.liquid > 64))
+                                {
+                                    Vector2 tilePos = new Vector2(x * 16f, y * 16f);
+                                    if (npc.position.X + npc.width > tilePos.X && npc.position.X < tilePos.X + 16f && npc.position.Y + npc.height > tilePos.Y && npc.position.Y < tilePos.Y + 16f)
+                                    {
+                                        isOnSolidTile = true;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (isOnSolidTile)
+                                break;
+                        }
+
+                        const float num14 = 12f;    //max speed?
+                        const float num15 = 0.1f;   //turn speed?
+                        const float num16 = 0.15f;   //acceleration?
+                        float num17 = Main.player[npc.target].Center.X;
+                        float num18 = Main.player[npc.target].Center.Y;
+
+                        float num21 = num17 - npc.Center.X;
+                        float num22 = num18 - npc.Center.Y;
+                        float num23 = (float)Math.Sqrt((double)num21 * (double)num21 + (double)num22 * (double)num22);
+
+                        if (!isOnSolidTile)
+                        {
+                            //negating default air behaviour
+                            npc.velocity.Y -= 0.15f;
+
+                            if (Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y) < num14 * 0.4f)
+                            {
+                                if (npc.velocity.X < 0f)
+                                    npc.velocity.X += num15 * 1.1f;
+                                else
+                                    npc.velocity.X -= num15 * 1.1f;
+                            }
+                            else if (npc.velocity.Y == num14)
+                            {
+                                if (npc.velocity.X < num21)
+                                    npc.velocity.X -= num15;
+                                else if (npc.velocity.X > num21)
+                                    npc.velocity.X += num15;
+                            }
+                            else if (npc.velocity.Y > 4f)
+                            {
+                                if (npc.velocity.X < 0f)
+                                    npc.velocity.X -= num15 * 0.9f;
+                                else
+                                    npc.velocity.X += num15 * 0.9f;
+                            }
+                        }
+
+                        //ground movement code but it always runs
+                        float num2 = (float)Math.Sqrt(num21 * num21 + num22 * num22);
+                        float num3 = Math.Abs(num21);
+                        float num4 = Math.Abs(num22);
+                        float num5 = num14 / num2;
+                        float num6 = num21 * num5;
+                        float num7 = num22 * num5;
+                        if ((npc.velocity.X > 0f && num6 > 0f || npc.velocity.X < 0f && num6 < 0f) && (npc.velocity.Y > 0f && num7 > 0f || npc.velocity.Y < 0f && num7 < 0f))
+                        {
+                            if (npc.velocity.X < num6)
+                                npc.velocity.X += num16;
+                            else if (npc.velocity.X > num6)
+                                npc.velocity.X -= num16;
+                            if (npc.velocity.Y < num7)
+                                npc.velocity.Y += num16;
+                            else if (npc.velocity.Y > num7)
+                                npc.velocity.Y -= num16;
+                        }
+                        if (npc.velocity.X > 0f && num6 > 0f || npc.velocity.X < 0f && num6 < 0f || npc.velocity.Y > 0f && num7 > 0f || npc.velocity.Y < 0f && num7 < 0f)
+                        {
+                            if (npc.velocity.X < num6)
+                                npc.velocity.X += num15;
+                            else if (npc.velocity.X > num6)
+                                npc.velocity.X -= num15;
+                            if (npc.velocity.Y < num7)
+                                npc.velocity.Y += num15;
+                            else if (npc.velocity.Y > num7)
+                                npc.velocity.Y -= num15;
+
+                            if (Math.Abs(num7) < num14 * 0.2f && (npc.velocity.X > 0f && num6 < 0f || npc.velocity.X < 0f && num6 > 0f))
+                            {
+                                if (npc.velocity.Y > 0f)
+                                    npc.velocity.Y += num15 * 2f;
+                                else
+                                    npc.velocity.Y -= num15 * 2f;
+                            }
+                            if (Math.Abs(num6) < num14 * 0.2f && (npc.velocity.Y > 0f && num7 < 0f || npc.velocity.Y < 0f && num7 > 0f))
+                            {
+                                if (npc.velocity.X > 0f)
+                                    npc.velocity.X += num15 * 2f;
+                                else
+                                    npc.velocity.X -= num15 * 2f;
+                            }
+                        }
+                        else if (num3 > num4)
+                        {
+                            if (npc.velocity.X < num6)
+                                npc.velocity.X += num15 * 1.1f;
+                            else if (npc.velocity.X > num6)
+                                npc.velocity.X -= num15 * 1.1f;
+
+                            if (Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y) < num14 * 0.5f)
+                            {
+                                if (npc.velocity.Y > 0f)
+                                    npc.velocity.Y += num15;
+                                else
+                                    npc.velocity.Y -= num15;
+                            }
+                        }
+                        else
+                        {
+                            if (npc.velocity.Y < num7)
+                                npc.velocity.Y += num15 * 1.1f;
+                            else if (npc.velocity.Y > num7)
+                                npc.velocity.Y -= num15 * 1.1f;
+
+                            if (Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y) < num14 * 0.5f)
+                            {
+                                if (npc.velocity.X > 0f)
+                                    npc.velocity.X += num15;
+                                else
+                                    npc.velocity.X -= num15;
+                            }
+                        }
+                        npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X) + 1.57f;
+                        npc.netUpdate = true;
+                        npc.localAI[0] = 1f;
+
+                        float ratio = (float)npc.life / npc.lifeMax;
+                        if (ratio > 0.5f)
+                            ratio = 0.5f;
+                        npc.position += npc.velocity * (1.5f - ratio);
+                    }
+            break;
 
                 case NPCID.BrainofCthulhu:
                     if (npc.buffType[0] != 0)
@@ -347,6 +510,24 @@ namespace MasomodeEX
                         Counter[0] = Main.rand.Next(30);
                         CombatText.NewText(npc.Hitbox, CombatText.HealLife, 300);
                     }
+                    if (npc.life < npc.lifeMax / 2 && ++Counter[1] > 300)
+                    {
+                        Counter[1] = 0;
+                        if (Main.netMode != 1)
+                        {
+                            int tentaclesToSpawn = 12;
+                            for (int i = 0; i < 200; i++)
+                                if (Main.npc[i].active && Main.npc[i].type == NPCID.PlanterasTentacle && Main.npc[i].ai[3] == 0f)
+                                    tentaclesToSpawn--;
+
+                            for (int i = 0; i < tentaclesToSpawn; i++)
+                            {
+                                int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.PlanterasTentacle, npc.whoAmI);
+                                if (Main.netMode == 2)
+                                    NetMessage.SendData(23, -1, -1, null, n);
+                            }
+                        }
+                    }
                     break;
 
                 case NPCID.PlanterasTentacle:
@@ -364,6 +545,11 @@ namespace MasomodeEX
                     break;
 
                 case NPCID.GolemHead:
+                case NPCID.GolemFistLeft:
+                case NPCID.GolemFistRight:
+                    Aura(npc, 200, MasomodeEX.Souls.BuffType("ClippedWings"));
+                    break;
+
                 case NPCID.GolemHeadFree:
                     Aura(npc, 200, MasomodeEX.Souls.BuffType("ClippedWings"));
                     break;

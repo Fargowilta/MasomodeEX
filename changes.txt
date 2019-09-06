@@ -45,6 +45,7 @@
 	in corrupt world, p2 has spaz's flamethrower and vile spit
 	in crimson world, p2 has wof's ichor shotgun but with perfect accuracy
 -eater of worlds vores players below 150 life
+-eater of worlds can fly
 -brain of cthulhu can swap positions with illusions when damaged, is knockback immune
 -skeletron has a reverse aura of lethargic and shoots 8-spreads of homing skulls
 -skeletron hands have aura of dazed
@@ -61,6 +62,7 @@
 -all mechs attacks inflict clipped wings for a split second again oh yeah mr krabs
 -plantera has permanent 300 life/second regen because muh life fruit
 -plantera tentacles have 200% velocity and ivy venom aura
+-plantera respawns her tentacles
 -golem has same mobility buffs as king slime when vulnerable
 -fishron has hyper mode
 -cultist will never let you kill phantasm dragon for good
@@ -83,7 +85,6 @@
 
 ------------------------------TO DO LIST BELOW------------------------------
 eye of cthulhu shoots a deathray during the phase 2 transition spin
-eater of worlds can fly
 royal subjects have the stinger spreads
 wof shoots hungry grappling hooks, getting hit by them inflicts tongued
 retinazer continues moving and attacking normally while firing deathray
