@@ -2,6 +2,7 @@
 using System;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.Localization;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -58,8 +59,32 @@ namespace MasomodeEX
         {
             FargowiltasSouls.NPCs.FargoSoulsGlobalNPC fargoNPC = npc.GetGlobalNPC<FargowiltasSouls.NPCs.FargoSoulsGlobalNPC>();
 
+            if (npc.townNPC && Main.bloodMoon && npc.type != MasomodeEX.Fargo.NPCType("Abominationn") && npc.type != MasomodeEX.Fargo.NPCType("Mutant"))
+            {
+                if (++Counter[0] > 60)
+                {
+                    Counter[0] = 0;
+                    int p = Player.FindClosest(npc.Center, 0, 0);
+                    if (p > -1 && Main.player[p].active && npc.Distance(Main.player[p].Center) < 300)
+                        npc.Transform(NPCID.Werewolf);
+                }
+            }
+
             switch (npc.type)
             {
+                case NPCID.Werewolf:
+                    npc.position.X += npc.velocity.X;
+                    if (npc.velocity.Y < 0)
+                        npc.position.Y += npc.velocity.Y;
+                    break;
+
+                case NPCID.Lihzahrd:
+                case NPCID.LihzahrdCrawler:
+                case NPCID.FlyingSnake:
+                    if (!NPC.downedPlantBoss)
+                        npc.Transform(NPCID.DungeonGuardian);
+                    break;
+
                 case NPCID.KingSlime:
                     Aura(npc, 600, BuffID.Slimed, true, 33);
                     for (int i = 0; i < 20; i++)
@@ -882,8 +907,43 @@ namespace MasomodeEX
                             Projectile.NewProjectile(npc.Center, Vector2.UnitY.RotatedBy(2 * Math.PI / 8 * i) * 4f, ProjectileID.CrimsonSpray, 0, 0f, Main.myPlayer, 8f);
                     break;
 
+                case NPCID.MeteorHead:
+                    if (!NPC.downedBoss2)
+                    {
+                        Main.PlaySound(npc.DeathSound, npc.Center);
+                        npc.active = false;
+                        return false;
+                    }
+                    break;
+
                 default:
                     break;
+            }
+            if (npc.townNPC)
+            {
+                if (npc.type == MasomodeEX.Fargo.NPCType("Abominationn"))
+                {
+                    int mutant = NPC.FindFirstNPC(MasomodeEX.Fargo.NPCType("Mutant"));
+                    if (mutant > -1 && Main.npc[mutant].active)
+                    {
+                        Main.npc[mutant].Transform(MasomodeEX.Souls.NPCType("MutantBoss"));
+                        if (Main.netMode == 0)
+                            Main.NewText("Mutant has been enraged by the death of his brother!", 175, 75, 255);
+                        else if (Main.netMode == 2)
+                            NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Mutant has been enraged by the death of his brother!"), new Color(175, 75, 255));
+                    }
+                }
+                else if (npc.type == MasomodeEX.Fargo.NPCType("MutantBoss"))
+                {
+                    npc.active = true;
+                    npc.life = 1;
+                    npc.Transform(MasomodeEX.Souls.NPCType("MutantBoss"));
+                    if (Main.netMode == 0)
+                        Main.NewText("Mutant has awoken!", 175, 75, 255);
+                    else if (Main.netMode == 2)
+                        NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Mutant has awoken!"), new Color(175, 75, 255));
+                    return false;
+                }
             }
             return true;
         }

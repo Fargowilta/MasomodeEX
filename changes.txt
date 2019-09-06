@@ -1,4 +1,23 @@
-﻿-ALL hostile npc stats boosted 50%
+﻿0.2:
+-all bosses become DG at daybreak
+-meteor heads drop nothing pre-eater/brain
+-trying to mine meteorite pre-eater/brain spawns corites
+-dungeon guardian spawns in jungle temple pre-plant
+-lava inflicts burning
+-honey inflicts slow
+-being near lava inflicts on fire
+-letting abom die for any reason will cause mutant town npc to enrage if present
+-letting mutant die for any reason will cause him to enrage
+-all town npcs except abom/mutant turn into werewolves when approached during blood moon
+-werewolves are super fast
+-sharknado, cthulhunado, sandnado suck you in
+-permanent winds in desert
+-ocean's passive maul always has at least 50 life reduction
+-ocean water inflicts mutant nibble
+
+
+0.1:
+-ALL hostile npc stats boosted 50%
 -masomode EX forces expert mode to true
 -200% spawn rate
 -all debuffs can stack the way plantera stacks venom up to 5 minutes (this includes debuffs from aura oh no)

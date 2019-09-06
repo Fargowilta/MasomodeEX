@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MasomodeEX
@@ -10,15 +11,23 @@ namespace MasomodeEX
             Main.expertMode = true;
             FargowiltasSouls.FargoSoulsWorld.MasochistMode = true;
 
-            if (Main.time == 0 && Main.netMode != 1 && Main.rand.Next(4) == 0)
+            if (Main.time == 0 && Main.netMode != 1)
             {
-                if (!Main.dayTime)
-                    Main.bloodMoon = true;
-                else if (Main.hardMode)
-                    Main.eclipse = true;
+                if (Main.dayTime) //all bosses become DG at daybreak
+                    for (int i = 0; i < Main.maxNPCs; i++)
+                        if (Main.npc[i].active && Main.npc[i].boss)
+                            Main.npc[i].Transform(NPCID.DungeonGuardian);
 
-                if (Main.netMode == 2)
-                    NetMessage.SendData(7); //sync world
+                if (Main.rand.Next(4) == 0) //bloodmoon, eclipse
+                {
+                    if (!Main.dayTime)
+                        Main.bloodMoon = true;
+                    else if (Main.hardMode)
+                        Main.eclipse = true;
+
+                    if (Main.netMode == 2)
+                        NetMessage.SendData(7); //sync world
+                }
             }
         }
     }

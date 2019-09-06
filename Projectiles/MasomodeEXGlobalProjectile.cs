@@ -26,7 +26,18 @@ namespace MasomodeEX.Projectiles
 
                 case ProjectileID.MoonLeech:
                     if (projectile.Center == Main.player[(int)projectile.ai[1]].Center)
-                        Main.player[(int)projectile.ai[1]].position += Main.player[(int)projectile.ai[1]].DirectionTo(Main.npc[(int)projectile.ai[0]].Center) * 3f;
+                        Main.player[(int)projectile.ai[1]].position += Main.player[(int)projectile.ai[1]].DirectionTo(Main.npc[(int)projectile.ai[0]].Center) * 5f;
+                    break;
+
+                case ProjectileID.Sharknado:
+                case ProjectileID.Cthulunado:
+                    if (Main.player[Main.myPlayer].active && projectile.Distance(Main.player[Main.myPlayer].Center) < 1000)
+                        Main.player[Main.myPlayer].position += Main.player[Main.myPlayer].DirectionTo(projectile.Center);
+                    break;
+
+                case ProjectileID.SandnadoHostile:
+                    if (Main.player[Main.myPlayer].active && projectile.Distance(Main.player[Main.myPlayer].Center) < 1000)
+                        Main.player[Main.myPlayer].position += Main.player[Main.myPlayer].DirectionTo(projectile.Center) * 3;
                     break;
 
                 default:
