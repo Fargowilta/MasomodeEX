@@ -32,6 +32,7 @@
 -prime shoots mutant guardians
 -plantera shoots bonus rings
 -moon lord spawns mini true eyes in phase 1
+-pinky YEETS you
 
 
 0.1:

@@ -967,6 +967,15 @@ namespace MasomodeEX
         {
             switch (npc.type)
             {
+                case NPCID.BlueSlime:
+                    if (npc.netID == NPCID.Pinky)
+                    {
+                        target.AddBuff(MasomodeEX.Souls.BuffType("Stunned"), 60);
+                        target.velocity.X = target.Center.X < npc.Center.X ? -500f : 500f;
+                        target.velocity.Y = -100f;
+                    }
+                    break;
+
                 case NPCID.SlimeSpiked:
                     npc.Transform(NPCID.KingSlime);
                     break;
