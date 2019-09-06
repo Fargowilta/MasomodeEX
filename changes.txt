@@ -34,6 +34,9 @@
 -moon lord spawns mini true eyes in phase 1
 -pinky YEETS you
 -golem can fastfall when vulnerable
+-demon eyes inflict stoned and promote to wandering eye
+-all jellyfish have permanent electrified aura
+-harpies always ignore tiles
 
 
 0.1:

@@ -75,6 +75,18 @@ namespace MasomodeEX
 
             switch (npc.type)
             {
+                case NPCID.Harpy:
+                    npc.noTileCollide = true;
+                    break;
+
+                case NPCID.BloodJelly:
+                case NPCID.BlueJellyfish:
+                case NPCID.GreenJellyfish:
+                case NPCID.PinkJellyfish:
+                case NPCID.FungoFish:
+                    Aura(npc, 200, BuffID.Electrified, false, DustID.Electric);
+                    break;
+
                 case NPCID.Werewolf:
                     npc.position.X += npc.velocity.X;
                     if (npc.velocity.Y < 0)
@@ -984,6 +996,11 @@ namespace MasomodeEX
                     npc.Transform(NPCID.KingSlime);
                     break;
 
+                case NPCID.DemonEye:
+                    target.AddBuff(BuffID.Stoned, Main.rand.Next(300));
+                    npc.Transform(NPCID.WanderingEye);
+                    break;
+
                 case NPCID.WanderingEye:
                     npc.Transform(NPCID.EyeofCthulhu);
                     break;
@@ -1244,6 +1261,26 @@ namespace MasomodeEX
                 if (Main.rand.Next(3) == 0)
                     dust.velocity += Vector2.Normalize(offset) * (reverse ? 5f : -5f);
                 dust.noGravity = true;
+            }
+        }
+
+        private void Horde(NPC npc, int size)
+        {
+            for (int i = 0; i < size; i++)
+            {
+                Vector2 pos = new Vector2(npc.Center.X + Main.rand.NextFloat(-2f, 2f) * npc.width, npc.Center.Y);
+                if (!Collision.SolidCollision(pos, npc.width, npc.height) && Main.netMode != 1)
+                {
+                    int j = NPC.NewNPC((int)pos.X + npc.width / 2, (int)pos.Y + npc.height / 2, npc.type);
+                    if (j != 200)
+                    {
+                        NPC newNPC = Main.npc[j];
+                        newNPC.velocity = Vector2.UnitX.RotatedByRandom(2 * Math.PI) * 5f;
+                        newNPC.GetGlobalNPC<FargoSoulsGlobalNPC>().FirstTick = true;
+                        if (Main.netMode == 2)
+                            NetMessage.SendData(23, -1, -1, null, j);
+                    }
+                }
             }
         }
 
