@@ -679,7 +679,11 @@ namespace MasomodeEX
                     {
                         npc.position.X += npc.velocity.X;
                         if (npc.velocity.Y < 0)
+                        {
                             npc.position.Y += npc.velocity.Y;
+                            if (npc.velocity.Y > -2)
+                                npc.velocity.Y = 15;
+                        }
                     }
                     break;
 

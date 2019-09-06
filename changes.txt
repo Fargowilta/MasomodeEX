@@ -33,6 +33,7 @@
 -plantera shoots bonus rings
 -moon lord spawns mini true eyes in phase 1
 -pinky YEETS you
+-golem can fastfall when vulnerable
 
 
 0.1:
