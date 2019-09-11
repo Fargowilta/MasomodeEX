@@ -114,7 +114,7 @@ namespace MasomodeEX
                             )];
                         dust.velocity = npc.velocity;
                         if (Main.rand.Next(3) == 0)
-                            dust.velocity += Vector2.Normalize(offset) * -5f;
+                            dust.velocity += Vector2.Normalize(offset) * 5f;
                         dust.noGravity = true;
                     }
 
@@ -219,7 +219,7 @@ namespace MasomodeEX
                     break;
 
                 case NPCID.EaterofWorldsHead:
-                    Aura(npc, 250, BuffID.ShadowFlame, false, DustID.Shadowflame);
+                    Aura(npc, 250, MasomodeEX.Souls.BuffType("Shadowflame"), false, DustID.Shadowflame);
 
                     //FUCKING FLYYYYYYY
                     if (npc.HasValidTarget)
@@ -394,7 +394,7 @@ namespace MasomodeEX
                     break;
 
                 case NPCID.SkeletronHead:
-                    Aura(npc, 420, MasomodeEX.Souls.BuffType("Lethargic"), true, 60);
+                    Aura(npc, 600, MasomodeEX.Souls.BuffType("Lethargic"), true, 60);
                     if (++Counter[0] > 300)
                     {
                         Counter[0] = 0;
@@ -889,8 +889,18 @@ namespace MasomodeEX
 
                 case NPCID.MoonLordFreeEye:
                     Aura(npc, 150, MasomodeEX.Souls.BuffType("Unstable"), false, 111);
-                    if (Main.player[Main.myPlayer].active && Main.player[Main.myPlayer].Distance(npc.Center) < 300)
+                    if (Main.player[Main.myPlayer].active && Main.player[Main.myPlayer].Distance(npc.Center) < 150)
                         Main.player[Main.myPlayer].AddBuff(MasomodeEX.Souls.BuffType("Flipped"), 2);
+                    break;
+
+                case NPCID.DD2Betsy:
+                    Aura(npc, 700, BuffID.OnFire, true, DustID.Fire);
+                    Aura(npc, 700, BuffID.Burning, true);
+                    if (Main.player[Main.myPlayer].active && Main.player[Main.myPlayer].Distance(npc.Center) < 700)
+                    {
+                        Main.player[Main.myPlayer].AddBuff(BuffID.WitheredArmor, 2);
+                        Main.player[Main.myPlayer].AddBuff(BuffID.WitheredWeapon, 2);
+                    }
                     break;
 
                 case NPCID.DemonEye:
@@ -1174,13 +1184,67 @@ namespace MasomodeEX
         {
             switch (npc.type)
             {
-                case NPCID.Corruptor:
+                case NPCID.ChaosElemental:
+                case NPCID.IlluminantBat:
+                case NPCID.IlluminantSlime:
+                case NPCID.EnchantedSword:
+                case NPCID.BigMimicHallow:
+                case NPCID.Pixie:
+                case NPCID.Unicorn:
+                case NPCID.Gastropod:
+                case NPCID.LightMummy:
+                case NPCID.RainbowSlime:
+                case NPCID.DesertGhoulHallow:
+                case NPCID.SandsharkHallow:
+                    if (Main.netMode != 1)
+                        for (int i = 0; i < 8; i++)
+                            Projectile.NewProjectile(npc.Center, Vector2.UnitY.RotatedBy(2 * Math.PI / 8 * i) * 4f, ProjectileID.HallowSpray, 0, 0f, Main.myPlayer, 8f);
+                    break;
+
+                case NPCID.CorruptGoldfish:
+                case NPCID.DevourerBody:
+                case NPCID.DevourerHead:
+                case NPCID.DevourerTail:
+                case NPCID.CorruptBunny:
+                case NPCID.CorruptPenguin:
+                case NPCID.BigMimicCorruption:
+                case NPCID.CorruptSlime:
+                case NPCID.DesertGhoulCorruption:
+                case NPCID.SandsharkCorrupt:
+                case NPCID.Slimer:
+                case NPCID.Slimer2:
+                case NPCID.Slimeling:
+                case NPCID.CursedHammer:
+                case NPCID.Clinger:
+                case NPCID.SeekerHead:
+                case NPCID.SeekerBody:
+                case NPCID.SeekerTail:
+                case NPCID.EaterofWorldsBody:
+                case NPCID.EaterofWorldsTail:
+                case NPCID.VileSpit:
                     if (Main.netMode != 1)
                         for (int i = 0; i < 8; i++)
                             Projectile.NewProjectile(npc.Center, Vector2.UnitY.RotatedBy(2 * Math.PI / 8 * i) * 4f, ProjectileID.CorruptSpray, 0, 0f, Main.myPlayer, 8f);
                     break;
 
-                case NPCID.IchorSticker:
+                case NPCID.Creeper:
+                case NPCID.BrainofCthulhu:
+                case NPCID.BloodCrawler:
+                case NPCID.BloodCrawlerWall:
+                case NPCID.Crimera:
+                case NPCID.Crimslime:
+                case NPCID.CrimsonAxe:
+                case NPCID.CrimsonBunny:
+                case NPCID.CrimsonGoldfish:
+                case NPCID.CrimsonPenguin:
+                case NPCID.DesertGhoulCrimson:
+                case NPCID.SandsharkCrimson:
+                case NPCID.FaceMonster:
+                case NPCID.Herpling:
+                case NPCID.BloodJelly:
+                case NPCID.BloodFeeder:
+                case NPCID.FloatyGross:
+                case NPCID.BigMimicCrimson:
                     if (Main.netMode != 1)
                         for (int i = 0; i < 8; i++)
                             Projectile.NewProjectile(npc.Center, Vector2.UnitY.RotatedBy(2 * Math.PI / 8 * i) * 4f, ProjectileID.CrimsonSpray, 0, 0f, Main.myPlayer, 8f);

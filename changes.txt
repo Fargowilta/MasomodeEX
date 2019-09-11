@@ -1,4 +1,14 @@
-﻿0.2:
+﻿0.3:
+-dungeon/lihzahrd bricks cannot be mined pre-ML
+-hellstone cannot be mined pre-hm
+-cultist illusions fade when cultist fades
+-fixed king slime aura visual going in the wrong direction
+-fixed true eyes flipping when you were outside the aura
+-betsy now has a reverse aura of on fire, burning, withered armor, and withered weapon
+-trees spawn bees when felled
+-ALL spreading biome enemies spray solution when killed
+
+0.2:
 -all bosses become DG at daybreak
 -meteor heads drop nothing pre-eater/brain
 -trying to mine meteorite pre-eater/brain spawns corites
@@ -73,7 +83,6 @@
 -corruptors promote to EOW on hit
 -ichor stickers promote to BOC on hit
 -pigrons promote to fishron on hit
--corruptors and ichor stickers spray solution when killed
 -CLOWNS HAVE REVERSE AURA OF ALL FOUR CLASS-SEALING DEBUFFS AND EXPLODE INTO BOMBS
 -using nurse during boss fight kills her and spawns a swarm of dungeon guardians
 -dungeon guardian moves at increased speed

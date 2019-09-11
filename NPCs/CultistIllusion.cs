@@ -70,6 +70,7 @@ namespace MasomodeEX
             npc.target = cultist.target;
             npc.damage = cultist.damage;
             npc.defDamage = cultist.damage;
+            npc.alpha = cultist.alpha;
             if (npc.HasPlayerTarget)
             {
                 Vector2 dist = Main.player[npc.target].Center - cultist.Center;

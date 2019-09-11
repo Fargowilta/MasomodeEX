@@ -21,22 +21,22 @@ namespace MasomodeEX.Projectiles
             switch (projectile.type)
             {
                 case ProjectileID.EyeFire:
-                    projectile.position += projectile.velocity;
+                    projectile.position += projectile.velocity / 2;
                     break;
 
                 case ProjectileID.MoonLeech:
-                    if (projectile.Center == Main.player[(int)projectile.ai[1]].Center)
+                    if (projectile.Center == Main.player[(int)projectile.ai[1]].Center && Main.player[(int)projectile.ai[1]].active && !Main.player[(int)projectile.ai[1]].dead)
                         Main.player[(int)projectile.ai[1]].position += Main.player[(int)projectile.ai[1]].DirectionTo(Main.npc[(int)projectile.ai[0]].Center) * 5f;
                     break;
 
                 case ProjectileID.Sharknado:
                 case ProjectileID.Cthulunado:
-                    if (Main.player[Main.myPlayer].active && projectile.Distance(Main.player[Main.myPlayer].Center) < 1000)
+                    if (Main.player[Main.myPlayer].active && !Main.player[Main.myPlayer].dead && projectile.Distance(Main.player[Main.myPlayer].Center) < 1000)
                         Main.player[Main.myPlayer].position += Main.player[Main.myPlayer].DirectionTo(projectile.Center) * 0.1f;
                     break;
 
                 case ProjectileID.SandnadoHostile:
-                    if (Main.player[Main.myPlayer].active && projectile.Distance(Main.player[Main.myPlayer].Center) < 1000)
+                    if (Main.player[Main.myPlayer].active && !Main.player[Main.myPlayer].dead && projectile.Distance(Main.player[Main.myPlayer].Center) < 1000)
                         Main.player[Main.myPlayer].position += Main.player[Main.myPlayer].DirectionTo(projectile.Center) * 2;
                     break;
 
