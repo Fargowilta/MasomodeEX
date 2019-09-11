@@ -100,6 +100,18 @@ namespace MasomodeEX
                         npc.Transform(NPCID.DungeonGuardian);
                     break;
 
+                case NPCID.Pumpking:
+                    Aura(npc, 300, MasomodeEX.Souls.BuffType("MarkedforDeath"));
+                    break;
+
+                case NPCID.PumpkingBlade:
+                    Aura(npc, 200, MasomodeEX.Souls.BuffType("LivingWasteland"));
+                    break;
+
+                case NPCID.IceQueen:
+                    Aura(npc, 300, BuffID.Frozen);
+                    break;
+
                 case NPCID.KingSlime:
                     Aura(npc, 600, BuffID.Slimed, true, 33);
                     for (int i = 0; i < 20; i++)

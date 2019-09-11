@@ -8,6 +8,9 @@
 -trees spawn bees when felled
 -ALL spreading biome enemies spray solution when killed
 -PROBES ACTIVATE MECHA MAYHEM ON TOUCH (if no mechs are alive)
+-pumpking has MFD aura
+-pumpking hands have living wasteland aura
+-ice queen has frozen aura
 
 0.2:
 -all bosses become DG at daybreak
