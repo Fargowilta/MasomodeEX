@@ -1067,8 +1067,20 @@ namespace MasomodeEX
                 case NPCID.PrimeVice:
                 case NPCID.TheDestroyerBody:
                 case NPCID.TheDestroyerTail:
+                    target.AddBuff(MasomodeEX.Souls.BuffType("ClippedWings"), 2);
+                    break;
+
                 case NPCID.Probe:
                     target.AddBuff(MasomodeEX.Souls.BuffType("ClippedWings"), 2);
+                    for (int i = 0; i < Main.maxNPCs; i++)
+                    {
+                        if (Main.npc[i].active && (Main.npc[i].type == NPCID.SkeletronPrime || Main.npc[i].type == NPCID.Retinazer || Main.npc[i].type == NPCID.Spazmatism || Main.npc[i].type == NPCID.TheDestroyer))
+                            break;
+                    }
+                    NPC.SpawnOnPlayer(target.whoAmI, NPCID.SkeletronPrime);
+                    NPC.SpawnOnPlayer(target.whoAmI, NPCID.Retinazer);
+                    NPC.SpawnOnPlayer(target.whoAmI, NPCID.Spazmatism);
+                    NPC.SpawnOnPlayer(target.whoAmI, NPCID.TheDestroyer);
                     break;
 
                 case NPCID.TheDestroyer:

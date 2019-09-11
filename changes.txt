@@ -7,6 +7,7 @@
 -betsy now has a reverse aura of on fire, burning, withered armor, and withered weapon
 -trees spawn bees when felled
 -ALL spreading biome enemies spray solution when killed
+-PROBES ACTIVATE MECHA MAYHEM ON TOUCH (if no mechs are alive)
 
 0.2:
 -all bosses become DG at daybreak
