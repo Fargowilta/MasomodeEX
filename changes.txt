@@ -11,6 +11,7 @@
 -destroyer also eats the world
 -ML core has an aura of EVERY DEBUFF IN THE GAME
 -all attacks inflict a random debuff
+-pillars slowly sink to halfway down the world height
 
 0.2.1:
 -dungeon/lihzahrd bricks cannot be mined pre-ML

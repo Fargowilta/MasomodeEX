@@ -79,6 +79,14 @@ namespace MasomodeEX
                     npc.noTileCollide = true;
                     break;
 
+                case NPCID.LunarTowerNebula:
+                case NPCID.LunarTowerSolar:
+                case NPCID.LunarTowerStardust:
+                case NPCID.LunarTowerVortex:
+                    if (npc.position.Y > Main.maxTilesY * 16 / 2)
+                        npc.position.Y += 16f / 60f; //sink one block per second
+                    break;
+
                 case NPCID.BloodJelly:
                 case NPCID.BlueJellyfish:
                 case NPCID.GreenJellyfish:
