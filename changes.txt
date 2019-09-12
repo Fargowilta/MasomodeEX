@@ -12,6 +12,10 @@
 -ML core has an aura of EVERY DEBUFF IN THE GAME
 -all attacks inflict a random debuff
 -pillars slowly sink to halfway down the world height
+-jungle temple is now protected by mutant boss
+-nurse heal during boss now triggers mutant swarm
+-mutant town npc now enrages if approached during blood moon
+-pirate captain, goblin warrior now have increased speed
 
 0.2.1:
 -dungeon/lihzahrd bricks cannot be mined pre-ML

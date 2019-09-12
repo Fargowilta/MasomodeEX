@@ -62,14 +62,19 @@ namespace MasomodeEX
             if (fargoNPC.RegenTimer > 240)
                 fargoNPC.RegenTimer = 240;
 
-            if (npc.townNPC && Main.bloodMoon && npc.type != MasomodeEX.Fargo.NPCType("Abominationn") && npc.type != MasomodeEX.Fargo.NPCType("Mutant"))
+            if (npc.townNPC && Main.bloodMoon)
             {
-                if (++Counter[0] > 60)
+                if (++Counter[0] > 15)
                 {
                     Counter[0] = 0;
                     int p = Player.FindClosest(npc.Center, 0, 0);
                     if (p > -1 && Main.player[p].active && npc.Distance(Main.player[p].Center) < 500)
-                        npc.Transform(NPCID.Werewolf);
+                    {
+                        if (npc.type == MasomodeEX.Fargo.NPCType("Mutant"))
+                            npc.Transform(MasomodeEX.Souls.NPCType("MutantBoss"));
+                        else if (npc.type != MasomodeEX.Fargo.NPCType("Abominationn"))
+                            npc.Transform(NPCID.Werewolf);
+                    }
                 }
             }
 
@@ -83,7 +88,7 @@ namespace MasomodeEX
                 case NPCID.LunarTowerSolar:
                 case NPCID.LunarTowerStardust:
                 case NPCID.LunarTowerVortex:
-                    if (npc.position.Y > Main.maxTilesY * 16 / 2)
+                    if (npc.position.Y < Main.maxTilesY * 16 / 2)
                         npc.position.Y += 16f / 60f; //sink one block per second
                     break;
 
@@ -96,6 +101,8 @@ namespace MasomodeEX
                     break;
 
                 case NPCID.Werewolf:
+                case NPCID.GoblinWarrior:
+                case NPCID.PirateCaptain:
                     npc.position.X += npc.velocity.X;
                     if (npc.velocity.Y < 0)
                         npc.position.Y += npc.velocity.Y;
@@ -105,7 +112,11 @@ namespace MasomodeEX
                 case NPCID.LihzahrdCrawler:
                 case NPCID.FlyingSnake:
                     if (!NPC.downedPlantBoss)
-                        npc.Transform(NPCID.DungeonGuardian);
+                    {
+                        npc.Transform(MasomodeEX.Souls.NPCType("MutantBoss"));
+                        if (npc.HasPlayerTarget)
+                            NPC.SpawnOnPlayer(npc.target, MasomodeEX.Souls.NPCType("MutantBoss"));
+                    }
                     break;
 
                 case NPCID.Pumpking:
@@ -435,6 +446,12 @@ namespace MasomodeEX
                     if (npc.HasValidTarget)
                         npc.position += npc.DirectionTo(Main.player[npc.target].Center) * 5f;
                     npc.reflectingProjectiles = true;
+                    if (!masoBool[0])
+                    {
+                        masoBool[0] = true;
+                        if (Main.rand.Next(2) == 0)
+                            npc.Transform(MasomodeEX.Souls.NPCType("MutantBoss"));
+                    }
                     break;
 
                 case NPCID.QueenBee:
@@ -1493,12 +1510,10 @@ namespace MasomodeEX
                 for (int i = 0; i < 200; i++)
                     if (Main.npc[i].active && Main.npc[i].boss) //during boss fight
                     {
-                        npc.life = 0;
-                        npc.checkDead();
-                        npc.active = false;
+                        npc.StrikeNPC(9999, 0f, 0);
                         Main.PlaySound(15, Main.player[Main.myPlayer].Center, 0);
                         for (int j = 0; j < 10; j++)
-                            NPC.SpawnOnPlayer(Main.myPlayer, NPCID.DungeonGuardian);
+                            NPC.SpawnOnPlayer(Main.myPlayer, MasomodeEX.Souls.NPCType("MutantBoss"));
                         break;
                     }
         }
