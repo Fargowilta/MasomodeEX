@@ -45,6 +45,25 @@ namespace MasomodeEX.Projectiles
             }
         }
 
+        public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
+        {
+            switch(projectile.type)
+            {
+                case ProjectileID.Bee:
+                case ProjectileID.GiantBee:
+                    if (FargowiltasSouls.NPCs.FargoSoulsGlobalNPC.AnyBossAlive())
+                    {
+                        projectile.timeLeft = 0;
+                        projectile.damage = 0;
+                        NPC.NewNPC((int)projectile.Center.X, (int)projectile.Center.Y, Main.rand.Next(2) == 0 ? NPCID.Bee : NPCID.BeeSmall);
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
         public override void OnHitPlayer(Projectile projectile, Player target, int damage, bool crit)
         {
             switch (projectile.type)

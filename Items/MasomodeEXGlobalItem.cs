@@ -35,5 +35,26 @@ namespace MasomodeEX.Items
                         MasomodeEX.Souls.ProjectileType("FakeHeart"), 40, 0f, Main.myPlayer);
             }
         }
+
+        public override void UpdateInventory(Item item, Player player)
+        {
+            switch(item.type)
+            {
+                case ItemID.GuideVoodooDoll:
+                    if (player.lavaWet)
+                    {
+                        int guide = NPC.FindFirstNPC(NPCID.Guide);
+                        if (guide != -1 && Main.npc[guide].active)
+                        {
+                            Main.npc[guide].StrikeNPC(9999, 0f, 0);
+                            NPC.SpawnWOF(player.Center);
+                        }
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
     }
 }
