@@ -20,6 +20,25 @@ namespace MasomodeEX.Projectiles
         {
             switch (projectile.type)
             {
+                case ProjectileID.Bee:
+                case ProjectileID.GiantBee:
+                    if (FargowiltasSouls.NPCs.FargoSoulsGlobalNPC.AnyBossAlive())
+                    {
+                        projectile.timeLeft = 0;
+                        projectile.damage = 0;
+                        if (Main.netMode != 1)
+                        {
+                            int n = NPC.NewNPC((int)projectile.Center.X, (int)projectile.Center.Y, Main.rand.Next(2) == 0 ? NPCID.Bee : NPCID.BeeSmall);
+                            if (n < 200)
+                            {
+                                Main.npc[n].velocity = projectile.velocity;
+                                if (Main.netMode == 2)
+                                    NetMessage.SendData(23, -1, -1, null, n);
+                            }
+                        }
+                    }
+                    break;
+
                 case ProjectileID.EyeFire:
                     projectile.position += projectile.velocity / 2;
                     break;
@@ -45,27 +64,11 @@ namespace MasomodeEX.Projectiles
             }
         }
 
-        public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
-        {
-            switch(projectile.type)
-            {
-                case ProjectileID.Bee:
-                case ProjectileID.GiantBee:
-                    if (FargowiltasSouls.NPCs.FargoSoulsGlobalNPC.AnyBossAlive())
-                    {
-                        projectile.timeLeft = 0;
-                        projectile.damage = 0;
-                        NPC.NewNPC((int)projectile.Center.X, (int)projectile.Center.Y, Main.rand.Next(2) == 0 ? NPCID.Bee : NPCID.BeeSmall);
-                    }
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
         public override void OnHitPlayer(Projectile projectile, Player target, int damage, bool crit)
         {
+            int d = Main.rand.Next(FargowiltasSouls.Fargowiltas.DebuffIDs.Count);
+            target.AddBuff(FargowiltasSouls.Fargowiltas.DebuffIDs[d], Main.rand.Next(60, 600));
+
             switch (projectile.type)
             {
                 case ProjectileID.PinkLaser:
@@ -101,7 +104,9 @@ namespace MasomodeEX.Projectiles
                     target.AddBuff(MasomodeEX.Souls.BuffType("Bloodthirsty"), Main.rand.Next(300));
                     break;
 
-                case ProjectileID.PhantasmalDeathray:
+                case ProjectileID.StardustJellyfishSmall:
+                case ProjectileID.NebulaLaser:
+                    target.AddBuff(BuffID.VortexDebuff, Main.rand.Next(300));
                     break;
 
                 default:

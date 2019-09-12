@@ -267,13 +267,12 @@ namespace MasomodeEX
                                     if (npc.position.X + npc.width > tilePos.X && npc.position.X < tilePos.X + 16f && npc.position.Y + npc.height > tilePos.Y && npc.position.Y < tilePos.Y + 16f)
                                     {
                                         isOnSolidTile = true;
-                                        break;
+                                        WorldGen.KillTile(x, y);
+                                        if (Main.netMode == 2)
+                                            NetMessage.SendData(17, -1, -1, null, 0, x, y);
                                     }
                                 }
                             }
-
-                            if (isOnSolidTile)
-                                break;
                         }
 
                         const float num14 = 12f;    //max speed?
@@ -594,6 +593,42 @@ namespace MasomodeEX
                             Main.projectile[previous].netUpdate = true;
                         }
                     }
+                    if (fargoNPC.masoBool[0])
+                    {
+                        int cornerX1 = (int)npc.position.X / 16 - 1;
+                        int cornerX2 = (int)(npc.position.X + npc.width) / 16 + 2;
+                        int cornerY1 = (int)npc.position.Y / 16 - 1;
+                        int cornerY2 = (int)(npc.position.Y + npc.height) / 16 + 2;
+
+                        //out of bounds checks
+                        if (cornerX1 < 0)
+                            cornerX1 = 0;
+                        if (cornerX2 > Main.maxTilesX)
+                            cornerX2 = Main.maxTilesX;
+                        if (cornerY1 < 0)
+                            cornerY1 = 0;
+                        if (cornerY2 > Main.maxTilesY)
+                            cornerY2 = Main.maxTilesY;
+
+                        //for every tile npc npc occupies
+                        for (int x = cornerX1; x < cornerX2; ++x)
+                        {
+                            for (int y = cornerY1; y < cornerY2; ++y)
+                            {
+                                Tile tile = Main.tile[x, y];
+                                if (tile != null && (tile.nactive() && (Main.tileSolid[tile.type] || Main.tileSolidTop[tile.type] && tile.frameY == 0) || tile.liquid > 64))
+                                {
+                                    Vector2 tilePos = new Vector2(x * 16f, y * 16f);
+                                    if (npc.position.X + npc.width > tilePos.X && npc.position.X < tilePos.X + 16f && npc.position.Y + npc.height > tilePos.Y && npc.position.Y < tilePos.Y + 16f)
+                                    {
+                                        WorldGen.KillTile(x, y);
+                                        if (Main.netMode == 2)
+                                            NetMessage.SendData(17, -1, -1, null, 0, x, y);
+                                    }
+                                }
+                            }
+                        }
+                    }
                     break;
 
                 case NPCID.TheDestroyerBody:
@@ -803,6 +838,13 @@ namespace MasomodeEX
                     break;
 
                 case NPCID.MoonLordCore:
+                    Aura(npc, 100, MasomodeEX.Souls.BuffType("GodEater"), false, 86);
+                    Aura(npc, 100, MasomodeEX.Souls.BuffType("Unstable"), false, 111);
+                    if (Main.player[Main.myPlayer].active && Main.player[Main.myPlayer].Distance(npc.Center) < 100)
+                    {
+                        int d = Main.rand.Next(FargowiltasSouls.Fargowiltas.DebuffIDs.Count);
+                        Main.player[Main.myPlayer].AddBuff(FargowiltasSouls.Fargowiltas.DebuffIDs[d], Main.rand.Next(60, 600));
+                    }
                     fargoNPC.Counter++;
                     fargoNPC.Timer++;
                     if (masoBool[0])
@@ -945,6 +987,32 @@ namespace MasomodeEX
                     }
                     break;
 
+                case NPCID.Mothron:
+                case NPCID.MothronSpawn:
+                    for (int i = 0; i < 2; i++)
+                    {
+                        int d = Dust.NewDust(npc.position, npc.width, npc.height, 70);
+                        Main.dust[d].scale += 1f;
+                        Main.dust[d].noGravity = true;
+                        Main.dust[d].velocity *= 5f;
+                    }
+                    if (++Counter[0] > 6)
+                    {
+                        Counter[0] = 0;
+                        if (Main.netMode != 1)
+                            Projectile.NewProjectile(npc.Center, Main.rand.NextVector2Unit() * 12f,
+                                mod.ProjectileType("MothDust"), npc.damage / 5, 0f, Main.myPlayer);
+                    }
+                    break;
+
+                case NPCID.Paladin:
+                    npc.reflectingProjectiles = true;
+                    break;
+
+                case NPCID.WanderingEye:
+                    npc.noTileCollide = true;
+                    break;
+
                 case NPCID.Clown:
                     if (npc.Distance(Main.player[Main.myPlayer].Center) > 500)
                     {
@@ -1029,8 +1097,25 @@ namespace MasomodeEX
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
+            int d = Main.rand.Next(FargowiltasSouls.Fargowiltas.DebuffIDs.Count);
+            target.AddBuff(FargowiltasSouls.Fargowiltas.DebuffIDs[d], Main.rand.Next(60, 600));
+
             switch (npc.type)
             {
+                case NPCID.SolarCrawltipedeHead:
+                case NPCID.SolarCrawltipedeBody:
+                case NPCID.SolarCrawltipedeTail:
+                case NPCID.VortexHornet:
+                case NPCID.NebulaHeadcrab:
+                    target.AddBuff(BuffID.VortexDebuff, Main.rand.Next(300));
+                    break;
+
+                case NPCID.SolarSolenian:
+                case NPCID.SolarCorite:
+                    target.AddBuff(MasomodeEX.Souls.BuffType("ClippedWings"), Main.rand.Next(300));
+                    target.AddBuff(MasomodeEX.Souls.BuffType("Flipped"), Main.rand.Next(300));
+                    break;
+
                 case NPCID.BlueSlime:
                     if (npc.netID == NPCID.Pinky)
                     {
@@ -1216,6 +1301,11 @@ namespace MasomodeEX
 
                 case NPCID.QueenBee:
                     if (masoBool[2])
+                        damage = 0;
+                    break;
+
+                case NPCID.SolarSolenian:
+                    if (npc.ai[2] <= -6f)
                         damage = 0;
                     break;
 
