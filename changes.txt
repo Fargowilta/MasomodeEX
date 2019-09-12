@@ -11,6 +11,7 @@
 -pumpking has MFD aura
 -pumpking hands have living wasteland aura
 -ice queen has frozen aura
+-wof places walls of flesh
 
 0.2:
 -all bosses become DG at daybreak

@@ -484,6 +484,26 @@ namespace MasomodeEX
                     }
                     break;
 
+                case NPCID.WallofFlesh:
+                    if (Main.netMode != 1)
+                    {
+                        int x = (int)npc.Center.X / 16;
+                        int startY = (int)npc.Center.Y / 16 + ((int)npc.Center.Y / 16 - Main.maxTilesY);
+                        for (int y = startY; y < Main.maxTilesY; y++)
+                            WorldGen.PlaceWall(x, y, WallID.Flesh);
+                        float velX = Math.Abs(npc.velocity.X);
+                        if (velX > 16)
+                            velX += 16; //make sure it closes the gap with the last check
+                        while (velX > 16)
+                        {
+                            x += npc.velocity.X > 0 ? -1 : 1;
+                            for (int y = startY; y < Main.maxTilesY; y++)
+                                WorldGen.PlaceWall(x, y, WallID.Flesh);
+                            velX -= 16;
+                        }
+                    }
+                    break;
+
                 case NPCID.WallofFleshEye:
                     if (npc.ai[2] != 2f) //dont speed up while deathray is actually present
                         npc.ai[1]++;
