@@ -40,13 +40,27 @@ namespace MasomodeEX
                     if (Main.snowMoon)
                         player.AddBuff(BuffID.Frostburn, 2);
                 }
-                if (Main.raining && !player.ZoneSnow)
+                if (Main.raining)
                 {
                     Tile currentTile = Framing.GetTileSafely(player.Center);
                     if (currentTile.wall == WallID.None)
                     {
-                        player.AddBuff(BuffID.Wet, 2);
-                        player.AddBuff(MasomodeEX.Souls.BuffType("LightningRod"), 2);
+                        if (player.ZoneSnow)
+                        {
+                            player.AddBuff(BuffID.Chilled, 2);
+                            int d = player.FindBuffIndex(BuffID.Chilled);
+                            if (d != -1 && player.buffTime[d] > 1200)
+                            {
+                                player.ClearBuff(BuffID.Chilled);
+                                player.AddBuff(BuffID.Frozen, Main.expertDebuffTime > 1 ? 150 : 300);
+                            }
+                            player.AddBuff(BuffID.Frostburn, 2);
+                        }
+                        else
+                        {
+                            player.AddBuff(BuffID.Wet, 2);
+                            player.AddBuff(MasomodeEX.Souls.BuffType("LightningRod"), 2);
+                        }
                     }
                 }
             }

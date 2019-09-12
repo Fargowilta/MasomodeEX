@@ -103,6 +103,8 @@ namespace MasomodeEX
                 case NPCID.Werewolf:
                 case NPCID.GoblinWarrior:
                 case NPCID.PirateCaptain:
+                case NPCID.Krampus:
+                case NPCID.UndeadMiner:
                     npc.position.X += npc.velocity.X;
                     if (npc.velocity.Y < 0)
                         npc.position.Y += npc.velocity.Y;
@@ -435,11 +437,38 @@ namespace MasomodeEX
                                 Projectile.NewProjectile(npc.Center, vel.RotatedBy(2 * Math.PI / 8 * i), ProjectileID.Skull, npc.damage / 5, 0, Main.myPlayer, -1, 0f);
                         }
                     }
+                    if (++Counter[1] > 360)
+                    {
+                        Counter[1] = 0;
+                        if (Main.netMode != 1)
+                        {
+                            int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.UndeadMiner);
+                            if (n < 200 && Main.netMode == 2)
+                                NetMessage.SendData(23, -1, -1, null, n);
+                        }
+                    }
+                    if (++Counter[2] > 2)
+                    {
+                        Counter[2] = 0;
+                        if (Main.netMode != 1)
+                        {
+                            Vector2 speed = new Vector2(Main.rand.Next(-100, 101), Main.rand.Next(-100, 101));
+                            speed.Normalize();
+                            speed *= 6f;
+                            speed += npc.velocity * 1.25f;
+                            speed.Y -= Math.Abs(speed.X) * 0.2f;
+                            if (Main.netMode != 1)
+                                Projectile.NewProjectile(npc.Center, speed, MasomodeEX.Souls.ProjectileType("SkeletronBone"), npc.damage / 4, 0f, Main.myPlayer);
+                        }
+                    }
+                    npc.localAI[2]++;
                     npc.reflectingProjectiles = npc.ai[1] == 1f || npc.ai[1] == 2f; //spinning or DG mode
                     break;
 
                 case NPCID.SkeletronHand:
                     Aura(npc, 140, BuffID.Dazed, false);
+                    fargoNPC.Counter--;
+                    fargoNPC.Counter2--;
                     break;
 
                 case NPCID.DungeonGuardian:

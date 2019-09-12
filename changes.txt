@@ -15,8 +15,13 @@
 -jungle temple is now protected by mutant boss
 -nurse heal during boss now triggers mutant swarm
 -mutant town npc now enrages if approached during blood moon
--pirate captain, goblin warrior now have increased speed
+-pirate captain, goblin warrior, krampus, undead miner now have increased speed
 -prime limbs shoot dark stars at you
+-skeletron spawns undead miners and shoots bone rings more often
+-skeletron constantly sprays random bones
+-skeletron hands shoot rings/skulls more often
+-blizzard now inflicts chilled and frostburn
+-blizzard will eventually freeze player
 
 0.2.1:
 -dungeon/lihzahrd bricks cannot be mined pre-ML
@@ -181,7 +186,6 @@ wires cant be cut in temple pre-golem
 
 clipped wings in marble biome, eventually stones you
 crippled in granite
-blizzards can freeze you like snow biome water
 purity inflicts purified
 falling inflicts confused again
 fall debuffs happen even with wings
