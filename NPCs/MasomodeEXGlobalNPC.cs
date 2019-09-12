@@ -738,6 +738,12 @@ namespace MasomodeEX
                             npc.AI();
                         }
                     }
+                    if (++Counter[0] > 240)
+                    {
+                        Counter[0] = 0;
+                        if (Main.netMode != 1 && npc.HasPlayerTarget)
+                            Projectile.NewProjectile(npc.Center, npc.DirectionTo(Main.player[npc.target].Center) * 14, MasomodeEX.Souls.ProjectileType("DarkStar"), npc.damage / 4, 0f, Main.myPlayer);
+                    }
                     break;
 
                 case NPCID.Plantera:

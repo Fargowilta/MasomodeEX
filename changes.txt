@@ -16,6 +16,7 @@
 -nurse heal during boss now triggers mutant swarm
 -mutant town npc now enrages if approached during blood moon
 -pirate captain, goblin warrior now have increased speed
+-prime limbs shoot dark stars at you
 
 0.2.1:
 -dungeon/lihzahrd bricks cannot be mined pre-ML
