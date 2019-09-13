@@ -49,7 +49,8 @@ namespace MasomodeEX.Items
                             if (--item.stack <= 0)
                                 item.SetDefaults();
                             Main.npc[guide].StrikeNPC(9999, 0f, 0);
-                            NPC.SpawnWOF(player.Center);
+                            if (player.ZoneUnderworldHeight)
+                                NPC.SpawnWOF(player.Center);
                         }
                     }
                     break;

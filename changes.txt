@@ -1,4 +1,14 @@
-﻿0.2.2:
+﻿0.2.3:
+-prime bomb, grenades, happy bombs destroy blocks
+-fixed clown not exploding when boss is alive
+-town npc blood moon transformations
+	dryad to nymph
+	pirate to captain
+	tax collector to tortured soul
+	witch doctor to lihzahrd
+	clothier to skeletron
+
+0.2.2:
 -guide doll burns up if you're in lava
 -your bees turn against you during boss fights
 -various pillar enemy attacks inflict distorted

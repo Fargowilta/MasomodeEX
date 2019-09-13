@@ -49,7 +49,7 @@ namespace MasomodeEX
                         {
                             player.AddBuff(BuffID.Chilled, 2);
                             int d = player.FindBuffIndex(BuffID.Chilled);
-                            if (d != -1 && player.buffTime[d] > 1200)
+                            if (d != -1 && player.buffTime[d] > 7200)
                             {
                                 player.ClearBuff(BuffID.Chilled);
                                 player.AddBuff(BuffID.Frozen, Main.expertDebuffTime > 1 ? 150 : 300);

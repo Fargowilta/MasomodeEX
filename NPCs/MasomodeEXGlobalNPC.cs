@@ -70,10 +70,35 @@ namespace MasomodeEX
                     int p = Player.FindClosest(npc.Center, 0, 0);
                     if (p > -1 && Main.player[p].active && npc.Distance(Main.player[p].Center) < 500)
                     {
-                        if (npc.type == MasomodeEX.Fargo.NPCType("Mutant"))
-                            npc.Transform(MasomodeEX.Souls.NPCType("MutantBoss"));
-                        else if (npc.type != MasomodeEX.Fargo.NPCType("Abominationn"))
-                            npc.Transform(NPCID.Werewolf);
+                        switch (npc.type)
+                        {
+                            case NPCID.Dryad:
+                                npc.Transform(NPCID.Nymph);
+                                break;
+
+                            case NPCID.Pirate:
+                                npc.Transform(NPCID.PirateCaptain);
+                                break;
+
+                            case NPCID.TaxCollector:
+                                npc.Transform(NPCID.DemonTaxCollector);
+                                break;
+
+                            case NPCID.WitchDoctor:
+                                npc.Transform(NPCID.Lihzahrd);
+                                break;
+
+                            case NPCID.Clothier:
+                                npc.Transform(NPCID.SkeletronHead);
+                                break;
+
+                            default:
+                                if (npc.type == MasomodeEX.Fargo.NPCType("Mutant"))
+                                    npc.Transform(MasomodeEX.Souls.NPCType("MutantBoss"));
+                                else if (npc.type != MasomodeEX.Fargo.NPCType("Abominationn"))
+                                    npc.Transform(NPCID.Werewolf);
+                                break;
+                        }
                     }
                 }
             }
@@ -1113,7 +1138,7 @@ namespace MasomodeEX
                         bool bossAlive = false;
                         for (int i = 0; i < 200; i++)
                         {
-                            if (Main.npc[i].boss)
+                            if (Main.npc[i].boss && Main.npc[i].active)
                             {
                                 bossAlive = true;
                                 break;

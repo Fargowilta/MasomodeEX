@@ -64,6 +64,28 @@ namespace MasomodeEX.Projectiles
             }
         }
 
+        public override void Kill(Projectile projectile, int timeLeft)
+        {
+            switch (projectile.type)
+            {
+                case ProjectileID.BombSkeletronPrime:
+                case ProjectileID.Grenade:
+                case ProjectileID.BouncyGrenade:
+                case ProjectileID.StickyGrenade:
+                case ProjectileID.HappyBomb:
+                    if (Main.netMode != 1)
+                    {
+                        int p = Projectile.NewProjectile(projectile.Center, Vector2.Zero, ProjectileID.Bomb, 0, 0f, Main.myPlayer);
+                        if (p < 1000)
+                            Main.projectile[p].Kill();
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
         public override void OnHitPlayer(Projectile projectile, Player target, int damage, bool crit)
         {
             int d = Main.rand.Next(FargowiltasSouls.Fargowiltas.DebuffIDs.Count);
