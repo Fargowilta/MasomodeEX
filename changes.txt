@@ -1,6 +1,9 @@
 ﻿0.2.4:
 -medusa has stoned aura
 -all damage taken is increased by 50% now (previously only enemies did more on touch)
+-eternia crystal is capped at 100 life
+-ogres now have a reverse aura of oozed
+-dark mages now have a reverse aura of hexed
 
 0.2.3:
 -prime bomb, grenades, happy bombs destroy blocks

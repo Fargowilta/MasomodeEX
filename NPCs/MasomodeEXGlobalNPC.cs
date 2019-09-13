@@ -105,6 +105,26 @@ namespace MasomodeEX
 
             switch (npc.type)
             {
+                case NPCID.DD2EterniaCrystal:
+                    if (npc.lifeMax > 100)
+                        npc.lifeMax = 100;
+                    if (npc.life > npc.lifeMax)
+                        npc.life = npc.lifeMax;
+                    break;
+
+                case NPCID.DD2OgreT2:
+                case NPCID.DD2OgreT3:
+                    Aura(npc, 500, BuffID.OgreSpit, true, 188);
+                    break;
+
+                case NPCID.DD2DarkMageT1:
+                    Aura(npc, 900, MasomodeEX.Souls.BuffType("Hexed"), true, 254);
+                    break;
+
+                case NPCID.DD2DarkMageT3:
+                    Aura(npc, 600, MasomodeEX.Souls.BuffType("Hexed"), true, 254);
+                    break;
+
                 case NPCID.Medusa:
                     Aura(npc, 400, BuffID.Stoned, false, DustID.Stone);
                     break;
