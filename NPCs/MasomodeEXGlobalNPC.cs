@@ -50,7 +50,7 @@ namespace MasomodeEX
             if (!npc.friendly)
             {
                 npc.lifeMax = (int)(npc.lifeMax * 1.5);
-                npc.damage = (int)(npc.damage * 1.5);
+                //npc.damage = (int)(npc.damage * 1.5);
                 npc.defense = (int)(npc.defense * 1.5);
                 npc.knockBackResist *= 0.5f;
             }
@@ -105,6 +105,10 @@ namespace MasomodeEX
 
             switch (npc.type)
             {
+                case NPCID.Medusa:
+                    Aura(npc, 400, BuffID.Stoned, false, DustID.Stone);
+                    break;
+
                 case NPCID.Harpy:
                     npc.noTileCollide = true;
                     break;
