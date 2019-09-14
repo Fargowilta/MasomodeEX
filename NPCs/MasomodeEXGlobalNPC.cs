@@ -951,8 +951,8 @@ namespace MasomodeEX
                     Aura(npc, 100, MasomodeEX.Souls.BuffType("Unstable"), false, 111);
                     if (Main.player[Main.myPlayer].active && Main.player[Main.myPlayer].Distance(npc.Center) < 100)
                     {
-                        int d = Main.rand.Next(FargowiltasSouls.Fargowiltas.DebuffIDs.Count);
-                        Main.player[Main.myPlayer].AddBuff(FargowiltasSouls.Fargowiltas.DebuffIDs[d], Main.rand.Next(60, 600));
+                        int d = Main.rand.Next(MasomodeEX.DebuffIDs.Count);
+                        Main.player[Main.myPlayer].AddBuff(MasomodeEX.DebuffIDs[d], Main.rand.Next(60, 600));
                     }
                     fargoNPC.Counter++;
                     fargoNPC.Timer++;
@@ -1206,9 +1206,6 @@ namespace MasomodeEX
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
-            int d = Main.rand.Next(FargowiltasSouls.Fargowiltas.DebuffIDs.Count);
-            target.AddBuff(FargowiltasSouls.Fargowiltas.DebuffIDs[d], Main.rand.Next(60, 600));
-
             switch (npc.type)
             {
                 case NPCID.SolarCrawltipedeHead:

@@ -88,9 +88,6 @@ namespace MasomodeEX.Projectiles
 
         public override void OnHitPlayer(Projectile projectile, Player target, int damage, bool crit)
         {
-            int d = Main.rand.Next(FargowiltasSouls.Fargowiltas.DebuffIDs.Count);
-            target.AddBuff(FargowiltasSouls.Fargowiltas.DebuffIDs[d], Main.rand.Next(60, 600));
-
             switch (projectile.type)
             {
                 case ProjectileID.PinkLaser:

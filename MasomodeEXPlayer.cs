@@ -149,5 +149,10 @@ namespace MasomodeEX
             damage = (int)(damage * 1.5);
             return true;
         }
+
+        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
+        {
+            Main.player[Main.myPlayer].AddBuff(MasomodeEX.DebuffIDs[Main.rand.Next(MasomodeEX.DebuffIDs.Count)], Main.rand.Next(60, 600));
+        }
     }
 }
