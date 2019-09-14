@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -19,9 +20,19 @@ namespace MasomodeEX.Buffs
             switch (type)
             {
                 case BuffID.Rabies:
-                    player.AddBuff(MasomodeEX.Souls.BuffType("MutantNibble"), player.buffTime[buffIndex]);
-                    if (player.buffTime[buffIndex] > 2)
-                        player.buffTime[buffIndex] = 2;
+                    if (player.buffTime[buffIndex] > 1)
+                    {
+                        player.AddBuff(MasomodeEX.Souls.BuffType("MutantNibble"), player.buffTime[buffIndex]);
+                        player.buffTime[buffIndex] = 1;
+                    }
+                    break;
+
+                case BuffID.Frozen:
+                case BuffID.Stoned:
+                    if (player.buffTime[buffIndex] > 3600)
+                    {
+                        player.KillMe(PlayerDeathReason.ByCustomReason(player.name + " shattered."), 9999, 0);
+                    }
                     break;
 
                 default:

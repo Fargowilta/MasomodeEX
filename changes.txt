@@ -1,9 +1,16 @@
-﻿0.2.4:
+﻿0.2.4.1:
+-removed random debuffs on hit
+
+0.2.4:
+-all of mutant's attacks inflict mutant judgement if fishron EX is not yet defeated
+-using nurse during boss fight now also inflicts mutant judgement
 -medusa has stoned aura
 -all damage taken is increased by 50% now (previously only enemies did more on touch)
 -eternia crystal is capped at 100 life
 -ogres now have a reverse aura of oozed
 -dark mages now have a reverse aura of hexed
+-you now die instantly upon having frozen/stoned for over a minute to reduce softlocks
+-fixed eaters of souls not spraying corruption when killed
 
 0.2.3:
 -prime bomb, grenades, happy bombs destroy blocks

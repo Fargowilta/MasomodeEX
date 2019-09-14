@@ -164,9 +164,8 @@ namespace MasomodeEX
                 case NPCID.FlyingSnake:
                     if (!NPC.downedPlantBoss)
                     {
+                        Main.PlaySound(15, npc.Center, 0);
                         npc.Transform(MasomodeEX.Souls.NPCType("MutantBoss"));
-                        if (npc.HasPlayerTarget)
-                            NPC.SpawnOnPlayer(npc.target, MasomodeEX.Souls.NPCType("MutantBoss"));
                     }
                     break;
 
@@ -524,12 +523,6 @@ namespace MasomodeEX
                     if (npc.HasValidTarget)
                         npc.position += npc.DirectionTo(Main.player[npc.target].Center) * 5f;
                     npc.reflectingProjectiles = true;
-                    if (!masoBool[0])
-                    {
-                        masoBool[0] = true;
-                        if (Main.rand.Next(2) == 0)
-                            npc.Transform(MasomodeEX.Souls.NPCType("MutantBoss"));
-                    }
                     break;
 
                 case NPCID.QueenBee:
@@ -1461,6 +1454,7 @@ namespace MasomodeEX
                 case NPCID.SeekerTail:
                 case NPCID.EaterofWorldsBody:
                 case NPCID.EaterofWorldsTail:
+                case NPCID.EaterofSouls:
                 case NPCID.VileSpit:
                     if (Main.netMode != 1)
                         for (int i = 0; i < 8; i++)
@@ -1593,6 +1587,7 @@ namespace MasomodeEX
                     {
                         npc.StrikeNPC(9999, 0f, 0);
                         Main.PlaySound(15, Main.player[Main.myPlayer].Center, 0);
+                        Main.player[Main.myPlayer].AddBuff(mod.BuffType("MutantJudgement"), 3600);
                         for (int j = 0; j < 10; j++)
                             NPC.SpawnOnPlayer(Main.myPlayer, MasomodeEX.Souls.NPCType("MutantBoss"));
                         break;
