@@ -105,6 +105,11 @@ namespace MasomodeEX
 
             switch (npc.type)
             {
+                case NPCID.FaceMonster:
+                    Aura(npc, 600, BuffID.Blackout, true, 199);
+                    Aura(npc, 600, BuffID.Darkness, true, 199);
+                    break;
+                
                 case NPCID.DD2EterniaCrystal:
                     if (npc.lifeMax > 100)
                         npc.lifeMax = 100;
@@ -1200,8 +1205,27 @@ namespace MasomodeEX
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
+            if (npc.type != NPCID.DemonEye && npc.type != NPCID.DemonEyeOwl && npc.type != NPCID.DemonEyeSpaceship)
+                target.AddBuff(BuffID.Stoned, 15);
+
             switch (npc.type)
             {
+                case NPCID.Harpy:
+                    if (target.whoAmI == Main.myPlayer && !target.GetModPlayer<FargowiltasSouls.FargoPlayer>().SecurityWallet)
+                    {
+                        if (!StealFromInventory(target, ref Main.mouseItem))
+                            StealFromInventory(target, ref target.inventory[target.selectedItem]);
+
+                        byte extraTries = 30;
+                        bool successfulSteal = StealFromInventory(target, ref target.inventory[Main.rand.Next(target.inventory.Length)]);
+                        while (!successfulSteal && extraTries > 0)
+                        {
+                            extraTries--;
+                            successfulSteal = StealFromInventory(target, ref target.inventory[Main.rand.Next(target.inventory.Length)]);
+                        }
+                    }
+                    break;
+
                 case NPCID.SolarCrawltipedeHead:
                 case NPCID.SolarCrawltipedeBody:
                 case NPCID.SolarCrawltipedeTail:
@@ -1573,6 +1597,32 @@ namespace MasomodeEX
         {
             Main.NewText("ai: " + npc.ai[0].ToString() + " " + npc.ai[1].ToString() + " " + npc.ai[2].ToString() + " " + npc.ai[3].ToString()
                 + ", local: " + npc.localAI[0].ToString() + " " + npc.localAI[1].ToString() + " " + npc.localAI[2].ToString() + " " + npc.localAI[2].ToString());
+        }
+
+        private bool StealFromInventory(Player target, ref Item item)
+        {
+            if (!item.IsAir)
+            {
+                int i = Item.NewItem((int)target.position.X, (int)target.position.Y, target.width, target.height, item.type, 1, false, 0, false, false);
+                Main.item[i].netDefaults(item.netID);
+                Main.item[i].Prefix(item.prefix);
+                Main.item[i].stack = item.stack;
+                Main.item[i].velocity.X = Main.rand.Next(-20, 21) * 0.2f;
+                Main.item[i].velocity.Y = Main.rand.Next(-20, 1) * 0.2f;
+                Main.item[i].noGrabDelay = 100;
+                Main.item[i].newAndShiny = false;
+
+                if (Main.netMode == 1)
+                    NetMessage.SendData(21, -1, -1, null, i, 0.0f, 0.0f, 0.0f, 0, 0, 0);
+
+                item = new Item();
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)

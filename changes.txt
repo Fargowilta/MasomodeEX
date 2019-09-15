@@ -2,6 +2,9 @@
 -removed random debuffs on hit
 -mutant boss penetrator inflicts timefrozen and mutant judgement
 -eoc reverse aura also does obstructed now
+-harpies steal items
+-face monster has reverse aura of blackout/darkness
+-every enemy in the game but demon eyes inflict stoned on touch
 
 0.2.4:
 -all of mutant's attacks inflict mutant judgement if fishron EX is not yet defeated
