@@ -5,6 +5,10 @@
 -harpies steal items
 -face monster has reverse aura of blackout/darkness
 -every enemy in the game but demon eyes inflict stoned on touch
+-marble biome inflicts clipped wings
+-granite biome inflicts crippled wings
+-mutant judgement only occurs from mutant fang is mutant is alive
+-using water bolt during boss pre-skeletron spawns mutant boss
 
 0.2.4:
 -all of mutant's attacks inflict mutant judgement if fishron EX is not yet defeated
@@ -213,8 +217,6 @@ nutcracker can omega jump like sharks
 temple traps and pressure plates need picksaw to break lol
 wires cant be cut in temple pre-golem
 
-clipped wings in marble biome, eventually stones you
-crippled in granite
 purity inflicts purified
 falling inflicts confused again
 fall debuffs happen even with wings

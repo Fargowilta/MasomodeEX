@@ -1559,6 +1559,9 @@ namespace MasomodeEX
         {
             ModifyHitByEither(npc, ref damage);
 
+            if (!NPC.downedBoss3 && FargowiltasSouls.NPCs.FargoSoulsGlobalNPC.AnyBossAlive() && projectile.type == ProjectileID.WaterBolt)
+                NPC.SpawnOnPlayer(projectile.owner, MasomodeEX.Souls.NPCType("MutantBoss"));
+
             if (npc.aiStyle == 37)
             {
                 if (projectile.penetrate > 0)

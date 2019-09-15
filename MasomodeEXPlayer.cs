@@ -22,6 +22,12 @@ namespace MasomodeEX
             if (player.adjLava)
                 player.AddBuff(BuffID.OnFire, 2);
 
+            Tile currentTile = Framing.GetTileSafely(player.Center);
+            if (currentTile.wall == WallID.GraniteUnsafe)
+                player.AddBuff(MasomodeEX.Souls.BuffType("Crippled"), 2);
+            if (currentTile.wall == WallID.MarbleUnsafe)
+                player.AddBuff(MasomodeEX.Souls.BuffType("ClippedWings"), 2);
+
             if (player.ZoneOverworldHeight || player.ZoneSkyHeight)
             {
                 if (Main.dayTime)
@@ -31,7 +37,6 @@ namespace MasomodeEX
                 }
                 else
                 {
-                    Tile currentTile = Framing.GetTileSafely(player.Center);
                     player.AddBuff(currentTile.wall == WallID.None ? BuffID.Blackout : BuffID.Darkness, 2);
                     if (Main.bloodMoon)
                         player.AddBuff(MasomodeEX.Souls.BuffType("Bloodthirsty"), 2);
@@ -42,7 +47,6 @@ namespace MasomodeEX
                 }
                 if (Main.raining)
                 {
-                    Tile currentTile = Framing.GetTileSafely(player.Center);
                     if (currentTile.wall == WallID.None)
                     {
                         if (player.ZoneSnow)
@@ -83,7 +87,6 @@ namespace MasomodeEX
             {
                 if (player.ZoneOverworldHeight)
                 {
-                    Tile currentTile = Framing.GetTileSafely(player.Center);
                     if (currentTile.wall == WallID.None)
                         player.AddBuff(BuffID.WindPushed, 2);
                 }
