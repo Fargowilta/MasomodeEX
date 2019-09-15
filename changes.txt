@@ -1,5 +1,7 @@
 ﻿0.2.4.1:
 -removed random debuffs on hit
+-mutant boss penetrator inflicts timefrozen and mutant judgement
+-eoc reverse aura also does obstructed now
 
 0.2.4:
 -all of mutant's attacks inflict mutant judgement if fishron EX is not yet defeated

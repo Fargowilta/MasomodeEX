@@ -154,5 +154,17 @@ namespace MasomodeEX
         {
             //Main.player[Main.myPlayer].AddBuff(MasomodeEX.DebuffIDs[Main.rand.Next(MasomodeEX.DebuffIDs.Count)], Main.rand.Next(60, 600));
         }
+
+        public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+        {
+            if (proj.type == MasomodeEX.Souls.ProjectileType("MutantSpearAim")
+                || proj.type == MasomodeEX.Souls.ProjectileType("MutantSpearDash")
+                || proj.type == MasomodeEX.Souls.ProjectileType("MutantSpearSpin")
+                || proj.type == MasomodeEX.Souls.ProjectileType("MutantSpearThrown"))
+            {
+                player.AddBuff(MasomodeEX.Souls.BuffType("TimeFrozen"), 60);
+                player.AddBuff(mod.BuffType("MutantsJudgement"), 3600);
+            }
+        }
     }
 }

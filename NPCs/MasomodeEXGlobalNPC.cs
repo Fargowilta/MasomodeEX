@@ -230,6 +230,7 @@ namespace MasomodeEX
 
                 case NPCID.EyeofCthulhu:
                     Aura(npc, 600, MasomodeEX.Souls.BuffType("Berserked"), true);
+                    Aura(npc, 600, BuffID.Obstructed, true, DustID.ToxicBubble);
                     if (WorldGen.crimson)
                     {
                         if (++Counter[0] > 240)
