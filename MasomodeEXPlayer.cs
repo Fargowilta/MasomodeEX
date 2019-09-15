@@ -163,7 +163,7 @@ namespace MasomodeEX
                 || proj.type == MasomodeEX.Souls.ProjectileType("MutantSpearThrown"))
             {
                 player.AddBuff(MasomodeEX.Souls.BuffType("TimeFrozen"), 60);
-                player.AddBuff(mod.BuffType("MutantsJudgement"), 3600);
+                player.AddBuff(mod.BuffType("MutantJudgement"), 3600);
             }
         }
     }
