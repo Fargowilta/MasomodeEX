@@ -235,7 +235,8 @@ namespace MasomodeEX.Projectiles
 
                 case 7:
                     projectile.ai[1] = 0;
-                    EdgyBossText(npc, "Die, you rat!");
+                    if (npc.ai[2] == 0)
+                        EdgyBossText(npc, "Die, you rat!");
                     break;
 
                 case 9:
