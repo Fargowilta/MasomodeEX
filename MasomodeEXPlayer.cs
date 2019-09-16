@@ -28,6 +28,17 @@ namespace MasomodeEX
             if (currentTile.wall == WallID.MarbleUnsafe)
                 player.AddBuff(MasomodeEX.Souls.BuffType("ClippedWings"), 2);
 
+            if (currentTile.type == TileID.DemonAltar && player.hurtCooldowns[0] <= 0)
+            {
+                int def = player.statDefense;
+                float end = player.endurance;
+                player.statDefense = 0;
+                player.endurance = 0;
+                player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " was slain."), player.statLife / 2, 0, false, false, false, 0);
+                player.statDefense = def;
+                player.endurance = end;
+            }
+
             if (player.ZoneOverworldHeight || player.ZoneSkyHeight)
             {
                 if (Main.dayTime)
