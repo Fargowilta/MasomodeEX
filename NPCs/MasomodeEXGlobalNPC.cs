@@ -105,6 +105,64 @@ namespace MasomodeEX
 
             switch (npc.type)
             {
+                case NPCID.IceGolem:
+                    if (npc.HasPlayerTarget && npc.Distance(Main.player[npc.target].Center) > 1000 && npc.Distance(Main.player[npc.target].Center) < 3000)
+                    {
+                        Main.player[npc.target].position += npc.DirectionFrom(Main.player[npc.target].Center) * 20;
+                    }
+                    for (int i = 0; i < 20; i++)
+                    {
+                        const float distance = 1000;
+                        Vector2 offset = new Vector2();
+                        double angle = Main.rand.NextDouble() * 2d * Math.PI;
+                        offset.X += (float)(Math.Sin(angle) * distance);
+                        offset.Y += (float)(Math.Cos(angle) * distance);
+                        Dust dust = Main.dust[Dust.NewDust(
+                            npc.Center + offset - new Vector2(4, 4), 0, 0,
+                            DustID.Ice, 0, 0, 100, Color.White, 1f
+                            )];
+                        dust.velocity = npc.velocity;
+                        if (Main.rand.Next(3) == 0)
+                            dust.velocity += Vector2.Normalize(offset) * 5f;
+                        dust.noGravity = true;
+                    }
+                    if (npc.life > 0)
+                    {
+                        int cap = npc.lifeMax / npc.life;
+                        Counter[0] += Main.rand.Next(2 + cap) + 1;
+                        if (Counter[0] >= Main.rand.Next(1400, 26000))
+                        {
+                            Counter[0] = 0;
+                            if (Main.netMode != 1 && npc.HasPlayerTarget) //shoot a laser
+                            {
+                                double num2 = 15.0;
+                                Vector2 vector2 = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + 20f);
+                                vector2.X += (float)(10 * npc.direction);
+                                float num3 = Main.player[npc.target].position.X + (float)Main.player[npc.target].width * 0.5f - vector2.X;
+                                float num4 = Main.player[npc.target].position.Y + (float)Main.player[npc.target].height * 0.5f - vector2.Y;
+                                float num5 = num3 + (float)Main.rand.Next(-40, 41);
+                                float num6 = num4 + (float)Main.rand.Next(-40, 41);
+                                float num7 = (float)Math.Sqrt((double)num5 * (double)num5 + (double)num6 * (double)num6);
+                                double num8 = (double)num7;
+                                float num9 = (float)(num2 / num8);
+                                float SpeedX = num5 * num9;
+                                float SpeedY = num6 * num9;
+                                int Damage = 32;
+                                int Type = 257;
+                                vector2.X += SpeedX * 3f;
+                                vector2.Y += SpeedY * 3f;
+                                Projectile.NewProjectile(vector2.X, vector2.Y, SpeedX, SpeedY, Type, Damage, 0.0f, Main.myPlayer, 0.0f, 0.0f);
+                            }
+                        }
+                    }
+                    if (++Counter[1] > 240)
+                    {
+                        Counter[1] = 0;
+                        if (Main.netMode != 1)
+                            Projectile.NewProjectile(npc.Center, Vector2.UnitY, mod.ProjectileType("PhantasmalDeathrayIce"), npc.damage / 4, 0f, Main.myPlayer, 2f * (float)Math.PI * 1f / 4f / 60f, npc.whoAmI);
+                    }
+                    break;
+
                 case NPCID.FaceMonster:
                     Aura(npc, 600, BuffID.Blackout, true, 199);
                     Aura(npc, 600, BuffID.Darkness, true, 199);
