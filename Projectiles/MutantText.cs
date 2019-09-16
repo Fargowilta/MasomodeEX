@@ -9,7 +9,7 @@ namespace MasomodeEX.Projectiles
     public class MutantText : ModProjectile
     {
         public bool[] p1 = new bool[8];
-        public bool[] p2 = new bool[15];
+        public bool[] p2 = new bool[16];
 
         public string[] spam = {
             "THE ABYSS CONSUMES ALL!",
@@ -100,40 +100,41 @@ namespace MasomodeEX.Projectiles
             }
             NPC npc = Main.npc[ai0];
             projectile.Center = npc.Center;
-            if (npc.localAI[3] == 0 && projectile.localAI[0] == 0)
+            projectile.timeLeft = 2;
+            if (projectile.localAI[0] == 0)
             {
+                projectile.localAI[0] = 1;
                 npc.lifeMax *= 2;
                 npc.life = npc.lifeMax;
 
-                projectile.localAI[0] = 1;
                 if (MasomodeEXWorld.MutantSummons < 1)
-                    EdgyBossText("Big mistake, kid. You'll pay for that.");
+                    EdgyBossText(npc, "Big mistake, kid. You'll pay for that.");
                 else if (MasomodeEXWorld.MutantSummons < 3)
-                    EdgyBossText("Back for more? Really now.");
+                    EdgyBossText(npc, "Back for more? Really now.");
                 else if (MasomodeEXWorld.MutantSummons < 5)
-                    EdgyBossText("You really like going through hell don't you? Have it your way.");
+                    EdgyBossText(npc, "You really like going through hell don't you? Have it your way.");
                 else if (MasomodeEXWorld.MutantSummons < 7)
-                    EdgyBossText("You brought this upon yourself. I'll just have to keep ripping you to bloody pieces.");
+                    EdgyBossText(npc, "You brought this upon yourself. I'll just have to keep ripping you to bloody pieces.");
                 else if (MasomodeEXWorld.MutantSummons < 10)
-                    EdgyBossText("Luck won't help you here. I'm barely responsive to prayers.");
+                    EdgyBossText(npc, "Luck won't help you here. I'm barely responsive to prayers.");
                 else if (MasomodeEXWorld.MutantSummons < 15)
-                    EdgyBossText("You have some real commitment... to being a wretched fool, that is.");
+                    EdgyBossText(npc, "You have some real commitment... to being a wretched fool, that is.");
                 else if (MasomodeEXWorld.MutantSummons < 20)
-                    EdgyBossText("Nothing's sticking. It's no use, TAKE THIS!");
+                    EdgyBossText(npc, "Nothing's sticking. It's no use, TAKE THIS!");
                 else if (MasomodeEXWorld.MutantSummons < 50)
-                    EdgyBossText("I bore of dealing with you. Focus, slow down.");
+                    EdgyBossText(npc, "I bore of dealing with you. Focus, slow down.");
                 else if (MasomodeEXWorld.MutantSummons < 75)
-                    EdgyBossText("Give my brother a break, damn it.");
+                    EdgyBossText(npc, "Give my brother a break, damn it.");
                 else if (MasomodeEXWorld.MutantSummons < 100)
-                    EdgyBossText("Honestly, the guide deserved this, but not us.");
+                    EdgyBossText(npc, "Honestly, the guide deserved this, but not us.");
                 else if (MasomodeEXWorld.MutantSummons < 250)
-                    EdgyBossText("...");
+                    EdgyBossText(npc, "...");
                 else if (MasomodeEXWorld.MutantSummons < 500)
-                    EdgyBossText("This is just getting ridiculous...");
+                    EdgyBossText(npc, "This is just getting ridiculous...");
                 else if (MasomodeEXWorld.MutantSummons < 1000)
-                    EdgyBossText("I’ll make you suffer for an eternity. You deserve as much. Die over and over again until you break in rage and insanity.");
+                    EdgyBossText(npc, "I’ll make you suffer for an eternity. You deserve as much. Die over and over again until you break in rage and insanity.");
                 else
-                    EdgyBossText("Ech.");
+                    EdgyBossText(npc, "Ech.");
                 
                 MasomodeEXWorld.MutantSummons++;
                 if (Main.netMode == 2)
@@ -144,7 +145,7 @@ namespace MasomodeEX.Projectiles
             EdgyBossText(npc, ref p1[2], 0.7, "The eroded spirits have failed... Yet, you will still fail against me.");
             EdgyBossText(npc, ref p1[3], 0.65, "This is just the beginning of true hell.");
             EdgyBossText(npc, ref p1[4], 0.6, "No matter how well you use your weapons, the result, still, will not be in your favor.");
-            EdgyBossText(npc, ref p1[5], 0.55, "This fight is already impossible... you really think it will be over that easily?");
+            EdgyBossText(npc, ref p1[5], 0.55, "This fight is already impossible... you think it'll be over that easily?");
             EdgyBossText(npc, ref p1[6], 0.5, "So this is the rampage that killed the Moon Lord...");
             if (p1[7])
             {
@@ -152,17 +153,27 @@ namespace MasomodeEX.Projectiles
                 EdgyBossText(npc, ref p2[1], 0.8, "Power is in the eye of the beholder. Absolute power is a fact.");
                 EdgyBossText(npc, ref p2[2], 0.7, "Never has else anyone advanced as much as you... there can only be one.");
                 EdgyBossText(npc, ref p2[3], 0.6, "This has dragged on too long... prepare for my unbound power.");
-                EdgyBossText(npc, ref p2[4], 0.5, "The tyrant and the calamitous mage failed to stop you. No matter, you'll end here");
+                EdgyBossText(npc, ref p2[4], 0.5, "The tyrant and the witch failed to stop you. No matter, you'll end here.");
                 EdgyBossText(npc, ref p2[5], 0.4, "Fall beneath the emissary of justice, kid.");
                 EdgyBossText(npc, ref p2[6], 0.3, "There’s so much blood on your hands...");
                 EdgyBossText(npc, ref p2[7], 0.25, "I may be a mutant, but thank Terry I’m no pushover.");
                 EdgyBossText(npc, ref p2[8], 0.2, "Still not worthy, but these are tough times... no longer on your side.");
-                EdgyBossText(npc, ref p2[9], 0.15, "Savergery, barbarism, bloodthirst... you have too much.");
+                EdgyBossText(npc, ref p2[9], 0.15, "Savagery, barbarism, bloodthirst... you have too much.");
                 EdgyBossText(npc, ref p2[10], 0.1, "Don’t tell me I’m not creative, the other guy's purple!");
                 EdgyBossText(npc, ref p2[11], 0.05, "I shouldn’t have let you buy in bulk.");
                 EdgyBossText(npc, ref p2[12], 0.04, "WHY AREN’T YOU DEAD?! FACE TRUE HELL!!!");
-                EdgyBossText(npc, ref p2[13], 0.03, "YOU ARE POWERLESS, HERO. ALL YOU FOUGHT FOR WILL BE LOST IN THE INFINITE ABYSS!!!!");
-                EdgyBossText(npc, ref p2[14], 0.02, "FALL BENEATH MY FIERY WRATH, FOOLISH HERO! THE ABYSS CONSUMES ALL!");
+                EdgyBossText(npc, ref p2[13], 0.03, "YOU ARE POWERLESS, HERO.");
+                EdgyBossText(npc, ref p2[14], 0.02, "ALL YOU FOUGHT FOR WILL BE LOST IN THE INFINITE ABYSS!!!!");
+                EdgyBossText(npc, ref p2[15], 0.01, "FALL BENEATH MY FIERY WRATH, FOOLISH HERO! THE ABYSS CONSUMES ALL!");
+            }
+            if (npc.ai[0] < -1)
+            {
+                if (++projectile.localAI[1] > 20)
+                {
+                    projectile.localAI[1] = 0;
+                    if (projectile.ai[1] < spam.Length)
+                        EdgyBossText(npc, spam[(int)projectile.ai[1]++]);
+                }
             }
             switch ((int)npc.ai[0])
             {
@@ -170,19 +181,19 @@ namespace MasomodeEX.Projectiles
                     if (npc.alpha == 0)
                     {
                         if (MasomodeEXWorld.MutantDefeats < 3)
-                            EdgyBossText("At least I'll get to see my brother again...");
+                            EdgyBossText(npc, "At least I'll get to see my brother again...");
                         else if (MasomodeEXWorld.MutantDefeats < 5)
-                            EdgyBossText("With some luck, maybe my brother can catch a break...");
+                            EdgyBossText(npc, "With some luck, maybe my brother can catch a break...");
                         else if (MasomodeEXWorld.MutantDefeats < 10)
-                            EdgyBossText("Cut me some slack...");
+                            EdgyBossText(npc, "Cut me some slack...");
                         else if (MasomodeEXWorld.MutantDefeats < 15)
-                            EdgyBossText("Now do it without getting hit.");
+                            EdgyBossText(npc, "Now do it without getting hit.");
                         else if (MasomodeEXWorld.MutantDefeats < 50)
-                            EdgyBossText("Showoff... now do it with a copper shortsword.");
+                            EdgyBossText(npc, "Showoff... now do it with a copper shortsword.");
                         else if (MasomodeEXWorld.MutantDefeats < 100)
-                            EdgyBossText("How annoying.");
+                            EdgyBossText(npc, "How annoying.");
                         else
-                            EdgyBossText("By the way, I'm out of death text now.");
+                            EdgyBossText(npc, "By the way, I'm out of death text now.");
 
                         MasomodeEXWorld.MutantDefeats++;
                         if (Main.netMode == 2)
@@ -190,162 +201,176 @@ namespace MasomodeEX.Projectiles
                     }
                     break;
 
-                case -2:
-                    if (npc.ai[1] == 0 && npc.localAI[0] < spam.Length)
-                        EdgyBossText(spam[(int)npc.localAI[0]]);
-                    break;
-
                 case 0:
-                    if (npc.ai[1] == 61)
-                        EdgyBossText("Now. Prepare to wish death as to your escape in suffering.");
+                    if (npc.ai[1] == 1)
+                        EdgyBossText(npc, "Now. Prepare to wish death as to your escape in suffering.");
                     break;
 
                 case 1:
-                    if (npc.ai[1] == 0)
-                        EdgyBossText("Just try to harm me. Your pathetic peashooters have proven nothing!");
+                    if (projectile.ai[1] == 0)
+                    {
+                        projectile.ai[1] = 1;
+                        EdgyBossText(npc, "Just try to harm me. Your pathetic peashooters have proven nothing!");
+                    }
                     break;
 
                 case 2:
+                    projectile.ai[1] = 0;
                     if (npc.ai[1] == 1)
-                        EdgyBossText("I've watched your journey...");
+                        EdgyBossText(npc, "I've watched your journey...");
                     break;
 
                 case 4:
                     if (npc.ai[3] == 0)
-                        EdgyBossText("I've seen you fail.");
+                        EdgyBossText(npc, "I've seen you fail.");
                     break;
 
                 case 6:
-                    if (npc.ai[1] == 0)
-                        EdgyBossText("Eviscerate under my hands!");
+                    if (npc.ai[1] == 0 && projectile.ai[1] == 0)
+                    {
+                        projectile.ai[1] = 1;
+                        EdgyBossText(npc, "Eviscerate under my hands!");
+                    }
                     break;
 
                 case 7:
-                    if (npc.ai[2] == 1)
-                        EdgyBossText("Die, you rat!");
+                    projectile.ai[1] = 0;
+                    EdgyBossText(npc, "Die, you rat!");
                     break;
 
                 case 9:
-                    if (npc.ai[3] == 1)
-                        EdgyBossText("How long can you survive?");
+                    if (npc.ai[3] == 0)
+                        EdgyBossText(npc, "How long can you survive?");
                     break;
 
                 case 10:
                     if (npc.ai[1] == 1)
-                        EdgyBossText("No... it can't... be... How could I fall... to a mere human...");
+                        EdgyBossText(npc, "No... it can't... be... How could I fall... to a mere human...");
                     if (npc.ai[1] == 120)
                     {
-                        EdgyBossText("Foolish Terrarian. Your powers aren't even 28.5714 percent as strong as mine. Witness a true cataclysm.");
-                        EdgyBossText("THIS ISN'T EVEN MY FINAL FORM!");
+                        EdgyBossText(npc, "Foolish Terrarian. Your powers aren't even 28.5714 percent as strong as mine. Witness a true cataclysm.");
+                        EdgyBossText(npc, "THIS ISN'T EVEN MY FINAL FORM!");
                     }
                     break;
 
                 case 11:
                     p1[7] = true;
                     if (npc.ai[2] == 1)
-                        EdgyBossText("Still think this move is that bad?");
+                        EdgyBossText(npc, "Still think this move is that bad?");
                     break;
 
                 case 13:
                     if (npc.ai[3] == 0)
-                        EdgyBossText("Fall beneath true power!");
+                        EdgyBossText(npc, "Fall beneath true power!");
                     break;
 
                 case 15:
-                    if (npc.ai[1] == 0)
-                        EdgyBossText("Don't even try to dodge!");
+                    if (npc.ai[1] == 0 && projectile.ai[1] == 0)
+                    {
+                        projectile.ai[1] = 1;
+                        EdgyBossText(npc, "Don't even try to dodge!");
+                    }
                     break;
 
                 case 16:
+                    projectile.ai[1] = 0;
                     if (npc.ai[2] == 1)
-                        EdgyBossText("He who watches only gains suffering.");
+                        EdgyBossText(npc, "He who watches only gains suffering.");
                     break;
 
                 case 18:
-                    EdgyBossText("Thought you had a hard enough time dodging one?");
+                    EdgyBossText(npc, "Thought you had a hard enough time dodging one?");
                     break;
 
                 case 19:
                     if (npc.ai[1] == 240)
-                        EdgyBossText("Such a beautiful day outside, isn't it?");
+                        EdgyBossText(npc, "Such a beautiful day outside, isn't it?");
                     break;
 
                 case 20:
                     if (npc.ai[1] == 0 && npc.ai[2] == 1)
-                        EdgyBossText("You know, I was that \"evil presence\" watching...");
+                        EdgyBossText(npc, "You know, I was that \"evil presence\" watching...");
                     break;
 
                 case 21:
                     if (npc.ai[3] == 0)
-                        EdgyBossText("Fall beneath true power!");
+                        EdgyBossText(npc, "Fall beneath true power!");
                     break;
 
                 case 23:
-                    if (npc.ai[1] == 0)
-                        EdgyBossText("Don't even try to dodge!");
+                    if (npc.ai[1] == 0 && projectile.ai[1] == 0)
+                    {
+                        projectile.ai[1] = 1;
+                        EdgyBossText(npc, "Don't even try to dodge!");
+                    }
                     break;
 
                 case 24:
-                    if (npc.ai[1] == 60)
-                        EdgyBossText("Worm bosses... worm everywhere.");
+                    projectile.ai[1] = 0;
+                    if (npc.ai[1] == 1)
+                        EdgyBossText(npc, "Worm bosses... worm everywhere.");
                     break;
 
                 case 25:
-                    if (npc.ai[1] == 60)
-                        EdgyBossText("Exterminating the weak is a hobby of mine.");
+                    if (npc.ai[1] == 1 && projectile.ai[1] == 0)
+                    {
+                        projectile.ai[1] = 1;
+                        EdgyBossText(npc, "Exterminating the weak is a hobby of mine.");
+                    }
                     break;
 
                 case 26:
+                    projectile.ai[1] = 0;
                     if (npc.ai[1] == 120)
-                        EdgyBossText("I hope you like deathrays!");
+                        EdgyBossText(npc, "Time to light it up!");
                     break;
 
                 case 28:
                     if (npc.ai[3] == 30)
-                        EdgyBossText("Now this is how we use our HEADS. Is this a bad enough time for you!?");
+                        EdgyBossText(npc, "Now this is how we use our HEADS. Is this a bad enough time for you!?");
                     break;
 
                 case 29:
-                    EdgyBossText("ASSIST ME, FELLOW MUTANTS!");
+                    EdgyBossText(npc, "ASSIST ME, FELLOW MUTANTS!");
                     break;
 
                 case 31:
-                    if (npc.ai[1] == 0)
-                        EdgyBossText("I've watched your journey...");
+                    if (npc.ai[1] == 1)
+                        EdgyBossText(npc, "I've watched your journey...");
                     break;
 
                 case 33:
                     if (npc.ai[1] == 180)
-                        EdgyBossText("nuke text");
+                        EdgyBossText(npc, "And now it's time to light you up!");
                     break;
 
                 case 35:
                     if (npc.ai[3] == 0)
-                        EdgyBossText("slime rain text");
+                        EdgyBossText(npc, "Lovely weather, isn't it?");
                     break;
 
                 case 36:
                     if (npc.ai[1] == 60)
-                        EdgyBossText("ASSIST ME, FELLOW MUTANTS!");
+                        EdgyBossText(npc, "ASSIST ME, FELLOW MUTANTS!");
                     break;
 
                 case 38:
                     if (npc.ai[3] == 0)
-                        EdgyBossText("slime rain text");
+                        EdgyBossText(npc, "Lovely weather, isn't it?");
                     break;
 
                 case 39:
                     if (npc.ai[3] == 0)
-                        EdgyBossText("Burn in hell!");
+                        EdgyBossText(npc, "Burn in hell!");
                     break;
 
                 case 40:
-                    if (npc.ai[1] == 181)
-                        EdgyBossText("Exterminating the weak is a hobby of mine.");
+                    if (npc.ai[1] == 179)
+                        EdgyBossText(npc, "Exterminating the weak is a hobby of mine.");
                     break;
 
                 case 41:
-                    EdgyBossText("This'll leave a few Marx.");
+                    EdgyBossText(npc, "This'll leave a few Marx.");
                     break;
 
                 default:
@@ -358,12 +383,15 @@ namespace MasomodeEX.Projectiles
             if (!check && npc.life < npc.lifeMax * threshold)
             {
                 check = true;
-                EdgyBossText(text);
+                EdgyBossText(npc, text);
             }
         }
 
-        private void EdgyBossText(string text)
+        private void EdgyBossText(NPC npc, string text)
         {
+            if (!(npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 5000))
+                return;
+
             if (Main.netMode == 0)
                 Main.NewText(text, Color.LimeGreen);
             else if (Main.netMode == 2)
