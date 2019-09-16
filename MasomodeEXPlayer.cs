@@ -158,6 +158,12 @@ namespace MasomodeEX
             //Main.player[Main.myPlayer].AddBuff(MasomodeEX.DebuffIDs[Main.rand.Next(MasomodeEX.DebuffIDs.Count)], Main.rand.Next(60, 600));
         }
 
+        public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
+        {
+            if (NPC.AnyNPCs(MasomodeEX.Souls.NPCType("MutantBoss")))
+                MasomodeEXWorld.MutantPlayerKills++;
+        }
+
         public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
         {
             if (proj.type == MasomodeEX.Souls.ProjectileType("MutantSpearAim")

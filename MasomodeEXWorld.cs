@@ -1,11 +1,65 @@
-﻿using Terraria;
+﻿using System.Collections.Generic;
+using System.IO;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace MasomodeEX
 {
     internal partial class MasomodeEXWorld : ModWorld
     {
+        public static int MutantSummons;
+        public static int MutantDefeats;
+        public static int MutantPlayerKills;
+
+        public override void Initialize()
+        {
+            MutantSummons = 0;
+            MutantDefeats = 0;
+            MutantPlayerKills = 0;
+        }
+
+        public override TagCompound Save()
+        {
+            List<int> mutant = new List<int>
+            {
+                MutantSummons,
+                MutantDefeats,
+                MutantPlayerKills
+            };
+
+            return new TagCompound
+            {
+                {"mutant", mutant}
+            };
+        }
+
+        public override void Load(TagCompound tag)
+        {
+            if (tag.ContainsKey("mutant"))
+            {
+                IList<int> count = tag.GetList<int>("mutant");
+                MutantSummons = count[0];
+                MutantDefeats = count[1];
+                MutantPlayerKills = count[2];
+            }
+        }
+
+        public override void NetReceive(BinaryReader reader)
+        {
+            MutantSummons = reader.ReadInt32();
+            MutantDefeats = reader.ReadInt32();
+            MutantPlayerKills = reader.ReadInt32();
+        }
+
+        public override void NetSend(BinaryWriter writer)
+        {
+            writer.Write(MutantSummons);
+            writer.Write(MutantDefeats);
+            writer.Write(MutantPlayerKills);
+        }
+
         public override void PreUpdate()
         {
             Main.expertMode = true;

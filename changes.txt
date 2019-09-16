@@ -13,6 +13,7 @@
 	death ray beam that goes 360*
 	spams lasers as fast as destroyer but random aim
 	has an aura that wont let you escape
+-mutant SPAM
 
 0.2.4:
 -all of mutant's attacks inflict mutant judgement if fishron EX is not yet defeated

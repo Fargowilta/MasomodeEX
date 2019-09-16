@@ -7,7 +7,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Enums;
 
-namespace MasomodeEX
+namespace MasomodeEX.Projectiles
 {
     public class PhantasmalDeathrayIce : ModProjectile
     {
