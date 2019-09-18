@@ -117,6 +117,8 @@ namespace MasomodeEX.Projectiles
                 npc.lifeMax *= 2;
                 npc.life = npc.lifeMax;
 
+                SpawnAllBosses(npc);
+
                 if (MasomodeEXWorld.MutantSummons < 1)
                     EdgyBossText(npc, "Big mistake, kid. You'll pay for that.");
                 else if (MasomodeEXWorld.MutantSummons < 3)
@@ -145,10 +147,8 @@ namespace MasomodeEX.Projectiles
                     EdgyBossText(npc, "I’ll make you suffer for an eternity. You deserve as much. Die over and over again until you break in rage and insanity.");
                 else
                     EdgyBossText(npc, "Ech.");
-                
+
                 MasomodeEXWorld.MutantSummons++;
-                if (Main.netMode == 2)
-                    NetMessage.SendData(7); //sync world
             }
             EdgyBossText(npc, ref p1[0], 0.9, "I could recite all the digits of Pi before you beat me.");
             EdgyBossText(npc, ref p1[1], 0.8, "Not even the Great Tyrant is a worthy opponent.");
@@ -259,8 +259,8 @@ namespace MasomodeEX.Projectiles
                         EdgyBossText(npc, "No... it can't... be... How could I fall... to a mere human...");
                     if (npc.ai[1] == 120)
                     {
-                        EdgyBossText(npc, "Foolish Terrarian. Your powers aren't even 28.5714 percent as strong as mine. Witness a true cataclysm.");
-                        EdgyBossText(npc, "THIS ISN'T EVEN MY FINAL FORM!");
+                        SpawnAllBosses(npc);
+                        EdgyBossText(npc, "Foolish Terrarian. Your powers aren't even 28.5714 percent as strong as mine. Witness a true cataclysm. THIS ISN'T EVEN MY FINAL FORM!");
                     }
                     break;
 
@@ -407,6 +407,49 @@ namespace MasomodeEX.Projectiles
                 Main.NewText(text, Color.LimeGreen);
             else if (Main.netMode == 2)
                 NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(text), Color.LimeGreen);
+        }
+
+        private void SpawnAllBosses(NPC npc)
+        {
+            FargowiltasSouls.FargoSoulsWorld.SlimeCount = FargowiltasSouls.FargoSoulsWorld.MaxCountPreHM;
+            FargowiltasSouls.FargoSoulsWorld.EyeCount = FargowiltasSouls.FargoSoulsWorld.MaxCountPreHM;
+            FargowiltasSouls.FargoSoulsWorld.EaterCount = FargowiltasSouls.FargoSoulsWorld.MaxCountPreHM;
+            FargowiltasSouls.FargoSoulsWorld.BrainCount = FargowiltasSouls.FargoSoulsWorld.MaxCountPreHM;
+            FargowiltasSouls.FargoSoulsWorld.BeeCount = FargowiltasSouls.FargoSoulsWorld.MaxCountPreHM;
+            FargowiltasSouls.FargoSoulsWorld.SkeletronCount = FargowiltasSouls.FargoSoulsWorld.MaxCountPreHM;
+            FargowiltasSouls.FargoSoulsWorld.WallCount = FargowiltasSouls.FargoSoulsWorld.MaxCountPreHM;
+            FargowiltasSouls.FargoSoulsWorld.TwinsCount = FargowiltasSouls.FargoSoulsWorld.MaxCountHM;
+            FargowiltasSouls.FargoSoulsWorld.DestroyerCount = FargowiltasSouls.FargoSoulsWorld.MaxCountHM;
+            FargowiltasSouls.FargoSoulsWorld.PrimeCount = FargowiltasSouls.FargoSoulsWorld.MaxCountHM;
+            FargowiltasSouls.FargoSoulsWorld.PlanteraCount = FargowiltasSouls.FargoSoulsWorld.MaxCountHM;
+            FargowiltasSouls.FargoSoulsWorld.GolemCount = FargowiltasSouls.FargoSoulsWorld.MaxCountHM;
+            FargowiltasSouls.FargoSoulsWorld.FishronCount = FargowiltasSouls.FargoSoulsWorld.MaxCountHM;
+            FargowiltasSouls.FargoSoulsWorld.CultistCount = FargowiltasSouls.FargoSoulsWorld.MaxCountHM;
+            FargowiltasSouls.FargoSoulsWorld.MoonlordCount = FargowiltasSouls.FargoSoulsWorld.MaxCountHM;
+
+            NPC.SpawnOnPlayer(npc.target, NPCID.KingSlime);
+            NPC.SpawnOnPlayer(npc.target, NPCID.EyeofCthulhu);
+            NPC.SpawnOnPlayer(npc.target, NPCID.EaterofWorldsHead);
+            NPC.SpawnOnPlayer(npc.target, NPCID.BrainofCthulhu);
+            NPC.SpawnOnPlayer(npc.target, NPCID.QueenBee);
+            NPC.SpawnOnPlayer(npc.target, NPCID.SkeletronHead);
+            NPC.SpawnOnPlayer(npc.target, NPCID.Retinazer);
+            NPC.SpawnOnPlayer(npc.target, NPCID.Spazmatism);
+            NPC.SpawnOnPlayer(npc.target, NPCID.SkeletronPrime);
+            NPC.SpawnOnPlayer(npc.target, NPCID.Golem);
+            NPC.SpawnOnPlayer(npc.target, NPCID.Plantera);
+            NPC.SpawnOnPlayer(npc.target, NPCID.DukeFishron);
+            NPC.SpawnOnPlayer(npc.target, NPCID.CultistBoss);
+            NPC.SpawnOnPlayer(npc.target, NPCID.MoonLordCore);
+            NPC.SpawnOnPlayer(npc.target, NPCID.TheDestroyer);
+
+            if (Main.dayTime)
+            {
+                Main.dayTime = false;
+                Main.time = 0;
+            }
+            if (Main.netMode == 2)
+                NetMessage.SendData(7); //sync world
         }
     }
 }
