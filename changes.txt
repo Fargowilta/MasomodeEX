@@ -1,4 +1,4 @@
-﻿0.2.4.1:
+﻿0.3:
 -removed random debuffs on hit
 -mutant boss penetrator inflicts timefrozen and mutant judgement
 -eoc reverse aura also does obstructed now
