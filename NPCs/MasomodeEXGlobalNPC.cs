@@ -1440,7 +1440,6 @@ namespace MasomodeEX
                 case NPCID.BrainofCthulhu:
                 case NPCID.BloodCrawler:
                 case NPCID.BloodCrawlerWall:
-                case NPCID.Crimera:
                 case NPCID.Crimslime:
                 case NPCID.CrimsonAxe:
                 case NPCID.CrimsonBunny:
@@ -1457,6 +1456,13 @@ namespace MasomodeEX
                     target.AddBuff(BuffID.Ichor, Main.rand.Next(60, 600));
                     target.AddBuff(BuffID.Bleeding, Main.rand.Next(7200));
                     target.AddBuff(MasomodeEX.Souls.BuffType("Bloodthirsty"), Main.rand.Next(300));
+                    break;
+
+                case NPCID.Crimera:
+                    target.AddBuff(BuffID.Ichor, Main.rand.Next(60, 600));
+                    target.AddBuff(BuffID.Bleeding, Main.rand.Next(7200));
+                    target.AddBuff(MasomodeEX.Souls.BuffType("Bloodthirsty"), Main.rand.Next(300));
+                    npc.Transform(NPCID.IchorSticker);
                     break;
 
                 default:
