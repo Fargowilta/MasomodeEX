@@ -107,8 +107,8 @@ namespace MasomodeEX
             if (!FirstTick)
             {
                 FirstTick = true;
-                if (npc.boss && Main.netMode != 1)
-                    Projectile.NewProjectile(npc.Center, Vector2.Zero, mod.ProjectileType("Arena"), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI);
+                if ((npc.boss || npc.type == NPCID.EaterofWorldsHead) && Main.netMode != 1)
+                    Projectile.NewProjectile(npc.Center, Vector2.Zero, mod.ProjectileType("Arena"), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
             }
 
             switch (npc.type)

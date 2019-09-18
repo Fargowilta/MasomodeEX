@@ -14,7 +14,7 @@ namespace MasomodeEX.Projectiles
 
         private const float PI = (float)Math.PI;
         private const float rotationPerTick = PI / 140f;
-        private const float threshold = 1000f;
+        private const float threshold = 1200f;
 
         public override void SetStaticDefaults()
         {
@@ -34,14 +34,14 @@ namespace MasomodeEX.Projectiles
         public override void AI()
         {
             int ai1 = (int)projectile.ai[1];
-            if (projectile.ai[1] >= 0f && projectile.ai[1] < 200f && Main.npc[ai1].active && Main.npc[ai1].boss)
+            if (projectile.ai[1] >= 0f && projectile.ai[1] < 200f && Main.npc[ai1].active && (Main.npc[ai1].boss || Main.npc[ai1].type == NPCID.EaterofWorldsHead))
             {
                 projectile.alpha -= 2;
                 if (projectile.alpha < 0)
                     projectile.alpha = 0;
 
-                projectile.velocity = Main.npc[ai1].Center - projectile.Center;
-                projectile.velocity /= 60f;
+                projectile.velocity = Vector2.Zero;
+                projectile.Center = Main.npc[ai1].Center;
 
                 Player player = Main.player[Main.myPlayer];
                 if (player.active && !player.dead)
@@ -94,10 +94,10 @@ namespace MasomodeEX.Projectiles
 
             projectile.timeLeft = 2;
             projectile.scale = (1f - projectile.alpha / 255f) * 2f;
-            projectile.ai[0] -= rotationPerTick;
-            if (projectile.ai[0] < -PI)
+            projectile.ai[0] += rotationPerTick;
+            if (projectile.ai[0] > PI)
             {
-                projectile.ai[0] += 2f * PI;
+                projectile.ai[0] -= 2f * PI;
                 projectile.netUpdate = true;
             }
 
@@ -135,7 +135,7 @@ namespace MasomodeEX.Projectiles
                 {
                     Color color27 = color26;
                     color27 *= (float)(max - i) / max;
-                    Vector2 value4 = projectile.Center + drawOffset.RotatedBy(rotationPerTick * i);
+                    Vector2 value4 = projectile.Center + drawOffset.RotatedBy(rotationPerTick * -i);
                     float num165 = projectile.rotation;
                     Main.spriteBatch.Draw(texture2D13, value4 - Main.screenPosition + new Vector2(0, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, projectile.scale, SpriteEffects.None, 0f);
                 }

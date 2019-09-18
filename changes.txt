@@ -18,6 +18,7 @@
 -mutant spawns all bosses
 -crimera promotes to ichor sticker
 -EVERY BOSS HAS A MUTANT ARENA
+-fixed eow not DG'ing at daybreak
 
 0.2.4:
 -all of mutant's attacks inflict mutant judgement if fishron EX is not yet defeated

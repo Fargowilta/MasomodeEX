@@ -69,7 +69,7 @@ namespace MasomodeEX
             {
                 if (Main.dayTime) //all bosses become DG at daybreak
                     for (int i = 0; i < Main.maxNPCs; i++)
-                        if (Main.npc[i].active && Main.npc[i].boss)
+                        if (Main.npc[i].active && (Main.npc[i].boss || Main.npc[i].type == NPCID.EaterofWorldsHead))
                             Main.npc[i].Transform(NPCID.DungeonGuardian);
 
                 if (Main.rand.Next(4) == 0) //bloodmoon, eclipse
