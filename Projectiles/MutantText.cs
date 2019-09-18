@@ -213,6 +213,14 @@ namespace MasomodeEX.Projectiles
                     }
                     break;
 
+                case -1:
+                    if (npc.ai[1] == 120)
+                    {
+                        if (Main.netMode != 1)
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, mod.ProjectileType("BossRush"), 0, 0f, Main.myPlayer, npc.whoAmI);
+                    }
+                    break;
+
                 case 0:
                     if (npc.ai[1] == 1)
                         EdgyBossText(npc, "Now. Prepare to wish death as to your escape in suffering.");
@@ -261,7 +269,7 @@ namespace MasomodeEX.Projectiles
                         EdgyBossText(npc, "No... it can't... be... How could I fall... to a mere human...");
                     if (npc.ai[1] == 120)
                     {
-                        SpawnAllBosses(npc);
+                        Projectile.NewProjectile(npc.Center, Vector2.Zero, mod.ProjectileType("BossRush"), 0, 0f, Main.myPlayer, npc.whoAmI);
                         EdgyBossText(npc, "Foolish Terrarian. Your powers aren't even 28.5714 percent as strong as mine. Witness a true cataclysm. THIS ISN'T EVEN MY FINAL FORM!");
                     }
                     break;
@@ -411,7 +419,7 @@ namespace MasomodeEX.Projectiles
                 NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(text), Color.LimeGreen);
         }
 
-        private void SpawnAllBosses(NPC npc)
+        /*private void SpawnAllBosses(NPC npc)
         {
             FargowiltasSouls.FargoSoulsWorld.SlimeCount = FargowiltasSouls.FargoSoulsWorld.MaxCountPreHM;
             FargowiltasSouls.FargoSoulsWorld.EyeCount = FargowiltasSouls.FargoSoulsWorld.MaxCountPreHM;
@@ -453,6 +461,6 @@ namespace MasomodeEX.Projectiles
             }
             if (Main.netMode == 2)
                 NetMessage.SendData(7); //sync world
-        }
+        }*/
     }
 }
