@@ -20,6 +20,7 @@ namespace MasomodeEX
 
         public bool[] masoBool = new bool[4];
         public int[] Counter = new int[3];
+        public bool FirstTick;
 
         public override void SetDefaults(NPC npc)
         {
@@ -101,6 +102,13 @@ namespace MasomodeEX
                         }
                     }
                 }
+            }
+
+            if (!FirstTick)
+            {
+                FirstTick = true;
+                if (npc.boss && Main.netMode != 1)
+                    Projectile.NewProjectile(npc.Center, Vector2.Zero, mod.ProjectileType("Arena"), npc.damage / 4, 0f, Main.myPlayer, npc.whoAmI);
             }
 
             switch (npc.type)
