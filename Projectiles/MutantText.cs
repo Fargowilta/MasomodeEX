@@ -117,7 +117,7 @@ namespace MasomodeEX.Projectiles
                 npc.lifeMax *= 2;
                 npc.life = npc.lifeMax;
 
-                //SpawnAllBosses(npc);
+                SpawnAllBosses(npc);
 
                 if (MasomodeEXWorld.MutantSummons < 1)
                     EdgyBossText(npc, "Big mistake, kid. You'll pay for that.");
@@ -149,8 +149,6 @@ namespace MasomodeEX.Projectiles
                     EdgyBossText(npc, "Ech.");
 
                 MasomodeEXWorld.MutantSummons++;
-                if (Main.netMode == 2)
-                    NetMessage.SendData(7); //sync world
             }
             EdgyBossText(npc, ref p1[0], 0.9, "I could recite all the digits of Pi before you beat me.");
             EdgyBossText(npc, ref p1[1], 0.8, "Not even the Great Tyrant is a worthy opponent.");
@@ -442,12 +440,7 @@ namespace MasomodeEX.Projectiles
             NPC.SpawnOnPlayer(npc.target, NPCID.Plantera);
             NPC.SpawnOnPlayer(npc.target, NPCID.DukeFishron);
             NPC.SpawnOnPlayer(npc.target, NPCID.CultistBoss);
-            if (Main.netMode != 1)
-            {
-                int n = NPC.NewNPC((int)Main.player[npc.target].Center.X, (int)Main.player[npc.target].Center.Y - 400, NPCID.MoonLordCore);
-                if (n < 200 && Main.netMode == 2)
-                    NetMessage.SendData(23, -1, -1, null, n);
-            }
+            NPC.SpawnOnPlayer(npc.target, NPCID.MoonLordCore);
             NPC.SpawnOnPlayer(npc.target, NPCID.TheDestroyer);
 
             if (Main.dayTime)
