@@ -1,4 +1,7 @@
-﻿0.3:
+﻿0.3.1:
+-ice golem ray works
+
+0.3:
 -removed random debuffs on hit
 -mutant boss penetrator inflicts timefrozen and mutant judgement
 -eoc reverse aura also does obstructed now

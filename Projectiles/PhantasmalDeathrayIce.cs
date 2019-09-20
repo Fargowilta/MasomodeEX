@@ -128,8 +128,8 @@ namespace MasomodeEX.Projectiles
                 return false;
             }
             Texture2D texture2D19 = Main.projectileTexture[projectile.type];
-            Texture2D texture2D20 = mod.GetTexture("Projectiles/Masomode/PhantasmalDeathrayIce2");
-            Texture2D texture2D21 = mod.GetTexture("Projectiles/Masomode/PhantasmalDeathrayIce3");
+            Texture2D texture2D20 = mod.GetTexture("Projectiles/PhantasmalDeathrayIce2");
+            Texture2D texture2D21 = mod.GetTexture("Projectiles/PhantasmalDeathrayIce3");
             float num223 = projectile.localAI[1];
             Microsoft.Xna.Framework.Color color44 = new Microsoft.Xna.Framework.Color(255, 255, 255, 0) * 0.9f;
             SpriteBatch arg_ABD8_0 = Main.spriteBatch;
