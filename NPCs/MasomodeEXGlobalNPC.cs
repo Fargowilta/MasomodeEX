@@ -1152,7 +1152,7 @@ namespace MasomodeEX
                     break;
 
                 case NPCID.DemonEye:
-                    npc.noTileCollide = true;
+                    //npc.noTileCollide = true;
                     if (!masoBool[0])
                     {
                         masoBool[0] = true;
