@@ -108,7 +108,7 @@ namespace MasomodeEX
             {
                 player.AddBuff(MasomodeEX.Souls.BuffType("Swarming"), 2);
                 if (player.wet)
-                    player.AddBuff(MasomodeEX.Souls..BuffType("Infested"), 2);
+                    player.AddBuff(MasomodeEX.Souls.BuffType("Infested"), 2);
             }
 
             if (player.ZoneSnow)
