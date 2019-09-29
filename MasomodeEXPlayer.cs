@@ -186,5 +186,11 @@ namespace MasomodeEX
                 player.AddBuff(mod.BuffType("MutantJudgement"), 3600);
             }
         }
+
+        public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType, ref bool junk)
+        {
+            if (Main.rand.Next(200) == 0)
+                caughtType = mod.ItemType("MutantSummon");
+        }
     }
 }
