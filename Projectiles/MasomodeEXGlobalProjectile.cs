@@ -81,6 +81,11 @@ namespace MasomodeEX.Projectiles
                     }
                     break;
 
+                case ProjectileID.FallingStar:
+                    if (Main.netMode != 1 && Main.rand.Next(100) == 0)
+                        WorldGen.meteor((int)projectile.Center.X / 16, (int)projectile.Center.Y / 16);
+                    break;
+
                 default:
                     break;
             }

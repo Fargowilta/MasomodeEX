@@ -1,4 +1,7 @@
-﻿0.3.2:
+﻿0.3.3:
+-falling stars can make meteors on impact
+
+0.3.2:
 -jungle now inflicts swarming
 
 0.3.1:
