@@ -31,7 +31,7 @@ namespace MasomodeEX
                     break;
 
                 case TileID.Hellstone:
-                    if (!Main.hardMode)
+                    if (!(NPC.downedBoss2 && NPC.downedBoss3))
                         return false;
                     break;
 
