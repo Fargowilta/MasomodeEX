@@ -1,6 +1,7 @@
 ﻿0.3.3:
 -falling stars can make meteors on impact
 -hellstone breakable post-eater/brain and skeletron
+-mining meteorite spawns mutant boss with veinminer on
 
 0.3.2:
 -jungle now inflicts swarming

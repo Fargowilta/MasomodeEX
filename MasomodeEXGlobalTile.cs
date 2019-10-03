@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
+using Terraria.Localization;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -19,6 +19,17 @@ namespace MasomodeEX
                         if (p != -1)
                             NPC.SpawnOnPlayer(p, NPCID.SolarCorite);
                         return false;
+                    }
+                    if (MasomodeEX.Instance.VeinMinerLoaded)
+                    {
+                        int p = Player.FindClosest(new Vector2(i * 16, j * 16), 0, 0);
+                        string text = "Don't even try to bring that vein-mining cheese in here!";
+                        if (Main.netMode == 0)
+                            Main.NewText(text, Color.LimeGreen);
+                        else if (Main.netMode == 2)
+                            NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(text), Color.LimeGreen);
+                        if (p != -1)
+                            NPC.SpawnOnPlayer(p, MasomodeEX.Souls.NPCType("MutantBoss"));
                     }
                     break;
 
