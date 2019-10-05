@@ -567,7 +567,7 @@ namespace MasomodeEX
                                 NetMessage.SendData(23, -1, -1, null, n);
                         }
                     }
-                    if (++Counter[2] > 2)
+                    /*if (++Counter[2] > 2)
                     {
                         Counter[2] = 0;
                         if (Main.netMode != 1)
@@ -580,7 +580,7 @@ namespace MasomodeEX
                             if (Main.netMode != 1)
                                 Projectile.NewProjectile(npc.Center, speed, MasomodeEX.Souls.ProjectileType("SkeletronBone"), npc.damage / 4, 0f, Main.myPlayer);
                         }
-                    }
+                    }*/
                     npc.localAI[2]++;
                     npc.reflectingProjectiles = npc.ai[1] == 1f || npc.ai[1] == 2f; //spinning or DG mode
                     break;
