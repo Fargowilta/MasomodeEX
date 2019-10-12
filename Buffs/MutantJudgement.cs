@@ -27,10 +27,10 @@ namespace MasomodeEX.Buffs
             player.moonLeech = true;
             player.chaosState = true;
             player.potionDelay = player.buffTime[buffIndex];
-            player.GetModPlayer<FargowiltasSouls.FargoPlayer>(MasomodeEX.Souls).noDodge = true;
-            player.GetModPlayer<FargowiltasSouls.FargoPlayer>(MasomodeEX.Souls).noSupersonic = true;
-            player.GetModPlayer<FargowiltasSouls.FargoPlayer>(MasomodeEX.Souls).MutantPresence = true;
-            player.GetModPlayer<FargowiltasSouls.FargoPlayer>(MasomodeEX.Souls).MutantNibble = true;
+            player.GetModPlayer<FargowiltasSouls.FargoPlayer>().noDodge = true;
+            player.GetModPlayer<FargowiltasSouls.FargoPlayer>().noSupersonic = true;
+            player.GetModPlayer<FargowiltasSouls.FargoPlayer>().MutantPresence = true;
+            player.GetModPlayer<FargowiltasSouls.FargoPlayer>().MutantNibble = true;
         }
     }
 }
