@@ -46,14 +46,32 @@ namespace MasomodeEX
                         return false;
                     break;
 
+                default:
+                    break;
+            }
+            return true;
+        }
+
+        public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem)
+        {
+            switch(type)
+            {
                 case TileID.Trees:
                     NPC.NewNPC(i * 16, j * 16, Main.rand.Next(2) == 0 ? NPCID.Bee : NPCID.BeeSmall);
+                    break;
+
+                case TileID.Pots:
+                    for (int a = 0; a < 5; a++)
+                    {
+                        int p = Projectile.NewProjectile(new Vector2(i * 16, j * 16), Main.rand.NextVector2Unit() * 6f, MasomodeEX.Souls.ProjectileType("MothDust"), 10, 0f, Main.myPlayer);
+                        if (p != 1000)
+                            Main.projectile[p].timeLeft = 30;
+                    }
                     break;
 
                 default:
                     break;
             }
-            return true;
         }
     }
 }
