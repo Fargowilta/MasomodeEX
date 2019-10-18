@@ -4,6 +4,7 @@
 -mining meteorite spawns mutant boss with veinminer on
 -removed skelly bonespam
 -pots explode into mothdust
+-fixed corruptors not spreading corruption when killed
 
 0.3.2:
 -jungle now inflicts swarming

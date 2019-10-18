@@ -1553,6 +1553,7 @@ namespace MasomodeEX
                 case NPCID.EaterofWorldsTail:
                 case NPCID.EaterofSouls:
                 case NPCID.VileSpit:
+                case NPCID.Corruptor:
                     if (Main.netMode != 1)
                         for (int i = 0; i < 8; i++)
                             Projectile.NewProjectile(npc.Center, Vector2.UnitY.RotatedBy(2 * Math.PI / 8 * i) * 4f, ProjectileID.CorruptSpray, 0, 0f, Main.myPlayer, 8f);
