@@ -57,7 +57,7 @@ namespace MasomodeEX
             }
         }
 
-        public override void AI(NPC npc)
+        public override bool PreAI(NPC npc)
         {
             FargowiltasSouls.NPCs.FargoSoulsGlobalNPC fargoNPC = npc.GetGlobalNPC<FargowiltasSouls.NPCs.FargoSoulsGlobalNPC>();
             if (fargoNPC.RegenTimer > 240)
@@ -1267,6 +1267,8 @@ namespace MasomodeEX
                 default:
                     break;
             }
+
+            return true;
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)

@@ -5,6 +5,7 @@
 -removed skelly bonespam
 -pots explode into mothdust
 -fixed corruptors not spreading corruption when killed
+-moved everything to preAI (this unfucks rev compat)
 
 0.3.2:
 -jungle now inflicts swarming
