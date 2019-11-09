@@ -59,5 +59,24 @@ namespace MasomodeEX.Items
                     break;
             }
         }
+
+        public override bool CanUseItem(Item item, Player player)
+        {
+            if (MasomodeEX.Instance.LuiLoaded && (item.type == ModLoader.GetMod("Luiafk").ItemType("UnlimitedGrandDesign")
+                || item.type == ModLoader.GetMod("Luiafk").ItemType("ComboRod")))
+                return false;
+            switch(item.type)
+            {
+                case ItemID.WireCutter:
+                case ItemID.WireKite:
+                    if (player.ZoneJungle && !NPC.downedGolemBoss)
+                        return false;
+                    break;
+
+                default:
+                    break;
+            }
+            return true;
+        }
     }
 }

@@ -1,5 +1,7 @@
 ﻿0.3.5:
--
+-wire cutter/grand design unusable in jungle until post-golem
+-dangersense/wire vision disabled in temple
+-all traps and pressure plates in temple are unbreakable until post-golem
 
 0.3.3:
 -falling stars can make meteors on impact

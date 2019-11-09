@@ -7,4 +7,4 @@ hideResources = true
 includePDB = false
 languageVersion = 6
 buildIgnore = .git/*, .vs/*, Builds/*, build.txt, *.csproj, *.sln, *.csproj.user, obj\*, bin\*, lib\*
-modReferences = FargowiltasSouls@1.0.0, Fargowiltas@1.4.3
+modReferences = FargowiltasSouls@1.0.0

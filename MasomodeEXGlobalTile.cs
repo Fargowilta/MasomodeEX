@@ -45,6 +45,12 @@ namespace MasomodeEX
                     if (!(NPC.downedBoss2 && NPC.downedBoss3))
                         return false;
                     break;
+                    
+                case TileID.Traps:
+                case TileID.PressurePlates:
+                    if (Framing.GetTileSafely(i, j).wall == WallID.LihzahrdBrickUnsafe)
+                        return NPC.downedGolemBoss;
+                    break;
 
                 default:
                     break;
