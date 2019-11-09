@@ -69,6 +69,10 @@ namespace MasomodeEX
                     }
                     break;
 
+                case TileID.Explosives:
+                    Projectile.NewProjectile(i * 16 + 8, j * 16 + 8, 0f, 0f, ProjectileID.Explosives, 500, 10, Main.myPlayer);
+                    break;
+
                 default:
                     break;
             }

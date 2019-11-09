@@ -5,3 +5,5 @@
 /.vs/MasomodeEX/v15/Server/sqlite3/db.lock
 /.vs/MasomodeEX/v15/Browse.VC.opendb
 /.vs/MasomodeEX/v15/Browse.VC.db
+.vs/*
+obj/*
