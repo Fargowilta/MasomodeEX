@@ -59,6 +59,10 @@ namespace MasomodeEX.Projectiles
                         Main.player[Main.myPlayer].position += Main.player[Main.myPlayer].DirectionTo(projectile.Center) * 2;
                     break;
 
+                case ProjectileID.FallingStar:
+                    projectile.hostile = true;
+                    break;
+
                 default:
                     break;
             }
@@ -73,6 +77,8 @@ namespace MasomodeEX.Projectiles
                 case ProjectileID.BouncyGrenade:
                 case ProjectileID.StickyGrenade:
                 case ProjectileID.HappyBomb:
+                case ProjectileID.CannonballFriendly:
+                case ProjectileID.CannonballHostile:
                     if (Main.netMode != 1)
                     {
                         int p = Projectile.NewProjectile(projectile.Center, Vector2.Zero, ProjectileID.Bomb, 0, 0f, Main.myPlayer);

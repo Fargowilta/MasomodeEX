@@ -35,6 +35,10 @@ namespace MasomodeEX.Buffs
                     }
                     break;
 
+                case BuffID.MoonLeech:
+                    player.buffType[buffIndex] = MasomodeEX.Souls.BuffType("MutantNibble");
+                    break;
+
                 default:
                     break;
             }

@@ -2,6 +2,17 @@
 -wire cutter/grand design unusable in jungle until post-golem
 -dangersense/wire vision disabled in temple
 -all traps and pressure plates in temple are unbreakable until post-golem
+-all enemies are immune to fire, suffocation, and water debuffs
+-restored venom in jungle hardmode water
+-restored frostburn in snow water
+-restored shadowflame hell lava
+-restored hostile falling stars
+-cannonballs break tiles
+-eye enemies inflict hexed
+-restored eow forever weak
+-wof permanently in p2 and attacks faster
+-wof inflicts low ground
+-restored ML replacing moon leech with mutant nibble
 
 0.3.3:
 -falling stars can make meteors on impact

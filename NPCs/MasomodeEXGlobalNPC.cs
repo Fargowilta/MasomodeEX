@@ -55,6 +55,10 @@ namespace MasomodeEX
                 npc.defense = (int)(npc.defense * 1.5);
                 npc.knockBackResist *= 0.5f;
             }
+
+            npc.buffImmune[BuffID.OnFire] = true;
+            npc.buffImmune[BuffID.Suffocation] = true;
+            npc.GetGlobalNPC<FargowiltasSouls.NPCs.FargoSoulsGlobalNPC>().isWaterEnemy = true;
         }
 
         public override bool PreAI(NPC npc)
@@ -669,6 +673,9 @@ namespace MasomodeEX
                             velX -= 16;
                         }
                     }
+                    fargoNPC.masoBool[0] = true;
+                    fargoNPC.Counter++;
+                    Main.player[Main.myPlayer].AddBuff(MasomodeEX.Souls.BuffType("LowGround"), 2);
                     break;
 
                 case NPCID.WallofFleshEye:
@@ -1323,10 +1330,12 @@ namespace MasomodeEX
 
                 case NPCID.DemonEye:
                     target.AddBuff(BuffID.Stoned, Main.rand.Next(300));
+                    target.AddBuff(MasomodeEX.Souls.BuffType("Hexed"), Main.rand.Next(300));
                     npc.Transform(NPCID.WanderingEye);
                     break;
 
                 case NPCID.WanderingEye:
+                    target.AddBuff(MasomodeEX.Souls.BuffType("Hexed"), Main.rand.Next(300));
                     npc.Transform(NPCID.EyeofCthulhu);
                     break;
 
@@ -1361,10 +1370,17 @@ namespace MasomodeEX
 
                 case NPCID.EaterofWorldsHead:
                     target.AddBuff(BuffID.CursedInferno, Main.rand.Next(60, 600));
-                    target.AddBuff(BuffID.Weak, Main.rand.Next(7200));
+                    target.AddBuff(BuffID.Weak, 7200);
                     target.AddBuff(MasomodeEX.Souls.BuffType("Shadowflame"), Main.rand.Next(60, 600));
                     if (target.statLife + damage < 150)
                         target.KillMe(PlayerDeathReason.ByCustomReason(target.name + " was eaten alive by Eater of Worlds."), 999, 0);
+                    break;
+
+                case NPCID.EaterofWorldsBody:
+                case NPCID.EaterofWorldsTail:
+                    target.AddBuff(BuffID.CursedInferno, Main.rand.Next(60, 600));
+                    target.AddBuff(BuffID.Weak, 7200);
+                    target.AddBuff(MasomodeEX.Souls.BuffType("Shadowflame"), Main.rand.Next(60, 600));
                     break;
 
                 case NPCID.Retinazer:
@@ -1438,8 +1454,6 @@ namespace MasomodeEX
                 case NPCID.SeekerHead:
                 case NPCID.SeekerBody:
                 case NPCID.SeekerTail:
-                case NPCID.EaterofWorldsBody:
-                case NPCID.EaterofWorldsTail:
                 case NPCID.VileSpit:
                     target.AddBuff(BuffID.CursedInferno, Main.rand.Next(60, 600));
                     target.AddBuff(BuffID.Weak, Main.rand.Next(7200));
@@ -1473,6 +1487,11 @@ namespace MasomodeEX
                     target.AddBuff(BuffID.Bleeding, Main.rand.Next(7200));
                     target.AddBuff(MasomodeEX.Souls.BuffType("Bloodthirsty"), Main.rand.Next(300));
                     npc.Transform(NPCID.IchorSticker);
+                    break;
+
+                case NPCID.EyeofCthulhu:
+                case NPCID.ServantofCthulhu:
+                    target.AddBuff(MasomodeEX.Souls.BuffType("Hexed"), Main.rand.Next(300));
                     break;
 
                 default:

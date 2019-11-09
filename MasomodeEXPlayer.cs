@@ -14,7 +14,11 @@ namespace MasomodeEX
                 player.AddBuff(MasomodeEX.Souls.BuffType("Lethargic"), 2);
 
             if (player.lavaWet)
+            {
                 player.AddBuff(BuffID.Burning, 2);
+                if (player.ZoneUnderworldHeight)
+                    player.AddBuff(MasomodeEX.Souls.BuffType("Shadowflame"), 2);
+            }
 
             if (player.honeyWet)
                 player.AddBuff(BuffID.Slow, 2);
@@ -108,11 +112,19 @@ namespace MasomodeEX
             {
                 player.AddBuff(MasomodeEX.Souls.BuffType("Swarming"), 2);
                 if (player.wet)
+                {
                     player.AddBuff(MasomodeEX.Souls.BuffType("Infested"), 2);
+                    if (Main.hardMode)
+                        player.AddBuff(BuffID.Venom, 2);
+                }
             }
 
             if (player.ZoneSnow)
+            {
                 player.AddBuff(BuffID.Chilled, 2);
+                if (player.wet)
+                    player.AddBuff(BuffID.Frostburn, 2);
+            }
 
             if (player.ZoneDungeon)
                 player.AddBuff(BuffID.WaterCandle, 2);
