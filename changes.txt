@@ -13,6 +13,10 @@
 -wof permanently in p2 and attacks faster
 -wof inflicts low ground
 -restored ML replacing moon leech with mutant nibble
+-flying dutchman sprays cannonballs
+-all biome water debuffs restored
+-killing deviantt spawns mutant boss
+-netting deviantt spawns mutant boss
 
 0.3.3:
 -falling stars can make meteors on impact

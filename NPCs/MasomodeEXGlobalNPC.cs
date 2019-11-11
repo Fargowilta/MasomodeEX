@@ -100,7 +100,7 @@ namespace MasomodeEX
                             default:
                                 if (npc.type == MasomodeEX.Fargo.NPCType("Mutant"))
                                     npc.Transform(MasomodeEX.Souls.NPCType("MutantBoss"));
-                                else if (npc.type != MasomodeEX.Fargo.NPCType("Abominationn"))
+                                else if (npc.type != MasomodeEX.Fargo.NPCType("Abominationn") && npc.type != MasomodeEX.Fargo.NPCType("Deviantt"))
                                     npc.Transform(NPCID.Werewolf);
                                 break;
                         }
@@ -1271,6 +1271,30 @@ namespace MasomodeEX
                     }
                     break;
 
+                case NPCID.PirateShip:
+                    if (++Counter[0] > 300)
+                    {
+                        Counter[0] = 0;
+                        if (Main.netMode != 1)
+                        {
+                            Vector2 speed = Main.player[npc.target].Center - npc.Center;
+                            speed.Y -= Math.Abs(speed.X) * 0.2f; //account for gravity
+                            speed.X += Main.rand.Next(-20, 21);
+                            speed.Y += Main.rand.Next(-20, 21);
+                            speed.Normalize();
+                            speed *= 11f;
+                            npc.localAI[2] = 0f;
+                            for (int i = 0; i < 15; i++)
+                            {
+                                Vector2 cannonSpeed = speed;
+                                cannonSpeed.X += Main.rand.Next(-10, 11) * 0.3f;
+                                cannonSpeed.Y += Main.rand.Next(-10, 11) * 0.3f;
+                                Projectile.NewProjectile(npc.Center, cannonSpeed, ProjectileID.CannonballHostile, Main.expertMode ? 80 : 100, 0f, Main.myPlayer);
+                            }
+                        }
+                    }
+                    break;
+
                 default:
                     break;
             }
@@ -1629,6 +1653,18 @@ namespace MasomodeEX
                             NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Mutant has been enraged by the death of his brother!"), new Color(175, 75, 255));
                     }
                 }
+                else if (npc.type == MasomodeEX.Fargo.NPCType("Deviantt"))
+                {
+                    int mutant = NPC.FindFirstNPC(MasomodeEX.Fargo.NPCType("Mutant"));
+                    if (mutant > -1 && Main.npc[mutant].active)
+                    {
+                        Main.npc[mutant].Transform(MasomodeEX.Souls.NPCType("MutantBoss"));
+                        if (Main.netMode == 0)
+                            Main.NewText("Mutant has been enraged by the death of his sister!", 175, 75, 255);
+                        else if (Main.netMode == 2)
+                            NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Mutant has been enraged by the death of his sister!"), new Color(175, 75, 255));
+                    }
+                }
                 else if (npc.type == MasomodeEX.Fargo.NPCType("Mutant"))
                 {
                     npc.active = true;
@@ -1746,6 +1782,28 @@ namespace MasomodeEX
         {
             if (npc.type == MasomodeEX.Fargo.NPCType("Mutant") && Main.rand.Next(3) == 0)
                 chat = "What you're doing is a crime against the universe, mortal.";
+            else if (npc.type == MasomodeEX.Fargo.NPCType("Deviantt") && Main.rand.Next(3) == 0)
+                chat = "Play a real game mode, would you? Not this... thing.";
+        }
+
+        public override void OnCatchNPC(NPC npc, Player player, Item item)
+        {
+            if (npc.type == MasomodeEX.Fargo.NPCType("Deviantt"))
+            {
+                int mutant = NPC.FindFirstNPC(MasomodeEX.Fargo.NPCType("Mutant"));
+                if (mutant > -1 && Main.npc[mutant].active)
+                {
+                    Main.npc[mutant].Transform(MasomodeEX.Souls.NPCType("MutantBoss"));
+                    if (Main.netMode == 0)
+                        Main.NewText("Mutant has been enraged!", 175, 75, 255);
+                    else if (Main.netMode == 2)
+                        NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Mutant has been enraged!"), new Color(175, 75, 255));
+                }
+                else
+                {
+                    NPC.SpawnOnPlayer(player.whoAmI, MasomodeEX.Souls.NPCType("MutantBoss"));
+                }
+            }
         }
     }
 }
