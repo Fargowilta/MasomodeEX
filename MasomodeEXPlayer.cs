@@ -31,6 +31,11 @@ namespace MasomodeEX
                 player.AddBuff(MasomodeEX.Souls.BuffType("Crippled"), 2);
             if (currentTile.wall == WallID.MarbleUnsafe)
                 player.AddBuff(MasomodeEX.Souls.BuffType("ClippedWings"), 2);
+            if (currentTile.type == TileID.Trees || currentTile.type == TileID.PalmTree)
+            {
+                if (player.hurtCooldowns[0] <= 0) //same i-frames as spike tiles
+                    player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " was pricked by a Tree."), 20, 0, false, false, false, 0);
+            }
 
             if (currentTile.type == TileID.DemonAltar && player.hurtCooldowns[0] <= 0)
             {

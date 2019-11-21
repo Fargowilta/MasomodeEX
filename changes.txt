@@ -1,4 +1,9 @@
-﻿0.3.5:
+﻿0.3.6:
+-trees hurt you
+-chests have a 1% chance to explode when opened
+-mutant boss has a tiny chance to spawn anywhere, anytime
+
+0.3.5:
 -wire cutter/grand design unusable in jungle until post-golem
 -dangersense/wire vision disabled in temple
 -all traps and pressure plates in temple are unbreakable until post-golem

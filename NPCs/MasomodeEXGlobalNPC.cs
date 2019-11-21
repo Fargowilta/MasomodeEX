@@ -5,6 +5,7 @@ using Terraria.DataStructures;
 using Terraria.Localization;
 using Terraria.ID;
 using Terraria.ModLoader;
+using System.Collections.Generic;
 
 namespace MasomodeEX
 {
@@ -1804,6 +1805,11 @@ namespace MasomodeEX
                     NPC.SpawnOnPlayer(player.whoAmI, MasomodeEX.Souls.NPCType("MutantBoss"));
                 }
             }
+        }
+
+        public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
+        {
+            pool[MasomodeEX.Souls.NPCType("MutantBoss")] = .0001f;
         }
     }
 }
