@@ -90,5 +90,13 @@ namespace MasomodeEX
                 if (Main.rand.Next(100) == 0)
                     Projectile.NewProjectile(i * 16 + 8, j * 16 + 8, 0f, 0f, ProjectileID.Explosives, 500, 10, Main.myPlayer);
         }
+
+        public override void NearbyEffects(int i, int j, int type, bool closer)
+        {
+            if (type == TileID.PlanteraBulb)
+                for (int a = 0; a < Main.maxProjectiles; a++)
+                    if (Main.projectile[a].active && Main.projectile[a].damage > 0 && Main.projectile[a].friendly && Main.projectile[a].Hitbox.Contains(i * 16 + 8, j * 16 + 8))
+                        WorldGen.KillTile(i, j);
+        }
     }
 }
