@@ -190,6 +190,24 @@ namespace MasomodeEX.Projectiles
             switch ((int)npc.ai[0])
             {
                 case -7:
+                    if (npc.HasValidTarget)
+                    {
+                        if (Main.rand.Next(30) == 0)
+                        {
+                            Vector2 speed = npc.DirectionTo(Main.player[npc.target].Center) * 25f;
+                            if (Main.rand.Next(5) == 0)
+                                for (int i = 0; i < 16; i++)
+                                    Projectile.NewProjectile(npc.Center, speed.RotatedBy(System.Math.PI * 2 / 16 * i), MasomodeEX.Souls.ProjectileType("MutantSpearThrown"), npc.damage, 0f, Main.myPlayer);
+                            else
+                                for (int i = -1; i <= 1; i++)
+                                    Projectile.NewProjectile(npc.Center, speed.RotatedBy(MathHelper.ToRadians(10) * i), MasomodeEX.Souls.ProjectileType("MutantSpearThrown"), npc.damage, 0f, Main.myPlayer);
+                        }
+                    }
+                    else
+                    {
+                        npc.TargetClosest();
+                    }
+
                     if (npc.alpha == 0)
                     {
                         if (MasomodeEXWorld.MutantDefeats < 3)
