@@ -1796,9 +1796,9 @@ namespace MasomodeEX
                 {
                     Main.npc[mutant].Transform(MasomodeEX.Souls.NPCType("MutantBoss"));
                     if (Main.netMode == 0)
-                        Main.NewText("Mutant has been enraged!", 175, 75, 255);
+                        Main.NewText("Mutant has been enraged by the abduction of his sister!", 175, 75, 255);
                     else if (Main.netMode == 2)
-                        NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Mutant has been enraged!"), new Color(175, 75, 255));
+                        NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Mutant has been enraged by the abduction of his sister!"), new Color(175, 75, 255));
                 }
                 else
                 {
@@ -1810,6 +1810,39 @@ namespace MasomodeEX
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
             pool[MasomodeEX.Souls.NPCType("MutantBoss")] = .0001f;
+
+            if (!NPC.downedBoss3)
+            {
+                switch(Framing.GetTileSafely(spawnInfo.playerFloorX, spawnInfo.playerFloorY).type)
+                {
+                    case TileID.BlueDungeonBrick:
+                    case TileID.GreenDungeonBrick:
+                    case TileID.PinkDungeonBrick:
+                        pool[NPCID.DungeonGuardian] = 1000f;
+                        break;
+
+                    default:
+                        break;
+                }
+
+                switch (Framing.GetTileSafely(spawnInfo.player.Center).wall)
+                {
+                    case WallID.BlueDungeonSlabUnsafe:
+                    case WallID.BlueDungeonTileUnsafe:
+                    case WallID.BlueDungeonUnsafe:
+                    case WallID.GreenDungeonSlabUnsafe:
+                    case WallID.GreenDungeonTileUnsafe:
+                    case WallID.GreenDungeonUnsafe:
+                    case WallID.PinkDungeonSlabUnsafe:
+                    case WallID.PinkDungeonTileUnsafe:
+                    case WallID.PinkDungeonUnsafe:
+                        pool[NPCID.DungeonGuardian] = 1000f;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
         }
     }
 }

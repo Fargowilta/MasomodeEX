@@ -4,6 +4,9 @@
 -mutant boss has a tiny chance to spawn anywhere, anytime
 -projectiles will break planteras bulb
 -mutant boss vomits spears when defeated
+-standing on dungeon brick pre-skeletron spawns dungeon guardian
+-entering the dungeon at all pre-skeletron spawns dungeon guardian
+-jungle temple inflicts low ground
 
 0.3.5:
 -wire cutter/grand design unusable in jungle until post-golem

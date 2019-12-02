@@ -36,6 +36,8 @@ namespace MasomodeEX
                 if (player.hurtCooldowns[0] <= 0) //same i-frames as spike tiles
                     player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " was pricked by a Tree."), 20, 0, false, false, false, 0);
             }
+            if (currentTile.wall == WallID.LihzahrdBrickUnsafe)
+                player.AddBuff(MasomodeEX.Souls.BuffType("LowGround"), 2);
 
             if (currentTile.type == TileID.DemonAltar && player.hurtCooldowns[0] <= 0)
             {
