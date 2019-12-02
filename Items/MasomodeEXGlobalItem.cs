@@ -24,6 +24,7 @@ namespace MasomodeEX.Items
         }
 
         public bool spawned;
+        public int lavaCounter;
 
         public override void Update(Item item, ref float gravity, ref float maxFallSpeed)
         {
@@ -34,6 +35,8 @@ namespace MasomodeEX.Items
                     Projectile.NewProjectile(item.Center.X, item.Center.Y, Main.rand.Next(-30, 31) * .1f, Main.rand.Next(-40, -15) * .1f,
                         MasomodeEX.Souls.ProjectileType("FakeHeart"), 40, 0f, Main.myPlayer);
             }
+            if (item.lavaWet && ++lavaCounter > 5)
+                item.active = false;
         }
 
         public override void UpdateInventory(Item item, Player player)
