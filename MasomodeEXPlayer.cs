@@ -198,6 +198,26 @@ namespace MasomodeEX
             //Main.player[Main.myPlayer].AddBuff(MasomodeEX.DebuffIDs[Main.rand.Next(MasomodeEX.DebuffIDs.Count)], Main.rand.Next(60, 600));
         }
 
+        public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+        {
+            int baseCheckX = (int) player.Center.X / 16 - 1;
+            int baseCheckY = (int) player.Center.Y / 16 - 2;
+
+            for (int i = 0; i < 3; i++) //MAKE SURE nothing in the way
+                for (int j = 0; j < 4; j++)
+                    WorldGen.KillTile(baseCheckX + i, baseCheckY + j);
+
+            WorldGen.PlaceTile(baseCheckX, baseCheckY + 4, TileID.GrayBrick, false, true);
+            WorldGen.PlaceTile(baseCheckX + 1, baseCheckY + 4, TileID.GrayBrick, false, true);
+            WorldGen.PlaceTile(baseCheckX + 2, baseCheckY + 4, TileID.GrayBrick, false, true);
+            Main.tile[baseCheckX, baseCheckY + 4].slope(0);
+            Main.tile[baseCheckX + 1, baseCheckY + 4].slope(0);
+            Main.tile[baseCheckX + 2, baseCheckY + 4].slope(0);
+            WorldGen.PlaceTile(baseCheckX + 1, baseCheckY + 3, MasomodeEX.Souls.TileType("MutantStatueGift"), false, true);
+
+            return true;
+        }
+
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
             if (NPC.AnyNPCs(MasomodeEX.Souls.NPCType("MutantBoss")))

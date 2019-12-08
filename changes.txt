@@ -8,6 +8,7 @@
 -entering the dungeon at all pre-skeletron spawns dungeon guardian
 -jungle temple inflicts low ground
 -ALL items burn up in lava
+-dying spawns a mutant statue where you died
 
 0.3.5:
 -wire cutter/grand design unusable in jungle until post-golem
