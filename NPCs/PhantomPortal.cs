@@ -53,8 +53,18 @@ namespace MasomodeEX.NPCs
             if (++npc.ai[1] > 120)
             {
                 npc.ai[1] = 0;
-                if (!NPC.AnyNPCs(NPCID.CultistDragonHead) && Main.netMode != 1)
+                if (!NPC.AnyNPCs(spawn) && Main.netMode != 1)
                 {
+                    string text;
+                    switch (Main.rand.Next(5))
+                    {
+                        case 0: text = "Guys, Will you assist me for a moment?"; break;
+                        case 1: text = "I'm going to bring more of my servants to assist me!"; break;
+                        case 2: text = "Go servants, what are you all waiting for?"; break;
+                        case 3: text = "Servants! Get this little peasant out of my sight at once!"; break;
+                        default: text = "Mwahahahahahahahahaha! Trap this tiny struggle at once!"; break;
+                    }
+                    Main.NewText(text, Color.LimeGreen);
                     int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, spawn);
                     if (n != Main.maxNPCs && Main.netMode == 2)
                         NetMessage.SendData(23, -1, -1, null, n);
