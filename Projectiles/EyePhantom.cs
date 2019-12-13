@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ID;
@@ -23,7 +24,7 @@ namespace MasomodeEX.Projectiles
             projectile.aiStyle = -1;
             projectile.hostile = true;
             projectile.penetrate = 1;
-            projectile.timeLeft = 120;
+            projectile.timeLeft = 720;
             projectile.ignoreWater = true;
             projectile.tileCollide = false;
             projectile.alpha = 200;
@@ -54,6 +55,7 @@ namespace MasomodeEX.Projectiles
                 if (projectile.localAI[0] == 0 || projectile.ai[0] < 0)
                 {
                     projectile.localAI[0] = 1;
+                    projectile.localAI[1] = Main.rand.Next(60);
                     projectile.ai[0] = Player.FindClosest(projectile.Center, 0, 0);
                 }
                 else
@@ -65,12 +67,12 @@ namespace MasomodeEX.Projectiles
                 }
             }
 
-            if (++projectile.localAI[1] > 90)
+            if (++projectile.localAI[1] > 360)
             {
-                projectile.localAI[1] = 0;
+                projectile.localAI[1] = Main.rand.Next(60);
                 int p = Player.FindClosest(projectile.Center, 0, 0);
                 if (p != -1 && Main.netMode != 1)
-                    Projectile.NewProjectile(projectile.Center, projectile.DirectionTo(Main.player[p].Center) * 24, ProjectileID.PhantasmalBolt, 30, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(projectile.Center, projectile.DirectionTo(Main.player[p].Center) * 8, ProjectileID.PhantasmalBolt, 30, 0f, Main.myPlayer);
             }
 
             if (projectile.alpha > 0)
@@ -79,7 +81,7 @@ namespace MasomodeEX.Projectiles
                 if (projectile.alpha < 0)
                     projectile.alpha = 0;
             }
-            projectile.scale = (1f - projectile.alpha / 255f) * .75f;
+            projectile.scale = (1f - projectile.alpha / 255f);
             for (int i = 0; i < 2; i++)
             {
                 float num = Main.rand.NextFloat(-0.5f, 0.5f);

@@ -1016,17 +1016,30 @@ namespace MasomodeEX
                 case NPCID.MoonLordCore:
                     if (!masoBool[0])
                     {
+                        npc.TargetClosest(false);
                         masoBool[0] = true;
                         if (NPC.CountNPCS(NPCID.MoonLordCore) == 1)
                             Main.LocalPlayer.GetModPlayer<MasomodeEXPlayer>().hitcap = 25;
                         if (Main.netMode != 1)
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, mod.ProjectileType("MoonLordText"), 0, 0f, Main.myPlayer, npc.whoAmI);
                     }
+                    if (!masoBool[1] && npc.ai[0] == 2)
+                    {
+                        masoBool[1] = true;
+                        npc.ai[0] = 1;
+                        npc.ai[1] = 0;
+                        npc.ai[2] = 0;
+                        npc.ai[3] = 0;
+                        npc.life = npc.lifeMax;
+                        npc.netUpdate = true;
+                        Main.NewText("Hehehehehehe! I GUARANTEE YOU DON'T HAVE ENOUGH POWER TO DEFEAT ME!!!", Color.LimeGreen);
+                        return false;
+                    }
                     if (++Counter[0] > 90)
                     {
                         Counter[0] = 0;
                         if (npc.HasPlayerTarget && Main.netMode != 1)
-                            Projectile.NewProjectile(npc.Center, npc.DirectionTo(Main.player[npc.target].Center) * 24, ProjectileID.PhantasmalBolt, 30, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(npc.Center, npc.DirectionTo(Main.player[npc.target].Center) * 8, ProjectileID.PhantasmalBolt, 30, 0f, Main.myPlayer);
                     }
                     npc.position += npc.velocity * (1f - (float)npc.life / npc.lifeMax);
                     break;
@@ -1052,7 +1065,7 @@ namespace MasomodeEX
                     {
                         Counter[0] = 0;
                         if (npc.HasPlayerTarget && Main.netMode != 1)
-                            Projectile.NewProjectile(npc.Center, npc.DirectionTo(Main.player[npc.target].Center) * 24, ProjectileID.PhantasmalBolt, 30, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(npc.Center, npc.DirectionTo(Main.player[npc.target].Center) * 8, ProjectileID.PhantasmalBolt, 30, 0f, Main.myPlayer);
                     }
                     break;
 
@@ -1062,7 +1075,7 @@ namespace MasomodeEX
                         masoBool[0] = true;
                         if (Main.netMode != 1)
                         {
-                            int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("PhantomPortal"), npc.whoAmI, npc.whoAmI);
+                            int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, npc.ai[2] == 0 ? mod.NPCType("PhantomPortal") : mod.NPCType("PurityPortal"), npc.whoAmI, npc.whoAmI);
                             if (n != Main.maxNPCs && Main.netMode == 2)
                                 NetMessage.SendData(23, -1, -1, null, n);
                         }
@@ -1674,18 +1687,6 @@ namespace MasomodeEX
         {
             switch (npc.type)
             {
-                case NPCID.MoonLordCore:
-                    if (!masoBool[1])
-                    {
-                        masoBool[1] = true;
-                        npc.active = true;
-                        npc.life = npc.lifeMax;
-                        npc.netUpdate = true;
-                        Main.NewText("Hehehehehehe! I GUARANTEE YOU DON'T HAVE ENOUGH POWER TO DEFEAT ME!!!", Color.LimeGreen);
-                        return false;
-                    }
-                    break;
-
                 case NPCID.ChaosElemental:
                 case NPCID.IlluminantBat:
                 case NPCID.IlluminantSlime:

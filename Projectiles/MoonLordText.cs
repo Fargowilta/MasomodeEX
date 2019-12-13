@@ -8,7 +8,7 @@ namespace MasomodeEX.Projectiles
 {
     public class MoonLordText : ModProjectile
     {
-        public bool[] text = new bool[20];
+        public bool[] text = new bool[17];
 
         public override void SetStaticDefaults()
 		{
@@ -77,12 +77,23 @@ namespace MasomodeEX.Projectiles
                 EdgyBossText(npc, "THE OCTOPUS GOD RULES THE DEPTHS, THE TWINS RULE THE SKIES. BUT I, THE GREAT EARTH LORD, RULE THE EARTH ITSELF!!!");
             }
 
-            if (!text[15] && (!player.active || player.dead))
+            if (!text[15])
             {
-                text[15] = true;
-                EdgyBossText(npc, "Weakling!!");
-                if (NPC.AnyNPCs(NPCID.MoonLordFreeEye))
-                    EdgyBossText(npc, "You can’t even survive them! What hope do you have against me!?");
+                if (!player.active || player.dead)
+                {
+                    text[15] = true;
+                    EdgyBossText(npc, "Weakling!!");
+                    if (NPC.AnyNPCs(NPCID.MoonLordFreeEye))
+                        EdgyBossText(npc, "You can’t even survive them! What hope do you have against me!?");
+                }
+            }
+
+            if (!text[16] && npc.GetGlobalNPC<MasomodeEXGlobalNPC>().masoBool[1])
+            {
+                for (int i = 0; i < text.Length; i++)
+                    text[i] = false;
+                text[0] = true;
+                text[16] = true;
             }
         }
 

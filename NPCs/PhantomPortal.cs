@@ -5,7 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MasomodeEX
+namespace MasomodeEX.NPCs
 {
     public class PhantomPortal : ModNPC
     {
@@ -26,6 +26,7 @@ namespace MasomodeEX
             npc.knockBackResist = 0f;
             npc.lavaImmune = true;
             npc.aiStyle = -1;
+            npc.alpha = 0;
             for (int i = 0; i < npc.buffImmune.Length; i++)
                 npc.buffImmune[i] = true;
         }
@@ -47,7 +48,7 @@ namespace MasomodeEX
             }
 
             npc.Center = hand.Center;
-            npc.position.Y -= 400;
+            npc.position.Y -= 250;
 
             if (++npc.ai[1] > 120)
             {

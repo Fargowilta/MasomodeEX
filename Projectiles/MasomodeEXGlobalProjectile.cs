@@ -71,9 +71,7 @@ namespace MasomodeEX.Projectiles
                     break;
 
                 case ProjectileID.PhantasmalSphere:
-                    if (projectile.scale == 1 && projectile.velocity == Vector2.Zero)
-                        masobool = true;
-                    if (masobool && projectile.velocity != Vector2.Zero)
+                    if (projectile.velocity.Length() == 12f)
                     {
                         projectile.Kill();
                         if (Main.netMode != 1)
@@ -85,8 +83,13 @@ namespace MasomodeEX.Projectiles
                         counter = 0;
                         int p = Player.FindClosest(projectile.Center, 0, 0);
                         if (p != -1 && Main.netMode != 1)
-                            Projectile.NewProjectile(projectile.Center, projectile.DirectionTo(Main.player[p].Center) * 24, ProjectileID.PhantasmalBolt, 30, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(projectile.Center, projectile.DirectionTo(Main.player[p].Center) * 8, ProjectileID.PhantasmalBolt, 30, 0f, Main.myPlayer);
                     }
+                    break;
+
+                case ProjectileID.PhantasmalBolt:
+                    if (projectile.timeLeft > 720)
+                        projectile.timeLeft = 720;
                     break;
 
                 default:
