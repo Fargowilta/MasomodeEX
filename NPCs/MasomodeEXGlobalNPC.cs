@@ -1014,6 +1014,8 @@ namespace MasomodeEX
                     break;
 
                 case NPCID.MoonLordCore:
+                    if (Main.LocalPlayer.active && Main.LocalPlayer.mount.Active)
+                        Main.LocalPlayer.mount.Dismount(Main.LocalPlayer);
                     if (!masoBool[0])
                     {
                         npc.TargetClosest(false);
@@ -1042,6 +1044,8 @@ namespace MasomodeEX
                             Projectile.NewProjectile(npc.Center, npc.DirectionTo(Main.player[npc.target].Center) * 8, ProjectileID.PhantasmalBolt, 30, 0f, Main.myPlayer);
                     }
                     npc.position += npc.velocity * (1f - (float)npc.life / npc.lifeMax);
+                    if (masoBool[1])
+                        npc.position += npc.velocity;
                     break;
 
                 case NPCID.MoonLordFreeEye:
@@ -1811,7 +1815,10 @@ namespace MasomodeEX
         public override void NPCLoot(NPC npc)
         {
             if (npc.type == NPCID.MoonLordCore)
+            {
+                Main.NewText("Ahhhhh! It was a mistake to cum here!", Color.LimeGreen);
                 Main.NewText("The enemy souls are possessed by ethereal spirits...", Color.LimeGreen);
+            }
         }
 
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)

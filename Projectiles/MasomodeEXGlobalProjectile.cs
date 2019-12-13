@@ -92,6 +92,19 @@ namespace MasomodeEX.Projectiles
                         projectile.timeLeft = 720;
                     break;
 
+                case ProjectileID.PhantasmalDeathray:
+                    if (!masobool)
+                    {
+                        masobool = true;
+                        if (Main.netMode != 1)
+                        {
+                            float rotationDirection = (float)Math.PI / 4f / 120f * 3f; //positive is CW, negative is CCW
+                            Projectile.NewProjectile(projectile.Center, projectile.velocity, MasomodeEX.Souls.ProjectileType("PhantasmalDeathrayML"), 4999, 0f, Main.myPlayer, rotationDirection, projectile.ai[1]);
+                            Projectile.NewProjectile(projectile.Center, projectile.velocity, MasomodeEX.Souls.ProjectileType("PhantasmalDeathrayML"), 4999, 0f, Main.myPlayer, -rotationDirection, projectile.ai[1]);
+                        }
+                    }
+                    break;
+
                 default:
                     break;
             }

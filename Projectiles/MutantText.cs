@@ -114,8 +114,6 @@ namespace MasomodeEX.Projectiles
             if (projectile.localAI[0] == 0)
             {
                 projectile.localAI[0] = 1;
-                npc.lifeMax *= 2;
-                npc.life = npc.lifeMax;
 
                 //SpawnAllBosses(npc);
 

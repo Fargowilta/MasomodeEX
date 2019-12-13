@@ -113,49 +113,5 @@ namespace MasomodeEX.Projectiles
             else if (Main.netMode == 2)
                 NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(text), Color.LimeGreen);
         }
-
-        /*private void SpawnAllBosses(NPC npc)
-        {
-            FargowiltasSouls.FargoSoulsWorld.SlimeCount = FargowiltasSouls.FargoSoulsWorld.MaxCountPreHM;
-            FargowiltasSouls.FargoSoulsWorld.EyeCount = FargowiltasSouls.FargoSoulsWorld.MaxCountPreHM;
-            FargowiltasSouls.FargoSoulsWorld.EaterCount = FargowiltasSouls.FargoSoulsWorld.MaxCountPreHM;
-            FargowiltasSouls.FargoSoulsWorld.BrainCount = FargowiltasSouls.FargoSoulsWorld.MaxCountPreHM;
-            FargowiltasSouls.FargoSoulsWorld.BeeCount = FargowiltasSouls.FargoSoulsWorld.MaxCountPreHM;
-            FargowiltasSouls.FargoSoulsWorld.SkeletronCount = FargowiltasSouls.FargoSoulsWorld.MaxCountPreHM;
-            FargowiltasSouls.FargoSoulsWorld.WallCount = FargowiltasSouls.FargoSoulsWorld.MaxCountPreHM;
-            FargowiltasSouls.FargoSoulsWorld.TwinsCount = FargowiltasSouls.FargoSoulsWorld.MaxCountHM;
-            FargowiltasSouls.FargoSoulsWorld.DestroyerCount = FargowiltasSouls.FargoSoulsWorld.MaxCountHM;
-            FargowiltasSouls.FargoSoulsWorld.PrimeCount = FargowiltasSouls.FargoSoulsWorld.MaxCountHM;
-            FargowiltasSouls.FargoSoulsWorld.PlanteraCount = FargowiltasSouls.FargoSoulsWorld.MaxCountHM;
-            FargowiltasSouls.FargoSoulsWorld.GolemCount = FargowiltasSouls.FargoSoulsWorld.MaxCountHM;
-            FargowiltasSouls.FargoSoulsWorld.FishronCount = FargowiltasSouls.FargoSoulsWorld.MaxCountHM;
-            FargowiltasSouls.FargoSoulsWorld.CultistCount = FargowiltasSouls.FargoSoulsWorld.MaxCountHM;
-            FargowiltasSouls.FargoSoulsWorld.MoonlordCount = FargowiltasSouls.FargoSoulsWorld.MaxCountHM;
-
-            NPC.SpawnOnPlayer(npc.target, NPCID.KingSlime);
-            NPC.SpawnOnPlayer(npc.target, NPCID.EyeofCthulhu);
-            NPC.SpawnOnPlayer(npc.target, NPCID.EaterofWorldsHead);
-            NPC.SpawnOnPlayer(npc.target, NPCID.BrainofCthulhu);
-            NPC.SpawnOnPlayer(npc.target, NPCID.QueenBee);
-            NPC.SpawnOnPlayer(npc.target, NPCID.SkeletronHead);
-            NPC.SpawnOnPlayer(npc.target, NPCID.Retinazer);
-            NPC.SpawnOnPlayer(npc.target, NPCID.Spazmatism);
-            NPC.SpawnOnPlayer(npc.target, NPCID.SkeletronPrime);
-            NPC.SpawnOnPlayer(npc.target, NPCID.Golem);
-            NPC.SpawnOnPlayer(npc.target, NPCID.Plantera);
-            NPC.SpawnOnPlayer(npc.target, NPCID.DukeFishron);
-            NPC.SpawnOnPlayer(npc.target, NPCID.DD2Betsy);
-            NPC.SpawnOnPlayer(npc.target, NPCID.CultistBoss);
-            NPC.SpawnOnPlayer(npc.target, NPCID.MoonLordCore);
-            NPC.SpawnOnPlayer(npc.target, NPCID.TheDestroyer);
-
-            if (Main.dayTime)
-            {
-                Main.dayTime = false;
-                Main.time = 0;
-            }
-            if (Main.netMode == 2)
-                NetMessage.SendData(7); //sync world
-        }*/
     }
 }
