@@ -9,6 +9,19 @@
 -jungle temple inflicts low ground
 -ALL items burn up in lava
 -dying spawns a mutant statue where you died
+-moon leech clots do contact damage
+-moon lord has a hitcap
+-deathray instakills
+-moon lord gets angrier as health decreases (read: faster)
+-phantasmal bolts have a 0.01% chance of doing an extra 1000 damage
+-phantasmal spheres shoot bolts
+-spheres burst into eye phantoms
+-core shoots bolts
+-free eyes shoot bolts
+-edgy boss text
+-moon lord portals
+
+-moon lord bonus eyes
 
 0.3.5:
 -wire cutter/grand design unusable in jungle until post-golem

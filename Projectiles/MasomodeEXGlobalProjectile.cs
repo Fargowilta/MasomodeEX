@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ID;
@@ -15,6 +16,9 @@ namespace MasomodeEX.Projectiles
                 return true;
             }
         }
+
+        public bool masobool;
+        public int counter;
 
         public override void AI(Projectile projectile)
         {
@@ -64,6 +68,25 @@ namespace MasomodeEX.Projectiles
 
                 case ProjectileID.FallingStar:
                     projectile.hostile = true;
+                    break;
+
+                case ProjectileID.PhantasmalSphere:
+                    if (projectile.scale == 1 && projectile.velocity == Vector2.Zero)
+                        masobool = true;
+                    if (masobool && projectile.velocity != Vector2.Zero)
+                    {
+                        projectile.Kill();
+                        if (Main.netMode != 1)
+                            for (int i = 0; i < 15; i++)
+                                Projectile.NewProjectile(projectile.Center, projectile.velocity.RotatedBy(Math.PI * 2 / 15 * i), mod.ProjectileType("EyePhantom"), projectile.damage, projectile.knockBack, projectile.owner);
+                    }
+                    if (++counter > 90)
+                    {
+                        counter = 0;
+                        int p = Player.FindClosest(projectile.Center, 0, 0);
+                        if (p != -1 && Main.netMode != 1)
+                            Projectile.NewProjectile(projectile.Center, projectile.DirectionTo(Main.player[p].Center) * 24, ProjectileID.PhantasmalBolt, 30, 0f, Main.myPlayer);
+                    }
                     break;
 
                 default:
@@ -140,6 +163,19 @@ namespace MasomodeEX.Projectiles
                 case ProjectileID.StardustJellyfishSmall:
                 case ProjectileID.NebulaLaser:
                     target.AddBuff(BuffID.VortexDebuff, Main.rand.Next(300));
+                    break;
+
+                case ProjectileID.PhantasmalBolt:
+                    if (Main.rand.Next(10000) == 0)
+                    {
+                        target.immune = false;
+                        target.immuneTime = 0;
+                        target.Hurt(Terraria.DataStructures.PlayerDeathReason.ByProjectile(target.whoAmI, projectile.whoAmI), 1000, -target.direction);
+                    }
+                    break;
+
+                case ProjectileID.PhantasmalDeathray:
+                    target.KillMe(Terraria.DataStructures.PlayerDeathReason.ByCustomReason(target.name + " got terminated."), 19998, 0);
                     break;
 
                 default:

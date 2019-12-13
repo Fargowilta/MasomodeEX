@@ -8,6 +8,8 @@ namespace MasomodeEX
 {
     internal partial class MasomodeEXPlayer : ModPlayer
     {
+        public int hitcap = 25;
+
         public override void PreUpdate()
         {
             if (player.wet)
@@ -177,6 +179,11 @@ namespace MasomodeEX
             }
         }
 
+        public override void UpdateDead()
+        {
+            hitcap = 25;
+        }
+
         public override void PostUpdateMiscEffects()
         {
             Tile currentTile = Framing.GetTileSafely(player.Center);
@@ -195,6 +202,11 @@ namespace MasomodeEX
 
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
         {
+            if (NPC.AnyNPCs(NPCID.MoonLordCore) && --hitcap <= 0)
+            {
+                player.KillMe(PlayerDeathReason.ByCustomReason(player.name + " got terminated."), 19998, 0);
+                Main.NewText("Mwahahahahahaha! You survived nothing!!", Color.LimeGreen);
+            }
             //Main.player[Main.myPlayer].AddBuff(MasomodeEX.DebuffIDs[Main.rand.Next(MasomodeEX.DebuffIDs.Count)], Main.rand.Next(60, 600));
         }
 

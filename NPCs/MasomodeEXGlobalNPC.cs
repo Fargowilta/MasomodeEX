@@ -25,29 +25,15 @@ namespace MasomodeEX
 
         public override void SetDefaults(NPC npc)
         {
-            /*switch (npc.type)
+            switch (npc.type)
             {
-                case NPCID.MoonLordCore:
-                    npc.GivenName = "Earth Lord";
-                    npc.lifeMax = 6000000;
-                    npc.defense = 320;
-                    break;
-
-                case NPCID.MoonLordHand:
-                    npc.GivenName = "Earth Lord";
-                    npc.lifeMax = 650000;
-                    npc.defense = 160;
-                    break;
-
-                case NPCID.MoonLordHead:
-                    npc.GivenName = "Earth Lord";
-                    npc.lifeMax = 800000;
-                    npc.defense = 200;
+                case NPCID.MoonLordLeechBlob:
+                    npc.damage = 50;
                     break;
 
                 default:
                     break;
-            }*/
+            }
 
             if (!npc.friendly)
             {
@@ -1019,7 +1005,125 @@ namespace MasomodeEX
                     }
                     break;
 
+                case NPCID.MoonLordLeechBlob:
+                    if (!masoBool[0])
+                    {
+                        masoBool[0] = true;
+                        Main.NewText("WHAT ARE YOU DOING TO ME!?! Healing Leech Clots, Recover me at once!", Color.LimeGreen);
+                    }
+                    break;
+
                 case NPCID.MoonLordCore:
+                    if (!masoBool[0])
+                    {
+                        masoBool[0] = true;
+                        if (NPC.CountNPCS(NPCID.MoonLordCore) == 1)
+                            Main.LocalPlayer.GetModPlayer<MasomodeEXPlayer>().hitcap = 25;
+                        if (Main.netMode != 1)
+                            Projectile.NewProjectile(npc.Center, Vector2.Zero, mod.ProjectileType("MoonLordText"), 0, 0f, Main.myPlayer, npc.whoAmI);
+                    }
+                    if (++Counter[0] > 90)
+                    {
+                        Counter[0] = 0;
+                        if (npc.HasPlayerTarget && Main.netMode != 1)
+                            Projectile.NewProjectile(npc.Center, npc.DirectionTo(Main.player[npc.target].Center) * 24, ProjectileID.PhantasmalBolt, 30, 0f, Main.myPlayer);
+                    }
+                    npc.position += npc.velocity * (1f - (float)npc.life / npc.lifeMax);
+                    break;
+
+                case NPCID.MoonLordFreeEye:
+                    if (!masoBool[0])
+                    {
+                        masoBool[0] = true;
+                        string text;
+                        switch (Main.rand.Next(5))
+                        {
+                            case 0: text = "Guys, Will you assist me for a moment?"; break;
+                            case 1: text = "I'm going to bring more of my servants to assist me!"; break;
+                            case 2: text = "Go servants, what are you all waiting for?"; break;
+                            case 3: text = "Servants! Get this little peasant out of my sight at once!"; break;
+                            default: text = "Mwahahahahahahahahaha! Trap this tiny struggle at once!"; break;
+                        }
+                        Main.NewText(text, Color.LimeGreen);
+                        if (NPC.CountNPCS(NPCID.MoonLordFreeEye) >= 3)
+                            Main.NewText("Ahhhh, My eyes!", Color.LimeGreen);
+                    }
+                    if (++Counter[0] > 90)
+                    {
+                        Counter[0] = 0;
+                        if (npc.HasPlayerTarget && Main.netMode != 1)
+                            Projectile.NewProjectile(npc.Center, npc.DirectionTo(Main.player[npc.target].Center) * 24, ProjectileID.PhantasmalBolt, 30, 0f, Main.myPlayer);
+                    }
+                    break;
+
+                case NPCID.MoonLordHand:
+                    if (!masoBool[0])
+                    {
+                        masoBool[0] = true;
+                        if (Main.netMode != 1)
+                        {
+                            int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("PhantomPortal"), npc.whoAmI, npc.whoAmI);
+                            if (n != Main.maxNPCs && Main.netMode == 2)
+                                NetMessage.SendData(23, -1, -1, null, n);
+                        }
+                    }
+                    if (npc.dontTakeDamage)
+                    {
+                        if (masoBool[1])
+                        {
+                            masoBool[1] = false;
+                            string text;
+                            switch (Main.rand.Next(3))
+                            {
+                                case 0: text = "It looks like you can't defeat me!"; break;
+                                case 1: text = "I see that you have annihilated my son!,You wimp!"; break;
+                                default: text = "I still have plenty of gimmicks and tricks left!"; break;
+                            }
+                            Main.NewText(text, Color.LimeGreen);
+                        }
+                    }
+                    else
+                    {
+                        masoBool[1] = true;
+                    }
+                    break;
+
+                case NPCID.MoonLordHead:
+                    if (!masoBool[0])
+                    {
+                        masoBool[0] = true;
+                        if (Main.netMode != 1)
+                        {
+                            int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("MoonLordEyeL"), npc.whoAmI, npc.whoAmI);
+                            if (n != Main.maxNPCs && Main.netMode == 2)
+                                NetMessage.SendData(23, -1, -1, null, n);
+                            n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("MoonLordEyeR"), npc.whoAmI, npc.whoAmI);
+                            if (n != Main.maxNPCs && Main.netMode == 2)
+                                NetMessage.SendData(23, -1, -1, null, n);
+                        }
+                    }
+                    if (npc.dontTakeDamage)
+                    {
+                        if (masoBool[1])
+                        {
+                            masoBool[1] = false;
+                            string text;
+                            switch (Main.rand.Next(3))
+                            {
+                                case 0: text = "It looks like you can't defeat me!"; break;
+                                case 1: text = "I see that you have annihilated my son!,You wimp!"; break;
+                                default: text = "I still have plenty of gimmicks and tricks left!"; break;
+                            }
+                            Main.NewText(text, Color.LimeGreen);
+                        }
+                    }
+                    else
+                    {
+                        masoBool[1] = true;
+                    }
+                    break;
+
+                /*case NPCID.MoonLordCore:
                     Aura(npc, 100, MasomodeEX.Souls.BuffType("GodEater"), false, 86);
                     Aura(npc, 100, MasomodeEX.Souls.BuffType("Unstable"), false, 111);
                     if (Main.player[Main.myPlayer].active && Main.player[Main.myPlayer].Distance(npc.Center) < 100)
@@ -1147,7 +1251,7 @@ namespace MasomodeEX
                     Aura(npc, 150, MasomodeEX.Souls.BuffType("Unstable"), false, 111);
                     if (Main.player[Main.myPlayer].active && Main.player[Main.myPlayer].Distance(npc.Center) < 150)
                         Main.player[Main.myPlayer].AddBuff(MasomodeEX.Souls.BuffType("Flipped"), 2);
-                    break;
+                    break;*/
 
                 case NPCID.DD2Betsy:
                     Aura(npc, 700, BuffID.OnFire, true, DustID.Fire);
@@ -1551,6 +1655,16 @@ namespace MasomodeEX
                         damage = 0;
                     break;
 
+                case NPCID.MoonLordCore:
+                case NPCID.MoonLordHand:
+                case NPCID.MoonLordHead:
+                    if (damage > npc.lifeMax / 10)
+                    {
+                        damage = 0;
+                        Main.NewText("YOU THINK YOU CAN BUTCHER A GREAT LORD!?!", Color.LimeGreen);
+                    }
+                    break;
+
                 default:
                     break;
             }
@@ -1560,6 +1674,18 @@ namespace MasomodeEX
         {
             switch (npc.type)
             {
+                case NPCID.MoonLordCore:
+                    if (!masoBool[1])
+                    {
+                        masoBool[1] = true;
+                        npc.active = true;
+                        npc.life = npc.lifeMax;
+                        npc.netUpdate = true;
+                        Main.NewText("Hehehehehehe! I GUARANTEE YOU DON'T HAVE ENOUGH POWER TO DEFEAT ME!!!", Color.LimeGreen);
+                        return false;
+                    }
+                    break;
+
                 case NPCID.ChaosElemental:
                 case NPCID.IlluminantBat:
                 case NPCID.IlluminantSlime:
@@ -1679,6 +1805,12 @@ namespace MasomodeEX
                 }
             }
             return true;
+        }
+
+        public override void NPCLoot(NPC npc)
+        {
+            if (npc.type == NPCID.MoonLordCore)
+                Main.NewText("The enemy souls are possessed by ethereal spirits...", Color.LimeGreen);
         }
 
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
