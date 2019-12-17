@@ -738,9 +738,9 @@ namespace MasomodeEX
                     break;
 
                 case NPCID.TheDestroyer:
-                    fargoNPC.masoBool[0] = true;
                     if (++Counter[0] > 240)
                     {
+                        fargoNPC.masoBool[0] = true;
                         Counter[0] = 0;
                         Main.PlaySound(4, (int)npc.Center.X, (int)npc.Center.Y, 13);
                         if (npc.HasPlayerTarget && Main.netMode != 1) //spawn worm
