@@ -253,5 +253,13 @@ namespace MasomodeEX
             if (Main.rand.Next(200) == 0)
                 caughtType = mod.ItemType("MutantSummon");
         }
+
+        public override void OnEnterWorld(Player player)
+        {
+            Main.NewText("Welcome to Masochist Mode EX!", Color.LimeGreen);
+            Main.NewText("This is NOT regular Masochist Mode!", Color.LimeGreen);
+            Main.NewText("This is an unbalanced, impossibly difficult EX mode!!", Color.LimeGreen);
+            Main.NewText("Disable the Masochist Mode EX mod for the correct Masochist Mode experience!!!", Color.LimeGreen);
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace MasomodeEX
@@ -82,5 +83,11 @@ namespace MasomodeEX
 
             DebuffIDs.Add(BuffType("TimeFrozen"));
         }
+
+        /*public override void UpdateMusic(ref int music, ref MusicPriority priority)
+        {
+            if (!Main.dedServ && Main.LocalPlayer.active && FargowiltasSouls.NPCs.FargoSoulsGlobalNPC.BossIsAlive(ref FargowiltasSouls.NPCs.FargoSoulsGlobalNPC.mutantBoss, Souls.NPCType("MutantBoss")))
+                music = GetSoundSlot(SoundType.Music, "Sounds/Music/rePrologue");
+        }*/
     }
 }

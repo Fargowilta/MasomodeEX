@@ -1,4 +1,8 @@
-﻿0.3.6:
+﻿0.3.7:
+-disclaimer
+-fixed mutant EX theme
+
+0.3.6:
 -trees hurt you
 -chests have a 1% chance to explode when opened
 -mutant boss has a tiny chance to spawn anywhere, anytime

@@ -1,5 +1,5 @@
 ﻿author = Fargowilta and Terry N. Muse
-version = 0.3.6
+version = 0.3.7
 displayName = Masochist Mode EX
 includeSource = true
 hideCode = true
