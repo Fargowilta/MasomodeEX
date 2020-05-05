@@ -29,7 +29,7 @@ namespace MasomodeEX.Projectiles
             {
                 case ProjectileID.Bee:
                 case ProjectileID.GiantBee:
-                    if (FargowiltasSouls.NPCs.FargoSoulsGlobalNPC.AnyBossAlive())
+                    if (FargowiltasSouls.NPCs.EModeGlobalNPC.AnyBossAlive())
                     {
                         projectile.timeLeft = 0;
                         projectile.damage = 0;

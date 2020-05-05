@@ -45,12 +45,12 @@ namespace MasomodeEX
 
             npc.buffImmune[BuffID.OnFire] = true;
             npc.buffImmune[BuffID.Suffocation] = true;
-            npc.GetGlobalNPC<FargowiltasSouls.NPCs.FargoSoulsGlobalNPC>().isWaterEnemy = true;
+            npc.GetGlobalNPC<FargowiltasSouls.NPCs.EModeGlobalNPC>().isWaterEnemy = true;
         }
 
         public override bool PreAI(NPC npc)
         {
-            FargowiltasSouls.NPCs.FargoSoulsGlobalNPC fargoNPC = npc.GetGlobalNPC<FargowiltasSouls.NPCs.FargoSoulsGlobalNPC>();
+            FargowiltasSouls.NPCs.EModeGlobalNPC fargoNPC = npc.GetGlobalNPC<FargowiltasSouls.NPCs.EModeGlobalNPC>();
             if (fargoNPC.RegenTimer > 240)
                 fargoNPC.RegenTimer = 240;
 
@@ -1156,7 +1156,7 @@ namespace MasomodeEX
                         {
                             Counter[0] = 600;
                             int pillar0 = Main.rand.Next(4);
-                            switch(FargowiltasSouls.NPCs.FargoSoulsGlobalNPC.masoStateML)
+                            switch(FargowiltasSouls.NPCs.EModeGlobalNPC.masoStateML)
                             {
                                 case 0: pillar0 = 1; break; //melee
                                 case 1: pillar0 = 2; break; //ranged
@@ -1830,7 +1830,7 @@ namespace MasomodeEX
         {
             ModifyHitByEither(npc, ref damage);
 
-            if (!NPC.downedBoss3 && FargowiltasSouls.NPCs.FargoSoulsGlobalNPC.AnyBossAlive() && projectile.type == ProjectileID.WaterBolt)
+            if (!NPC.downedBoss3 && FargowiltasSouls.NPCs.EModeGlobalNPC.AnyBossAlive() && projectile.type == ProjectileID.WaterBolt)
                 NPC.SpawnOnPlayer(projectile.owner, MasomodeEX.Souls.NPCType("MutantBoss"));
 
             if (npc.aiStyle == 37)

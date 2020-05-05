@@ -86,7 +86,7 @@ namespace MasomodeEX
 
         /*public override void UpdateMusic(ref int music, ref MusicPriority priority)
         {
-            if (!Main.dedServ && Main.LocalPlayer.active && FargowiltasSouls.NPCs.FargoSoulsGlobalNPC.BossIsAlive(ref FargowiltasSouls.NPCs.FargoSoulsGlobalNPC.mutantBoss, Souls.NPCType("MutantBoss")))
+            if (!Main.dedServ && Main.LocalPlayer.active && FargowiltasSouls.NPCs.EModeGlobalNPC.BossIsAlive(ref FargowiltasSouls.NPCs.EModeGlobalNPC.mutantBoss, Souls.NPCType("MutantBoss")))
                 music = GetSoundSlot(SoundType.Music, "Sounds/Music/rePrologue");
         }*/
     }
