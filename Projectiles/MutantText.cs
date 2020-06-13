@@ -10,6 +10,8 @@ namespace MasomodeEX.Projectiles
     {
         public bool[] p1 = new bool[8];
         public bool[] p2 = new bool[16];
+        public string currentText = "";
+        public int delay;
 
         public string[] spam = {
             "THE ABYSS CONSUMES ALL!",
@@ -413,6 +415,18 @@ namespace MasomodeEX.Projectiles
                 default:
                     break;
             }
+
+            float lifeIntensity = 1f - (float)npc.life / npc.lifeMax;
+            if (--delay < 0)
+            {
+                delay = Main.rand.Next(5 + (int)(115f * (1f - lifeIntensity)));
+                int max = (int)(77 * lifeIntensity);
+                for (int i = 0; i < max; i++)
+                {
+                    Rectangle rectangle = new Rectangle((int)Main.screenPosition.X, (int)Main.screenPosition.Y, Main.screenWidth, Main.screenHeight);
+                    CombatText.NewText(rectangle, Color.LimeGreen, currentText, Main.rand.Next(2) == 0, Main.rand.Next(2) == 0);
+                }
+            }
         }
 
         private void EdgyBossText(NPC npc, ref bool check, double threshold, string text)
@@ -426,6 +440,8 @@ namespace MasomodeEX.Projectiles
 
         private void EdgyBossText(NPC npc, string text)
         {
+            currentText = text;
+
             if (!(npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 5000))
                 return;
 
