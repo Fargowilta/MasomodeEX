@@ -1,4 +1,9 @@
-﻿0.3.7.1:
+﻿0.3.7.2:
+-mutant EX new hit sound
+-mutant EX now attacks faster
+-removed arenas on all bosses feature
+
+0.3.7.1:
 -removed disclaimer
 -fixed with refactor explode
 

@@ -116,6 +116,9 @@ namespace MasomodeEX.Projectiles
             if (projectile.localAI[0] == 0)
             {
                 projectile.localAI[0] = 1;
+                
+                if (ModLoader.GetMod("FargowiltasSouls") != null && npc.type == ModLoader.GetMod("FargowiltasSouls").NPCType("MutantBoss"))
+                    npc.HitSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/MutantHit");
 
                 //SpawnAllBosses(npc);
 

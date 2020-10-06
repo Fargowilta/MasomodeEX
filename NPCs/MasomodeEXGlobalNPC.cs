@@ -51,8 +51,7 @@ namespace MasomodeEX
         public override bool PreAI(NPC npc)
         {
             FargowiltasSouls.NPCs.EModeGlobalNPC fargoNPC = npc.GetGlobalNPC<FargowiltasSouls.NPCs.EModeGlobalNPC>();
-            if (fargoNPC.RegenTimer > 240)
-                fargoNPC.RegenTimer = 240;
+            //if (fargoNPC.RegenTimer > 240) fargoNPC.RegenTimer = 240;
 
             if (npc.townNPC && Main.bloodMoon)
             {
@@ -95,12 +94,12 @@ namespace MasomodeEX
                 }
             }
 
-            if (!FirstTick)
+            /*if (!FirstTick)
             {
                 FirstTick = true;
                 if ((npc.boss || npc.type == NPCID.EaterofWorldsHead) && Main.netMode != 1)
                     Projectile.NewProjectile(npc.Center, Vector2.Zero, mod.ProjectileType("Arena"), npc.damage / 4, 0f, Main.myPlayer, 0f, npc.whoAmI);
-            }
+            }*/
 
             switch (npc.type)
             {
@@ -578,8 +577,8 @@ namespace MasomodeEX
 
                 case NPCID.SkeletronHand:
                     Aura(npc, 140, BuffID.Dazed, false);
-                    fargoNPC.Counter--;
-                    fargoNPC.Counter2--;
+                    fargoNPC.Counter[0]--;
+                    fargoNPC.Counter[1]--;
                     break;
 
                 case NPCID.DungeonGuardian:
@@ -661,7 +660,7 @@ namespace MasomodeEX
                         }
                     }
                     fargoNPC.masoBool[0] = true;
-                    fargoNPC.Counter++;
+                    fargoNPC.Counter[0]++;
                     Main.player[Main.myPlayer].AddBuff(MasomodeEX.Souls.BuffType("LowGround"), 2);
                     break;
 
@@ -963,15 +962,6 @@ namespace MasomodeEX
                         if (Main.netMode != 1 && npc.HasPlayerTarget)
                             Projectile.NewProjectile(Main.player[npc.target].Center + Vector2.UnitY * -500, Vector2.UnitY * -3f, MasomodeEX.Souls.ProjectileType("MutantFishron"), npc.damage / 4, 0f, Main.myPlayer, npc.target);
                     }
-                    /*if (!MasomodeEX.Instance.HyperLoaded)
-                    {
-                        masoBool[0] = !masoBool[0];
-                        if (masoBool[0])
-                        {
-                            npc.position += npc.velocity * 1.5f;
-                            npc.AI();
-                        }
-                    }*/
                     break;
 
                 case NPCID.CultistBoss:
@@ -1421,6 +1411,15 @@ namespace MasomodeEX
                     break;
             }
 
+            if (npc.type == MasomodeEX.Souls.NPCType("MutantBoss") && !MasomodeEX.Instance.HyperLoaded)
+            {
+                if (++Counter[0] > 3)
+                {
+                    Counter[0] = 0;
+                    npc.position += npc.velocity;
+                    npc.AI();
+                }
+            }
             return true;
         }
 
