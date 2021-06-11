@@ -22,7 +22,9 @@ namespace MasomodeEX.Projectiles
 
         public override void AI(Projectile projectile)
         {
-            if (Framing.GetTileSafely(projectile.Center).type == TileID.PlanteraBulb)
+            if (projectile.Center.X > 0 && projectile.Center.X / 16 < Main.maxTilesX
+                && projectile.Center.Y > 0 && projectile.Center.Y / 16 < Main.maxTilesY
+                && Framing.GetTileSafely(projectile.Center).type == TileID.PlanteraBulb)
                 WorldGen.KillTile((int)projectile.Center.X / 16, (int)projectile.Center.Y / 16);
 
             switch (projectile.type)

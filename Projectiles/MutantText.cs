@@ -118,7 +118,7 @@ namespace MasomodeEX.Projectiles
                 projectile.localAI[0] = 1;
                 
                 if (ModLoader.GetMod("FargowiltasSouls") != null && npc.type == ModLoader.GetMod("FargowiltasSouls").NPCType("MutantBoss"))
-                    npc.HitSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/MutantHit");
+                    npc.HitSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/MutantHit").WithPitchVariance(0.25f).WithVolume(1.5f);
 
                 //SpawnAllBosses(npc);
 
@@ -198,12 +198,24 @@ namespace MasomodeEX.Projectiles
                         if (Main.rand.Next(30) == 0)
                         {
                             Vector2 speed = npc.DirectionTo(Main.player[npc.target].Center) * 25f;
-                            if (Main.rand.Next(5) == 0)
+                            if (Main.rand.Next(2) == 0)
+                            {
                                 for (int i = 0; i < 16; i++)
-                                    Projectile.NewProjectile(npc.Center, speed.RotatedBy(System.Math.PI * 2 / 16 * i), MasomodeEX.Souls.ProjectileType("MutantSpearThrown"), npc.damage, 0f, Main.myPlayer);
+                                {
+                                    int p = Projectile.NewProjectile(npc.Center, speed.RotatedBy(System.Math.PI * 2 / 16 * i), MasomodeEX.Souls.ProjectileType("MutantSpearThrown"), npc.damage, 0f, Main.myPlayer);
+                                    if (p != Main.maxProjectiles)
+                                        Main.projectile[p].timeLeft = 60;
+                                }
+                            }
                             else
+                            {
                                 for (int i = -1; i <= 1; i++)
-                                    Projectile.NewProjectile(npc.Center, speed.RotatedBy(MathHelper.ToRadians(10) * i), MasomodeEX.Souls.ProjectileType("MutantSpearThrown"), npc.damage, 0f, Main.myPlayer);
+                                {
+                                    int p = Projectile.NewProjectile(npc.Center, speed.RotatedBy(MathHelper.ToRadians(10) * i), MasomodeEX.Souls.ProjectileType("MutantSpearThrown"), npc.damage, 0f, Main.myPlayer);
+                                    if (p != Main.maxProjectiles)
+                                        Main.projectile[p].timeLeft = 60;
+                                }
+                            }
                         }
                     }
                     else

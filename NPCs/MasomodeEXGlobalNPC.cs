@@ -935,6 +935,13 @@ namespace MasomodeEX
                             if (npc.velocity.Y > -2)
                                 npc.velocity.Y = 20;
                         }
+                        if (npc.ai[0] == 0)
+                        {
+                            if (npc.ai[1] > 0 && npc.ai[1] < 300)
+                                npc.ai[1] = 300;
+                            else if (npc.ai[1] < -5)
+                                npc.ai[1] = -5;
+                        }
                     }
                     break;
 
